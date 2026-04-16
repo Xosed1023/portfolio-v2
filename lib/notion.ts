@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { WebProject } from "./web-projects";
+import WEB_PROJECTS, { WebProject } from "./web-projects";
 
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
@@ -29,34 +29,39 @@ function multiSelect(prop: Props[string] | undefined): string[] {
 }
 
 export async function getWebProjects(): Promise<WebProject[]> {
-  const res = await notion.databases.query({
-    database_id: process.env.NOTION_WEBPROJECTS_DB!,
-    sorts: [{ property: "order", direction: "ascending" }],
-    filter: { property: "active", checkbox: { equals: true } },
-  });
-
-  return res.results
-    .filter((p): p is PageObjectResponse => p.object === "page" && "properties" in p)
-    .map((page) => {
-      const p = page.properties;
-      const status = select(p.status);
-
-      return {
-        id: page.id,
-        name: text(p.name),
-        client: text(p.client),
-        category: text(p.category),
-        description: text(p.description),
-        url: url(p.url),
-        github: url(p.github),
-        status: (["live", "development", "soon"].includes(status)
-          ? status
-          : "soon") as WebProject["status"],
-        tech: multiSelect(p.tech),
-        visual: text(p.visual) || "default",
-        image: text(p.image) || undefined,
-        year: text(p.year),
-        color: text(p.color) || "#c9a96e",
-      };
+  try {
+    const res = await notion.databases.query({
+      database_id: process.env.NOTION_WEBPROJECTS_DB!,
+      sorts: [{ property: "order", direction: "ascending" }],
+      filter: { property: "active", checkbox: { equals: true } },
     });
+
+    return res.results
+      .filter((p): p is PageObjectResponse => p.object === "page" && "properties" in p)
+      .map((page) => {
+        const p = page.properties;
+        const status = select(p.status);
+
+        return {
+          id: page.id,
+          name: text(p.name),
+          client: text(p.client),
+          category: text(p.category),
+          description: text(p.description),
+          url: url(p.url),
+          github: url(p.github),
+          status: (["live", "development", "soon"].includes(status)
+            ? status
+            : "soon") as WebProject["status"],
+          tech: multiSelect(p.tech),
+          visual: text(p.visual) || "default",
+          image: text(p.image) || undefined,
+          year: text(p.year),
+          color: text(p.color) || "#c9a96e",
+        };
+      });
+  } catch (err) {
+    console.error("[Notion] getWebProjects failed, using static fallback:", err);
+    return WEB_PROJECTS;
+  }
 }
