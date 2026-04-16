@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 const JOBS = [
@@ -91,12 +91,12 @@ const JOBS = [
 
 export default function WorkSection() {
   const [selected, setSelected] = useState(0);
-  const job = JOBS[selected];
+  const job = JOBS[selected] ?? JOBS[0];
 
   return (
     <section
       id="work"
-      className="relative min-h-screen snap-start overflow-hidden flex items-center"
+      className="relative h-screen snap-start overflow-hidden flex items-center lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Work experience"
     >
@@ -107,10 +107,107 @@ export default function WorkSection() {
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.04) 0%, transparent 65%)" }} />
 
       <div className="relative w-full flex flex-col lg:flex-row"
-           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "56px", paddingBottom: "40px" }}>
+           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(72px, 10vh, 56px)", paddingBottom: "24px" }}>
 
-        {/* ── LEFT: Company list ── */}
-        <div className="flex flex-col justify-center gap-1 lg:pr-10 flex-shrink-0 mb-6 lg:mb-0 lg:w-[296px] w-full">
+        {/* ── MOBILE: Header + Accordion ── */}
+        <div className="lg:hidden flex flex-col" style={{ height: "calc(100vh - 80px)" }}>
+          <div className="flex-shrink-0 mb-3">
+            <motion.p className="font-poppins font-semibold text-accent mb-1"
+              style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
+              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+              03 / EXPERIENCIA
+            </motion.p>
+            <motion.h2 className="font-poppins font-extrabold text-white leading-none"
+              style={{ fontSize: "clamp(2rem, 10vw, 2.8rem)", letterSpacing: "-0.02em" }}
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+              WORK
+            </motion.h2>
+          </div>
+
+          <div className="flex flex-col gap-[6px] overflow-y-auto flex-1 pr-1" style={{ scrollbarWidth: "none" }}>
+            {JOBS.map((j, i) => {
+              const open = selected === i;
+              return (
+                <motion.div key={j.company}
+                  className="border-l-2 overflow-hidden transition-colors duration-300"
+                  style={{ borderColor: open ? "#c9a96e" : "rgba(255,255,255,0.08)",
+                           background: open ? "rgba(201,169,110,0.05)" : "transparent" }}
+                  initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }} transition={{ delay: i * 0.05, duration: 0.4 }}>
+
+                  {/* Header row */}
+                  <button onClick={() => setSelected(open ? -1 : i)}
+                    className="w-full text-left px-4 py-3 flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-[2px]">
+                        {j.current && (
+                          <span className="relative flex h-[6px] w-[6px] flex-shrink-0">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-55" />
+                            <span className="relative inline-flex h-[6px] w-[6px] rounded-full bg-accent" />
+                          </span>
+                        )}
+                        <span className="font-poppins font-semibold truncate"
+                              style={{ fontSize: "0.85rem", color: open ? "#c9a96e" : "rgba(255,255,255,0.82)" }}>
+                          {j.company}
+                        </span>
+                      </div>
+                      <span className="font-nunito font-light"
+                            style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.4)" }}>
+                        {j.period}
+                      </span>
+                    </div>
+                    {/* Chevron */}
+                    <motion.svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                      animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                      <path d="M2 4L6 8L10 4" stroke="rgba(201,169,110,0.6)" strokeWidth="1.5"
+                            strokeLinecap="round" strokeLinejoin="round"/>
+                    </motion.svg>
+                  </button>
+
+                  {/* Expandable content */}
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div className="px-4 pb-4">
+                          <span className="font-poppins font-medium text-accent/70 block mb-[6px]"
+                                style={{ fontSize: "0.58rem", letterSpacing: "0.4em" }}>{j.type}</span>
+                          <h3 className="font-poppins font-extrabold text-white mb-3"
+                              style={{ fontSize: "1.05rem", letterSpacing: "-0.01em" }}>{j.role}</h3>
+                          <div className="h-px bg-white/10 mb-3" />
+                          <ul className="flex flex-col gap-[9px] mb-4">
+                            {j.highlights.map((h) => (
+                              <li key={h} className="flex items-start gap-[10px]">
+                                <span className="w-[4px] h-[4px] rounded-full bg-accent/60 mt-[7px] flex-shrink-0" />
+                                <span className="font-nunito font-light"
+                                      style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.68)", lineHeight: 1.6 }}>{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="flex flex-wrap gap-[6px]">
+                            {j.tech.map((t) => (
+                              <span key={t} className="font-poppins font-medium border border-accent/20 text-accent/75 px-2 py-[3px]"
+                                    style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}>{t}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── DESKTOP: Tab + panel ── */}
+        <div className="hidden lg:flex flex-col justify-center gap-1 lg:pr-10 flex-shrink-0 lg:w-[296px]">
           <motion.p
             className="font-poppins font-semibold text-accent mb-3"
             style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
@@ -147,8 +244,7 @@ export default function WorkSection() {
                   </span>
                 )}
                 <span className="font-poppins font-semibold transition-colors duration-300"
-                      style={{ fontSize: "0.82rem",
-                               color: selected === i ? "#c9a96e" : "rgba(255,255,255,0.78)" }}>
+                      style={{ fontSize: "0.82rem", color: selected === i ? "#c9a96e" : "rgba(255,255,255,0.78)" }}>
                   {j.company}
                 </span>
               </div>
@@ -160,8 +256,7 @@ export default function WorkSection() {
           ))}
         </div>
 
-        {/* ── RIGHT: Job detail ── */}
-        <div className="flex-1 flex flex-col justify-center lg:pl-10 lg:border-l border-t lg:border-t-0 border-white/[0.07] pt-6 lg:pt-0">
+        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-10 lg:border-l border-white/[0.07]">
           <motion.div
             key={selected}
             initial={{ opacity: 0, y: 16 }}

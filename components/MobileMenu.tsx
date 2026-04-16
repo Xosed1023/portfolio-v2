@@ -17,7 +17,11 @@ export default function MobileMenu() {
   const [open, setOpen] = useState(false);
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const container = document.getElementById("scroll-container");
+    const target = document.getElementById(id);
+    if (container && target) {
+      container.scrollTo({ top: target.offsetTop, behavior: "smooth" });
+    }
     setOpen(false);
   };
 

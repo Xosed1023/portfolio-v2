@@ -397,7 +397,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
   return (
     <section
       id="web"
-      className="relative min-h-screen snap-start overflow-hidden flex items-center"
+      className="relative h-screen snap-start overflow-hidden flex items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Web projects"
     >
@@ -410,11 +410,11 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
            style={{ bottom: "0", left: "5%", width: "40vw", height: "45vh",
                     background: "radial-gradient(ellipse, rgba(126,184,201,0.04) 0%, transparent 65%)" }} />
 
-      <div className="relative w-full flex flex-col"
-           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "52px", paddingBottom: "40px" }}>
+      <div className="relative w-full h-full flex flex-col"
+           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(72px, 10vh, 80px)", paddingBottom: "40px" }}>
 
         {/* Header */}
-        <div className="flex items-end justify-between mb-8 flex-shrink-0">
+        <div className="flex items-end justify-between mb-6 lg:mb-8 flex-shrink-0">
           <div>
             <motion.p className="font-poppins font-semibold text-accent mb-2"
                       style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
@@ -438,22 +438,24 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
           </motion.p>
         </div>
 
-        {/* Grid */}
-        <div className={`grid gap-6 ${projects.length === 1 ? "grid-cols-1 max-w-md" : projects.length === 2 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"}`}>
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </div>
+        {/* Grid — scrollable on mobile */}
+        <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-visible" style={{ scrollbarWidth: "none" }}>
+          <div className={`grid gap-5 lg:gap-6 pb-2 ${projects.length === 1 ? "grid-cols-1 max-w-md" : projects.length === 2 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"}`}>
+            {projects.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} />
+            ))}
+          </div>
 
-        {/* Footer note */}
-        <motion.p className="font-poppins font-light mt-8"
+          {/* Footer note */}
+          <motion.p className="font-poppins font-light mt-6 lg:mt-8"
                   style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.2)" }}
                   initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                   transition={{ delay: 0.5 }}>
           {projects.filter(p => p.status === "live").length} EN PRODUCCIÓN
           {projects.filter(p => p.status === "development").length > 0 &&
             ` · ${projects.filter(p => p.status === "development").length} EN DESARROLLO`}
-        </motion.p>
+          </motion.p>
+        </div>{/* end scroll wrapper */}
       </div>
     </section>
   );

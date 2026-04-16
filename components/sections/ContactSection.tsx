@@ -91,7 +91,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative min-h-screen snap-start overflow-hidden flex items-center"
+      className="relative h-screen snap-start overflow-hidden flex items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Contact"
     >
@@ -101,11 +101,89 @@ export default function ContactSection() {
            style={{ bottom: "-15%", left: "25%", width: "65vw", height: "65vh",
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 60%)" }} />
 
-      <div className="relative w-full grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center py-16 lg:py-0"
+      <div className="relative w-full h-full flex flex-col lg:grid lg:grid-cols-2 lg:gap-20 lg:items-center"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)" }}>
 
+        {/* MOBILE: single scrollable column */}
+        <div className="lg:hidden flex-1 overflow-y-auto pt-20 pb-8" style={{ scrollbarWidth: "none" }}>
+          {/* Info */}
+          <div className="mb-6">
+            <p className="font-poppins font-semibold text-accent mb-2"
+               style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}>07 / CONTACTO</p>
+            <h2 className="font-poppins font-extrabold text-white leading-[0.9] mb-4"
+                style={{ fontSize: "clamp(2.4rem, 11vw, 3.5rem)", letterSpacing: "-0.02em" }}>
+              GET IN <span className="text-accent">TOUCH</span>
+            </h2>
+            <p className="font-nunito font-light leading-[1.8] mb-5"
+               style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.62)", maxWidth: "340px" }}>
+              ¿Tienes un proyecto o una oportunidad?
+              Disponible para trabajo híbrido, remoto o freelance.
+            </p>
+            <div className="flex flex-col gap-2 mb-6">
+              {INFO.map((item) => {
+                const inner = (
+                  <div className="flex items-center gap-3 border border-white/10 px-4 py-3
+                                 hover:border-accent/40 group transition-colors duration-300">
+                    <span className="text-accent/70 group-hover:text-accent transition-colors duration-300 flex-shrink-0">
+                      {item.icon}
+                    </span>
+                    <div>
+                      <p className="font-poppins font-medium mb-[2px]"
+                         style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+                        {item.label.toUpperCase()}
+                      </p>
+                      <p className="font-poppins font-semibold"
+                         style={{ fontSize: "0.83rem", color: "rgba(255,255,255,0.85)" }}>
+                        {item.value}
+                      </p>
+                    </div>
+                  </div>
+                );
+                return item.href
+                  ? <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="block" aria-label={item.label}>{inner}</a>
+                  : <div key={item.label}>{inner}</div>;
+              })}
+            </div>
+          </div>
+
+          {/* Form */}
+          <p className="font-poppins font-semibold mb-4"
+             style={{ fontSize: "0.6rem", letterSpacing: "0.45em", color: "rgba(255,255,255,0.4)" }}>
+            ENVIAR MENSAJE
+          </p>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+            <div className="grid grid-cols-2 gap-3">
+              <input type="text" placeholder="Nombre" required value={fields.nombre} onChange={set("nombre")}
+                     className={inputCls} style={{ fontSize: "0.85rem" }} aria-label="Nombre" />
+              <input type="email" placeholder="Email" required value={fields.email} onChange={set("email")}
+                     className={inputCls} style={{ fontSize: "0.85rem" }} aria-label="Email" />
+            </div>
+            <input type="text" placeholder="Asunto" value={fields.asunto} onChange={set("asunto")}
+                   className={inputCls} style={{ fontSize: "0.85rem" }} aria-label="Asunto" />
+            <textarea placeholder="Tu mensaje..." required rows={4} value={fields.mensaje} onChange={set("mensaje")}
+                      className={inputCls} style={{ fontSize: "0.85rem", resize: "none" }} aria-label="Mensaje" />
+            <motion.button
+              type="submit"
+              disabled={status === "sending"}
+              className="font-poppins font-semibold px-6 py-[14px] transition-colors duration-300 btn-glow flex items-center justify-center gap-3 disabled:cursor-not-allowed"
+              style={{
+                fontSize: "0.68rem", letterSpacing: "0.3em",
+                background: status === "error" ? "rgba(180,60,60,0.85)" : status === "sent" ? "rgba(60,140,80,0.85)" : "#c9a96e",
+                color: "#0a0a0a", opacity: status === "sending" ? 0.7 : 1,
+              }}
+              whileTap={status === "sending" ? {} : { scale: 0.97 }}
+            >
+              {status === "sending" && <><svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>ENVIANDO...</>}
+              {status === "sent" && <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>¡MENSAJE ENVIADO!</>}
+              {status === "error" && <>ERROR — INTENTA DE NUEVO</>}
+              {status === "idle" && <>ENVIAR<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></>}
+            </motion.button>
+          </form>
+        </div>
+
+        {/* DESKTOP: original two-column layout */}
         {/* ── LEFT: Info ── */}
-        <div>
+        <div className="hidden lg:block">
           <motion.p
             className="font-poppins font-semibold text-accent mb-3"
             style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
@@ -172,6 +250,7 @@ export default function ContactSection() {
 
         {/* ── RIGHT: Form ── */}
         <motion.div
+          className="hidden lg:block"
           initial={{ opacity: 0, x: 32 }} whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
         >

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const CATEGORIES = [
   {
@@ -93,10 +94,12 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
 }
 
 export default function SkillsSection() {
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
     <section
       id="skills"
-      className="relative min-h-screen snap-start overflow-hidden flex items-center"
+      className="relative h-screen snap-start overflow-hidden flex items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Skills"
     >
@@ -128,8 +131,55 @@ export default function SkillsSection() {
           </motion.h2>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* ── MOBILE: Tabs ── */}
+        <div className="lg:hidden flex flex-col gap-5">
+          {/* Tab bar */}
+          <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+            {CATEGORIES.map((cat, i) => (
+              <button
+                key={cat.title}
+                onClick={() => setActiveTab(i)}
+                className="flex-shrink-0 flex items-center gap-[6px] px-3 py-[7px] transition-all duration-300 font-poppins font-semibold"
+                style={{
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.22em",
+                  border: "1px solid",
+                  borderColor: activeTab === i ? "rgba(201,169,110,0.6)" : "rgba(255,255,255,0.1)",
+                  background: activeTab === i ? "rgba(201,169,110,0.1)" : "transparent",
+                  color: activeTab === i ? "#c9a96e" : "rgba(255,255,255,0.45)",
+                }}
+              >
+                <span aria-hidden="true">{cat.icon}</span>
+                {cat.title.toUpperCase()}
+              </button>
+            ))}
+          </div>
+
+          {/* Active category */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="p-5"
+              style={{
+                background: "rgba(255,255,255,0.025)",
+                border: "1px solid rgba(201,169,110,0.2)",
+              }}
+            >
+              <div className="flex flex-col gap-4">
+                {CATEGORIES[activeTab].skills.map((s, si) => (
+                  <SkillBar key={s.name} name={s.name} level={s.level} delay={si * 0.08} />
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* ── DESKTOP: Grid ── */}
+        <div className="hidden lg:grid grid-cols-3 gap-5">
           {CATEGORIES.map((cat, ci) => (
             <motion.div
               key={cat.title}
@@ -139,7 +189,6 @@ export default function SkillsSection() {
                 border: "1px solid rgba(255,255,255,0.08)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                transformStyle: "preserve-3d",
                 cursor: "default",
               }}
               whileHover={{
@@ -152,29 +201,18 @@ export default function SkillsSection() {
               initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              {/* Glass sheen overlay */}
-              <div
-                className="glass-sheen absolute inset-0 pointer-events-none"
-                style={{
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 55%, rgba(201,169,110,0.04) 100%)",
-                }}
-              />
-
-              {/* Category header */}
+              <div className="glass-sheen absolute inset-0 pointer-events-none"
+                   style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 55%, rgba(201,169,110,0.04) 100%)" }} />
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-accent" style={{ fontSize: "0.95rem" }} aria-hidden="true">
-                  {cat.icon}
-                </span>
+                <span className="text-accent" style={{ fontSize: "0.95rem" }} aria-hidden="true">{cat.icon}</span>
                 <span className="font-poppins font-semibold"
                       style={{ fontSize: "0.72rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.82)" }}>
                   {cat.title.toUpperCase()}
                 </span>
               </div>
-
               <div className="flex flex-col gap-[14px] flex-1">
                 {cat.skills.map((s, si) => (
-                  <SkillBar key={s.name} name={s.name} level={s.level}
-                            delay={ci * 0.09 + si * 0.07 + 0.25} />
+                  <SkillBar key={s.name} name={s.name} level={s.level} delay={ci * 0.09 + si * 0.07 + 0.25} />
                 ))}
               </div>
             </motion.div>

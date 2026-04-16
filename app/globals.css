@@ -153,12 +153,13 @@ body {
 }
 
 /* ─── Snap scroll container ─────────────────────── */
-main[style*="scroll-snap"] {
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;   /* IE/Edge */
+#scroll-container {
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-main[style*="scroll-snap"]::-webkit-scrollbar {
-  display: none;               /* Chrome/Safari */
+#scroll-container::-webkit-scrollbar {
+  display: none;
 }
 
 /* ─── Snap sections ─────────────────────────────── */
@@ -173,6 +174,15 @@ main[style*="scroll-snap"]::-webkit-scrollbar {
 @media (max-width: 1023px) {
   section[id] {
     scroll-margin-top: 64px;
+  }
+
+  /* Snap menos agresivo en mobile */
+  #scroll-container {
+    scroll-snap-type: y proximity;
+    overscroll-behavior: contain;
+  }
+  .snap-start {
+    scroll-snap-stop: normal;
   }
 }
 

@@ -13,6 +13,7 @@ import ContactSection from "@/components/sections/ContactSection";
 import IntroLoader from "@/components/IntroLoader";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
+import MobileSectionDots from "@/components/MobileSectionDots";
 
 export const revalidate = 300; // revalidate every 5 minutes
 
@@ -51,10 +52,12 @@ export default async function Home() {
         <FloatingNav />
       </div>
 
+      {/* z-30 — Mobile section dots */}
+      <MobileSectionDots />
+
       {/* z-10 — Scroll container (above aurora) */}
       <main
         className="relative z-10 h-screen overflow-y-scroll"
-        style={{ scrollSnapType: "y mandatory" }}
         id="scroll-container"
       >
         <HeroSection />

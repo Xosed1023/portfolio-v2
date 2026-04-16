@@ -481,7 +481,116 @@ export default function ProjectsSection() {
            style={{ bottom: "0", left: "10%", width: "35vw", height: "40vh",
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.03) 0%, transparent 70%)" }} />
 
-      <div className="relative w-full h-full flex flex-col"
+      {/* ── MOBILE layout ── */}
+      <div className="lg:hidden absolute inset-0 pt-16 flex flex-col overflow-hidden"
+           style={{ paddingLeft: "clamp(1.5rem, 6vw, 2rem)", paddingRight: "clamp(1.5rem, 6vw, 2rem)" }}>
+        <div className="flex-shrink-0 pt-5 pb-3">
+          <motion.p className="font-poppins font-semibold text-accent mb-1"
+            style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
+            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            06 / PROYECTOS
+          </motion.p>
+          <motion.h2 className="font-poppins font-extrabold text-white leading-[0.9]"
+            style={{ fontSize: "clamp(2rem, 10vw, 2.8rem)", letterSpacing: "-0.02em" }}
+            initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
+            SELECTED <span className="text-accent">WORK</span>
+          </motion.h2>
+        </div>
+
+        {/* Project list tabs */}
+        <div className="flex-shrink-0 flex flex-col gap-[3px] mb-3">
+          {PROJECTS.map((p, i) => (
+            <button
+              key={p.num}
+              onClick={() => setActive(i)}
+              className="flex items-center gap-3 px-3 py-[10px] text-left transition-all duration-300"
+              style={{
+                borderLeft: `2px solid ${i === active ? "#c9a96e" : "rgba(255,255,255,0.08)"}`,
+                background: i === active ? "rgba(201,169,110,0.06)" : "transparent",
+              }}
+            >
+              <span className="font-poppins font-semibold flex-shrink-0"
+                    style={{ fontSize: "0.58rem", letterSpacing: "0.28em", color: i === active ? "#c9a96e" : "rgba(255,255,255,0.3)" }}>
+                {p.num}
+              </span>
+              <span className="font-poppins font-semibold truncate"
+                    style={{ fontSize: "0.82rem", color: i === active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.42)" }}>
+                {p.title.replace("\n", " ")}
+              </span>
+              <span className="ml-auto font-nunito font-light flex-shrink-0"
+                    style={{ fontSize: "0.65rem", color: i === active ? "rgba(201,169,110,0.7)" : "rgba(255,255,255,0.2)" }}>
+                {p.year}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Active project detail */}
+        <div className="flex-1 overflow-y-auto pb-6" style={{ scrollbarWidth: "none" }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.3, ease }}
+              className="flex flex-col gap-4 pt-1"
+            >
+              <div className="flex items-center gap-3">
+                <span className="font-poppins font-medium"
+                      style={{ fontSize: "0.6rem", letterSpacing: "0.35em", color: "rgba(201,169,110,0.8)" }}>
+                  {project.category}
+                </span>
+                <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.7rem" }}>·</span>
+                <span className="font-nunito font-light"
+                      style={{ fontSize: "0.76rem", color: "rgba(255,255,255,0.45)" }}>
+                  {project.company}
+                </span>
+              </div>
+              <p className="font-nunito font-light leading-[1.8]"
+                 style={{ fontSize: "0.87rem", color: "rgba(255,255,255,0.7)" }}>
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-[5px]">
+                {project.tech.map((t) => (
+                  <span key={t} className="font-poppins font-medium"
+                        style={{ fontSize: "0.6rem", letterSpacing: "0.18em", padding: "3px 8px",
+                                 border: "1px solid rgba(201,169,110,0.25)", color: "rgba(201,169,110,0.8)" }}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div className="flex gap-3">
+                {project.links.live ? (
+                  <a href={project.links.live} target="_blank" rel="noopener noreferrer"
+                     className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] bg-accent text-bg-primary btn-glow"
+                     style={{ fontSize: "0.63rem", letterSpacing: "0.25em" }}>
+                    VER PROYECTO
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M7 17 17 7M7 7h10v10" />
+                    </svg>
+                  </a>
+                ) : (
+                  <span className="font-poppins font-medium flex items-center gap-2 px-5 py-[11px]"
+                        style={{ fontSize: "0.63rem", letterSpacing: "0.25em",
+                                 border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.28)", cursor: "default" }}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                    PRIVADO · NDA
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* ── DESKTOP layout (original) ── */}
+      <div className="relative hidden lg:flex w-full h-full flex-col"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "52px", paddingBottom: "36px" }}>
 
         {/* Header */}
@@ -506,7 +615,7 @@ export default function ProjectsSection() {
 
           {/* Project counter */}
           <motion.div
-            className="font-poppins font-light hidden md:flex items-baseline gap-1"
+            className="font-poppins font-light flex items-baseline gap-1"
             style={{ color: "rgba(255,255,255,0.25)" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
@@ -519,7 +628,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-6 lg:gap-10 min-h-0">
+        <div className="flex-1 grid grid-cols-[1fr_1.1fr] gap-10 min-h-0">
 
           {/* ── LEFT: Info ── */}
           <div className="flex flex-col justify-between min-h-0">

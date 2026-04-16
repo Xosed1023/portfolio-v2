@@ -254,7 +254,7 @@ export default function HeroSection() {
       </motion.div>
 
       {/* ── INFO PANEL — mobile (centered, full-width) ── */}
-      <div className="lg:hidden absolute inset-0 flex flex-col justify-center items-center text-center px-6"
+      <div className="lg:hidden absolute inset-0 flex flex-col justify-center items-center text-center px-6 pt-16"
            style={{ background: "rgba(6,6,6,0.72)" }}>
         <motion.p
           className="font-poppins font-medium text-accent mb-3"
@@ -343,6 +343,18 @@ export default function HeroSection() {
           <span className="font-poppins font-medium text-white/50" style={{ fontSize: "0.58rem", letterSpacing: "0.3em" }}>
             ACTUALMENTE EN GLOBANT
           </span>
+        </motion.div>
+
+        {/* Scroll hint */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 flex flex-col items-center gap-2"
+          style={{ transform: "translateX(-50%)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.4, duration: 0.8 }}
+          aria-hidden="true"
+        >
+          <div className="scroll-line" />
         </motion.div>
       </div>
 
