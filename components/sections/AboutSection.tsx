@@ -28,7 +28,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative h-screen snap-start overflow-hidden flex items-center"
+      className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="About"
     >
@@ -39,10 +39,10 @@ export default function AboutSection() {
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.04) 0%, transparent 65%)" }} />
 
       {/* ── MOBILE layout ── */}
-      <div className="lg:hidden absolute inset-0 pt-16 pb-16 overflow-y-auto flex flex-col"
-           style={{ scrollbarWidth: "none", paddingLeft: "clamp(1.5rem, 6vw, 2rem)", paddingRight: "clamp(1.5rem, 6vw, 2rem)" }}>
+      <div className="lg:hidden relative flex flex-col pb-16"
+           style={{ paddingTop: "clamp(28px, 6vh, 48px)", paddingLeft: "clamp(1.5rem, 6vw, 2rem)", paddingRight: "clamp(1.5rem, 6vw, 2rem)" }}>
 
-        <div className="py-6">
+        <div className="pt-2 pb-4">
           <motion.p className="font-poppins font-semibold text-accent mb-2"
             style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>

@@ -14,6 +14,7 @@ import IntroLoader from "@/components/IntroLoader";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import MobileSectionDots from "@/components/MobileSectionDots";
+import Footer from "@/components/Footer";
 
 export const revalidate = 300; // revalidate every 5 minutes
 
@@ -67,6 +68,7 @@ export default async function Home() {
         <WebSection projects={webProjects} />
         <ProjectsSection />
         <ContactSection />
+        <Footer />
       </main>
     </>
   );

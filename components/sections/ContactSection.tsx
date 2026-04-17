@@ -58,6 +58,8 @@ const inputCls = [
   "font-nunito font-light text-white/85 placeholder-white/30",
   "outline-none ring-0 focus:outline-none focus:ring-0 focus:text-white transition-all duration-300",
   "border border-white/10 focus:border-accent/55",
+  // Keyboard-only focus ring (doesn't appear on mouse click)
+  "focus-visible:ring-1 focus-visible:ring-accent/40",
 ].join(" ");
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -91,7 +93,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative h-screen snap-start overflow-hidden flex items-center"
+      className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Contact"
     >
@@ -101,17 +103,23 @@ export default function ContactSection() {
            style={{ bottom: "-15%", left: "25%", width: "65vw", height: "65vh",
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 60%)" }} />
 
-      <div className="relative w-full h-full flex flex-col lg:grid lg:grid-cols-2 lg:gap-20 lg:items-center"
+      <div className="relative w-full flex flex-col lg:grid lg:grid-cols-2 lg:gap-20 lg:h-full lg:items-center lg:pb-14"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)" }}>
 
-        {/* MOBILE: single scrollable column */}
-        <div className="lg:hidden flex-1 overflow-y-auto pt-20 pb-8" style={{ scrollbarWidth: "none" }}>
+        {/* MOBILE: single column, natural flow */}
+        <div className="lg:hidden pb-8" style={{ paddingTop: "clamp(28px, 6vh, 48px)" }}>
+          {/* Section separator */}
+          <div className="flex-shrink-0 pt-5 pb-1">
+            <span className="font-poppins font-semibold text-accent"
+                  style={{ fontSize: "0.62rem", letterSpacing: "0.45em" }}>
+              07 / CONTACTO
+            </span>
+          </div>
+
           {/* Info */}
           <div className="mb-6">
-            <p className="font-poppins font-semibold text-accent mb-2"
-               style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}>07 / CONTACTO</p>
             <h2 className="font-poppins font-extrabold text-white leading-[0.9] mb-4"
-                style={{ fontSize: "clamp(2.4rem, 11vw, 3.5rem)", letterSpacing: "-0.02em" }}>
+                style={{ fontSize: "clamp(2.2rem, 10vw, 3.2rem)", letterSpacing: "-0.02em" }}>
               GET IN <span className="text-accent">TOUCH</span>
             </h2>
             <p className="font-nunito font-light leading-[1.8] mb-5"
@@ -153,15 +161,27 @@ export default function ContactSection() {
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
             <div className="grid grid-cols-2 gap-3">
-              <input type="text" placeholder="Nombre" required value={fields.nombre} onChange={set("nombre")}
-                     className={inputCls} style={{ fontSize: "0.85rem" }} aria-label="Nombre" />
-              <input type="email" placeholder="Email" required value={fields.email} onChange={set("email")}
-                     className={inputCls} style={{ fontSize: "0.85rem" }} aria-label="Email" />
+              <label className="flex flex-col gap-[5px]">
+                <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>NOMBRE <span className="text-accent">*</span></span>
+                <input type="text" placeholder="Tu nombre" required aria-required="true" value={fields.nombre} onChange={set("nombre")}
+                       className={inputCls} style={{ fontSize: "0.85rem" }} />
+              </label>
+              <label className="flex flex-col gap-[5px]">
+                <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>EMAIL <span className="text-accent">*</span></span>
+                <input type="email" placeholder="tu@email.com" required aria-required="true" value={fields.email} onChange={set("email")}
+                       className={inputCls} style={{ fontSize: "0.85rem" }} />
+              </label>
             </div>
-            <input type="text" placeholder="Asunto" value={fields.asunto} onChange={set("asunto")}
-                   className={inputCls} style={{ fontSize: "0.85rem" }} aria-label="Asunto" />
-            <textarea placeholder="Tu mensaje..." required rows={4} value={fields.mensaje} onChange={set("mensaje")}
-                      className={inputCls} style={{ fontSize: "0.85rem", resize: "none" }} aria-label="Mensaje" />
+            <label className="flex flex-col gap-[5px]">
+              <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>ASUNTO</span>
+              <input type="text" placeholder="Asunto del mensaje" value={fields.asunto} onChange={set("asunto")}
+                     className={inputCls} style={{ fontSize: "0.85rem" }} />
+            </label>
+            <label className="flex flex-col gap-[5px]">
+              <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>MENSAJE <span className="text-accent">*</span></span>
+              <textarea placeholder="Tu mensaje..." required aria-required="true" rows={4} value={fields.mensaje} onChange={set("mensaje")}
+                        className={inputCls} style={{ fontSize: "0.85rem", resize: "none" }} />
+            </label>
             <motion.button
               type="submit"
               disabled={status === "sending"}
@@ -261,15 +281,27 @@ export default function ContactSection() {
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
             <div className="grid grid-cols-2 gap-4">
-              <input type="text" placeholder="Nombre" required value={fields.nombre} onChange={set("nombre")}
-                     className={inputCls} style={{ fontSize: "0.88rem" }} aria-label="Nombre" />
-              <input type="email" placeholder="Email" required value={fields.email} onChange={set("email")}
-                     className={inputCls} style={{ fontSize: "0.88rem" }} aria-label="Email" />
+              <label className="flex flex-col gap-[6px]">
+                <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>NOMBRE <span className="text-accent">*</span></span>
+                <input type="text" placeholder="Tu nombre" required aria-required="true" value={fields.nombre} onChange={set("nombre")}
+                       className={inputCls} style={{ fontSize: "0.88rem" }} />
+              </label>
+              <label className="flex flex-col gap-[6px]">
+                <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>EMAIL <span className="text-accent">*</span></span>
+                <input type="email" placeholder="tu@email.com" required aria-required="true" value={fields.email} onChange={set("email")}
+                       className={inputCls} style={{ fontSize: "0.88rem" }} />
+              </label>
             </div>
-            <input type="text" placeholder="Asunto" value={fields.asunto} onChange={set("asunto")}
-                   className={inputCls} style={{ fontSize: "0.88rem" }} aria-label="Asunto" />
-            <textarea placeholder="Tu mensaje..." required rows={5} value={fields.mensaje} onChange={set("mensaje")}
-                      className={inputCls} style={{ fontSize: "0.88rem", resize: "none" }} aria-label="Mensaje" />
+            <label className="flex flex-col gap-[6px]">
+              <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>ASUNTO</span>
+              <input type="text" placeholder="Asunto del mensaje" value={fields.asunto} onChange={set("asunto")}
+                     className={inputCls} style={{ fontSize: "0.88rem" }} />
+            </label>
+            <label className="flex flex-col gap-[6px]">
+              <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>MENSAJE <span className="text-accent">*</span></span>
+              <textarea placeholder="Tu mensaje..." required aria-required="true" rows={5} value={fields.mensaje} onChange={set("mensaje")}
+                        className={inputCls} style={{ fontSize: "0.88rem", resize: "none" }} />
+            </label>
 
             <motion.button
               type="submit"
@@ -342,6 +374,53 @@ export default function ContactSection() {
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* ── DESKTOP footer bar ── */}
+      <div className="hidden lg:flex absolute bottom-0 left-0 right-0 items-center justify-between"
+           style={{
+             paddingLeft: "clamp(1.5rem, 7vw, 112px)",
+             paddingRight: "clamp(1.5rem, 7vw, 112px)",
+             paddingTop: "14px",
+             paddingBottom: "18px",
+             borderTop: "1px solid rgba(255,255,255,0.05)",
+             background: "rgba(4,4,4,0.6)",
+           }}>
+        <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "0.95rem", letterSpacing: "-0.02em" }}>
+          XP
+        </span>
+
+        <span className="font-nunito font-light" style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.22)", letterSpacing: "0.05em" }}>
+          &copy; {new Date().getFullYear()} Xosed Penaloza &mdash; Bogotá, Colombia
+        </span>
+
+        <div className="flex items-center gap-1">
+          {[
+            { href: "https://github.com/Xosed1023", label: "GitHub",
+              d: "M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.022A9.607 9.607 0 0 1 12 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z",
+              fill: true },
+            { href: "https://linkedin.com/in/xosed-penaloza-5b0884178", label: "LinkedIn",
+              d: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+              fill: true },
+            { href: "mailto:xosedfabian@gmail.com", label: "Email",
+              d: "", fill: false },
+          ].map(({ href, label, d, fill }) => (
+            <a key={label} href={href}
+               target={href.startsWith("mailto") ? undefined : "_blank"}
+               rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+               aria-label={label}
+               className="text-white/30 hover:text-accent transition-colors duration-200"
+               style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px" }}>
+              {fill ? (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={d} /></svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                </svg>
+              )}
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

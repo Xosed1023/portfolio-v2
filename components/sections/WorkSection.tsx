@@ -96,7 +96,7 @@ export default function WorkSection() {
   return (
     <section
       id="work"
-      className="relative h-screen snap-start overflow-hidden flex items-center lg:items-center"
+      className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Work experience"
     >
@@ -107,10 +107,10 @@ export default function WorkSection() {
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.04) 0%, transparent 65%)" }} />
 
       <div className="relative w-full flex flex-col lg:flex-row"
-           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(72px, 10vh, 56px)", paddingBottom: "24px" }}>
+           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingBottom: "24px" }}>
 
         {/* ── MOBILE: Header + Accordion ── */}
-        <div className="lg:hidden flex flex-col" style={{ height: "calc(100vh - 80px)" }}>
+        <div className="lg:hidden flex flex-col pb-12" style={{ paddingTop: "clamp(28px, 6vh, 48px)" }}>
           <div className="flex-shrink-0 mb-3">
             <motion.p className="font-poppins font-semibold text-accent mb-1"
               style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
@@ -125,7 +125,7 @@ export default function WorkSection() {
             </motion.h2>
           </div>
 
-          <div className="flex flex-col gap-[6px] overflow-y-auto flex-1 pr-1" style={{ scrollbarWidth: "none" }}>
+          <div className="flex flex-col gap-[6px] mt-3">
             {JOBS.map((j, i) => {
               const open = selected === i;
               return (

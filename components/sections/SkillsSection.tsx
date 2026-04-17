@@ -99,7 +99,7 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="relative h-screen snap-start overflow-hidden flex items-center"
+      className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Skills"
     >
@@ -110,7 +110,7 @@ export default function SkillsSection() {
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.05) 0%, transparent 65%)" }} />
 
       <div className="relative w-full flex flex-col"
-           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "56px", paddingBottom: "40px" }}>
+           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(28px, 8vh, 56px)", paddingBottom: "40px" }}>
 
         {/* Header */}
         <div className="mb-7">

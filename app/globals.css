@@ -18,8 +18,7 @@
 
 input,
 textarea,
-select,
-button {
+select {
   outline: none;
 }
 
@@ -28,6 +27,19 @@ textarea:focus,
 select:focus {
   outline: none;
   box-shadow: none;
+}
+
+/* Buttons: remove default outline, restore for keyboard users */
+button {
+  outline: none;
+}
+button:focus-visible {
+  outline: 2px solid rgba(201, 169, 110, 0.65);
+  outline-offset: 3px;
+}
+a:focus-visible {
+  outline: 2px solid rgba(201, 169, 110, 0.65);
+  outline-offset: 3px;
 }
 
 html {
@@ -176,12 +188,13 @@ body {
     scroll-margin-top: 64px;
   }
 
-  /* Snap menos agresivo en mobile */
+  /* Scroll normal en mobile — sin snap */
   #scroll-container {
-    scroll-snap-type: y proximity;
-    overscroll-behavior: contain;
+    scroll-snap-type: none;
+    overscroll-behavior: auto;
   }
   .snap-start {
+    scroll-snap-align: none;
     scroll-snap-stop: normal;
   }
 }

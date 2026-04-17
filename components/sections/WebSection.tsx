@@ -397,7 +397,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
   return (
     <section
       id="web"
-      className="relative h-screen snap-start overflow-hidden flex items-center"
+      className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
       aria-label="Web projects"
     >
@@ -410,8 +410,8 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
            style={{ bottom: "0", left: "5%", width: "40vw", height: "45vh",
                     background: "radial-gradient(ellipse, rgba(126,184,201,0.04) 0%, transparent 65%)" }} />
 
-      <div className="relative w-full h-full flex flex-col"
-           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(72px, 10vh, 80px)", paddingBottom: "40px" }}>
+      <div className="relative w-full flex flex-col lg:h-full"
+           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(28px, 8vh, 80px)", paddingBottom: "40px" }}>
 
         {/* Header */}
         <div className="flex items-end justify-between mb-6 lg:mb-8 flex-shrink-0">
@@ -438,8 +438,8 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
           </motion.p>
         </div>
 
-        {/* Grid — scrollable on mobile */}
-        <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-visible" style={{ scrollbarWidth: "none" }}>
+        {/* Grid */}
+        <div className="lg:flex-1 lg:min-h-0">
           <div className={`grid gap-5 lg:gap-6 pb-2 ${projects.length === 1 ? "grid-cols-1 max-w-md" : projects.length === 2 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"}`}>
             {projects.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
