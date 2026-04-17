@@ -185,10 +185,8 @@ export default function SkillsSection() {
               key={cat.title}
               className="p-5 flex flex-col relative overflow-hidden group"
               style={{
-                background: "rgba(255,255,255,0.025)",
+                background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
                 cursor: "default",
               }}
               whileHover={{

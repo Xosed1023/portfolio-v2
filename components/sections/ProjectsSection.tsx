@@ -811,9 +811,7 @@ export default function ProjectsSection() {
               className="relative w-full h-full max-h-[480px]"
               style={{
                 border: "1px solid rgba(201,169,110,0.12)",
-                background: "rgba(255,255,255,0.018)",
-                backdropFilter: "blur(8px)",
-                WebkitBackdropFilter: "blur(8px)",
+                background: "rgba(255,255,255,0.04)",
               }}
             >
               {/* Corner accents */}

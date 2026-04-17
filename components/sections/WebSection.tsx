@@ -3,6 +3,7 @@
 import { motion, animate, useMotionValue } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { WebProject } from "@/lib/web-projects";
+import TransitionLink from "@/components/TransitionLink";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -59,6 +60,8 @@ function LiveImageMockup({ src, alt, color }: { src: string; alt: string; color:
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover object-top"
         style={{ filter: "grayscale(1) brightness(0.42) sepia(0.12)" }}
       />
@@ -76,6 +79,8 @@ function LiveImageMockup({ src, alt, color }: { src: string; alt: string; color:
           src={src}
           alt=""
           aria-hidden
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-top"
           initial={false}
           animate={{ scale: hovered ? 1.04 : 1 }}
@@ -320,9 +325,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
       <div
         className="flex flex-col flex-1 p-5"
         style={{
-          background: "rgba(255,255,255,0.022)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          background: "rgba(255,255,255,0.04)",
         }}
       >
         <div className="mb-3">
@@ -429,13 +432,23 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
             </motion.h2>
           </div>
 
-          <motion.p className="font-nunito font-light hidden md:block text-right"
-                    style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.3)", maxWidth: "220px", lineHeight: 1.6 }}
-                    initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}>
-            Sitios desarrollados con<br />
-            <span style={{ color: "rgba(255,255,255,0.55)" }}>React · Next.js</span>
-          </motion.p>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                      transition={{ delay: 0.3 }} className="flex-shrink-0 hidden md:flex">
+            <TransitionLink href="/servicios"
+                    className="font-poppins font-bold flex items-center gap-3 px-6 py-3 btn-glow group transition-all duration-300"
+                    style={{
+                      fontSize: "0.65rem", letterSpacing: "0.28em",
+                      background: "#c9a96e", color: "#0a0a0a",
+                      boxShadow: "0 0 24px rgba(201,169,110,0.4), 0 4px 14px rgba(0,0,0,0.4)",
+                    }}>
+              VER TODOS LOS PROYECTOS
+              <svg width="13" height="13" viewBox="0 0 12 12" fill="none"
+                   className="group-hover:translate-x-1 transition-transform duration-200">
+                <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.6"
+                      strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </TransitionLink>
+          </motion.div>
         </div>
 
         {/* Grid */}
@@ -447,14 +460,30 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
           </div>
 
           {/* Footer note */}
-          <motion.p className="font-poppins font-light mt-6 lg:mt-8"
-                  style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.2)" }}
-                  initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}>
-          {projects.filter(p => p.status === "live").length} EN PRODUCCIÓN
-          {projects.filter(p => p.status === "development").length > 0 &&
-            ` · ${projects.filter(p => p.status === "development").length} EN DESARROLLO`}
-          </motion.p>
+          <motion.div className="flex items-center justify-between mt-6 lg:mt-8 flex-wrap gap-4"
+                      initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                      transition={{ delay: 0.5 }}>
+            <p className="font-poppins font-light"
+               style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.2)" }}>
+              {projects.filter(p => p.status === "live").length} EN PRODUCCIÓN
+              {projects.filter(p => p.status === "development").length > 0 &&
+                ` · ${projects.filter(p => p.status === "development").length} EN DESARROLLO`}
+            </p>
+            {/* Mobile CTA — header button hidden on mobile */}
+            <TransitionLink href="/servicios"
+               className="font-poppins font-bold md:hidden flex items-center gap-2 px-5 py-3 btn-glow group transition-all duration-300"
+               style={{
+                 fontSize: "0.62rem", letterSpacing: "0.25em",
+                 background: "#c9a96e", color: "#0a0a0a",
+               }}>
+              VER TODOS LOS PROYECTOS
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                   className="group-hover:translate-x-1 transition-transform duration-200">
+                <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.6"
+                      strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </TransitionLink>
+          </motion.div>
         </div>{/* end scroll wrapper */}
       </div>
     </section>

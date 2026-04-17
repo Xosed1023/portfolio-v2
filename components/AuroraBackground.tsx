@@ -42,8 +42,12 @@ const PALETTE: readonly (readonly [number, number, number])[] = [
   [195, 100,  35],  // deep amber glow
 ];
 
+const isMobile = () => typeof window !== "undefined" && window.innerWidth < 768;
+
 function buildOrbs(w: number, h: number): Orb[] {
-  return PALETTE.map((color, i) => {
+  // Reduce to 8 orbs on mobile to save ~33% GPU work
+  const palette = isMobile() ? PALETTE.slice(0, 8) : PALETTE;
+  return palette.map((color, i) => {
     const col = i % 4;
     const row = Math.floor(i / 4);
     const bx = (col / 3.5) * w + w * 0.05;
@@ -109,7 +113,8 @@ export default function AuroraBackground() {
 
     init();
 
-    const onResize    = () => init();
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize    = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(init, 200); };
     const onMouseMove = (e: MouseEvent) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
     const onLeave     = () => { mouseRef.current = { x: -9999, y: -9999 }; };
 
@@ -139,7 +144,7 @@ export default function AuroraBackground() {
 
       /* Longer trail = more atmospheric glow */
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "rgba(10,10,10,0.10)";
+      ctx.fillStyle = "rgba(10,10,10,0.16)";
       ctx.fillRect(0, 0, w, h);
 
       ctx.globalCompositeOperation = "screen";
@@ -203,6 +208,7 @@ export default function AuroraBackground() {
 
     return () => {
       cancelAnimationFrame(rafRef.current);
+      clearTimeout(resizeTimer);
       window.removeEventListener("resize",     onResize);
       window.removeEventListener("mousemove",  onMouseMove);
       window.removeEventListener("mouseleave", onLeave);

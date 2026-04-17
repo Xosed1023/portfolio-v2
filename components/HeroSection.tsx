@@ -6,7 +6,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import Image from "next/image";
 import SignatureSVG from "@/components/SignatureSVG";
 import SocialIcons from "@/components/SocialIcons";
@@ -41,16 +41,23 @@ export default function HeroSection() {
   const iX = useTransform(sX, [-1, 1], ["7px",  "-7px"]);
   const iY = useTransform(sY, [-1, 1], ["4px",  "-4px"]);
 
+  const rafPending = useRef(false);
+
   const onMove = useCallback(
     (e: MouseEvent) => {
-      rawX.set((e.clientX - window.innerWidth  / 2) / (window.innerWidth  / 2));
-      rawY.set((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2));
+      if (rafPending.current) return;
+      rafPending.current = true;
+      requestAnimationFrame(() => {
+        rawX.set((e.clientX - window.innerWidth  / 2) / (window.innerWidth  / 2));
+        rawY.set((e.clientY - window.innerHeight / 2) / (window.innerHeight / 2));
+        rafPending.current = false;
+      });
     },
     [rawX, rawY]
   );
 
   useEffect(() => {
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMove);
   }, [onMove]);
 
@@ -76,7 +83,7 @@ export default function HeroSection() {
         {/* Portrait photo — parallax solo en la imagen */}
         <motion.div className="absolute inset-0" style={{ x: pX, y: pY, zIndex: 1 }}>
           <Image
-            src="/portrait.png"
+            src="/portrait.webp"
             alt="Xosed Peñaloza"
             fill
             priority

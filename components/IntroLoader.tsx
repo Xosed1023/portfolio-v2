@@ -13,7 +13,7 @@ export default function IntroLoader() {
     const t = setTimeout(() => {
       setVisible(false);
       sessionStorage.setItem("intro-seen", "1");
-    }, 1800);
+    }, 1200);
     return () => clearTimeout(t);
   }, []);
 

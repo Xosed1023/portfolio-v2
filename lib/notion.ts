@@ -30,11 +30,16 @@ function multiSelect(prop: Props[string] | undefined): string[] {
 
 export async function getWebProjects(): Promise<WebProject[]> {
   try {
-    const res = await notion.databases.query({
-      database_id: process.env.NOTION_WEBPROJECTS_DB!,
-      sorts: [{ property: "order", direction: "ascending" }],
-      filter: { property: "active", checkbox: { equals: true } },
-    });
+    const res = await Promise.race([
+      notion.databases.query({
+        database_id: process.env.NOTION_WEBPROJECTS_DB!,
+        sorts: [{ property: "order", direction: "ascending" }],
+        filter: { property: "active", checkbox: { equals: true } },
+      }),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("Notion timeout")), 3000)
+      ),
+    ]);
 
     return res.results
       .filter((p): p is PageObjectResponse => p.object === "page" && "properties" in p)
@@ -55,7 +60,7 @@ export async function getWebProjects(): Promise<WebProject[]> {
             : "soon") as WebProject["status"],
           tech: multiSelect(p.tech),
           visual: text(p.visual) || "default",
-          image: text(p.image) || undefined,
+          image: (text(p.image) || undefined)?.replace(/\.png$/i, ".webp"),
           year: text(p.year),
           color: text(p.color) || "#c9a96e",
         };
