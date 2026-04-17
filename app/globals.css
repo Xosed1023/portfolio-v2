@@ -241,3 +241,42 @@ body {
 .marquee-track:hover {
   animation-play-state: paused;
 }
+
+/* ─── Aurora CSS orbs ───────────────────────────── */
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes aurora-1 {
+  0%   { transform: translate(0,    0)    scale(1);    }
+  33%  { transform: translate(12vw, 10vh) scale(1.08); }
+  66%  { transform: translate(5vw,  22vh) scale(0.95); }
+  100% { transform: translate(-8vw, 12vh) scale(1.04); }
+}
+
+@keyframes aurora-2 {
+  0%   { transform: translate(0,     0)    scale(1);    }
+  33%  { transform: translate(-14vw, 8vh)  scale(1.06); }
+  66%  { transform: translate(-6vw,  20vh) scale(0.92); }
+  100% { transform: translate(10vw,  14vh) scale(1.10); }
+}
+
+@keyframes aurora-3 {
+  0%   { transform: translate(0,    0)     scale(1);    }
+  40%  { transform: translate(-10vw,-12vh) scale(1.05); }
+  70%  { transform: translate(8vw,  -20vh) scale(0.94); }
+  100% { transform: translate(4vw,  -8vh)  scale(1.07); }
+}
+
+@keyframes aurora-4 {
+  0%   { transform: translate(0,    0)     scale(1);    }
+  30%  { transform: translate(16vw, -10vh) scale(0.96); }
+  60%  { transform: translate(8vw,  -18vh) scale(1.08); }
+  100% { transform: translate(-6vw, -6vh)  scale(1.03); }
+}
