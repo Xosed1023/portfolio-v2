@@ -7,6 +7,7 @@
   --accent: #c9a96e;
   --bg-primary: #0a0a0a;
   --sidebar-w: 72px;
+  --content-max: 1680px;
 }
 
 /* ─── Base Reset ────────────────────────────────── */
@@ -164,6 +165,27 @@ body {
   font-family: var(--font-poppins);
 }
 
+/* ─── Section dividers ──────────────────────────── */
+/* Adds a 1px gradient line at the top of every section except the hero */
+#scroll-container > section + section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 72px,
+    rgba(201, 169, 110, 0.10) 20%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(201, 169, 110, 0.10) 80%,
+    transparent
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
 /* ─── Snap scroll container ─────────────────────── */
 #scroll-container {
   scroll-snap-type: y mandatory;
@@ -196,6 +218,16 @@ body {
   .snap-start {
     scroll-snap-align: none;
     scroll-snap-stop: normal;
+  }
+}
+
+/* ─── Ultra-wide: constrain content width ───────── */
+@media (min-width: 1920px) {
+  :root {
+    --sidebar-w: 88px;
+  }
+  .section-label {
+    font-size: 0.72rem;
   }
 }
 

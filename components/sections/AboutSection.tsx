@@ -66,7 +66,7 @@ export default function AboutSection() {
           </motion.p>
 
           {/* Stats 2x2 */}
-          <motion.div className="grid grid-cols-4 gap-2 mb-6"
+          <motion.div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6"
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
             {STATS.map((s) => (
@@ -137,7 +137,7 @@ export default function AboutSection() {
       </div>
 
       {/* ── DESKTOP layout (original) ── */}
-      <div className="relative hidden lg:grid w-full grid-cols-2 gap-16 pb-16"
+      <div className="relative hidden lg:grid w-full max-w-[1680px] mx-auto grid-cols-2 gap-8 xl:gap-16 pb-16"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)" }}>
 
         {/* ── LEFT ── */}
@@ -166,7 +166,7 @@ export default function AboutSection() {
             viewport={{ once: true }} transition={{ delay: 0.3, duration: 0.5 }} />
 
           <motion.p
-            className="font-nunito font-light leading-[1.85] mb-8"
+            className="font-nunito font-light leading-[1.85] lg:mb-5 xl:mb-8"
             style={{ fontSize: "0.92rem", color: "rgba(255,255,255,0.72)", maxWidth: "480px" }}
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.15 }}

@@ -106,7 +106,7 @@ export default function WorkSection() {
            style={{ bottom: "5%", left: "15%", width: "50vw", height: "50vh",
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.04) 0%, transparent 65%)" }} />
 
-      <div className="relative w-full flex flex-col lg:flex-row"
+      <div className="relative w-full max-w-[1680px] mx-auto flex flex-col lg:flex-row"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingBottom: "24px" }}>
 
         {/* ── MOBILE: Header + Accordion ── */}
@@ -207,7 +207,7 @@ export default function WorkSection() {
         </div>
 
         {/* ── DESKTOP: Tab + panel ── */}
-        <div className="hidden lg:flex flex-col justify-center gap-1 lg:pr-10 flex-shrink-0 lg:w-[296px]">
+        <div className="hidden lg:flex flex-col justify-center gap-1 lg:pr-6 xl:pr-10 flex-shrink-0 lg:w-[240px] xl:w-[296px]">
           <motion.p
             className="font-poppins font-semibold text-accent mb-3"
             style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
@@ -256,7 +256,7 @@ export default function WorkSection() {
           ))}
         </div>
 
-        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-10 lg:border-l border-white/[0.07]">
+        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-6 xl:pl-10 lg:border-l border-white/[0.07]">
           <motion.div
             key={selected}
             initial={{ opacity: 0, y: 16 }}

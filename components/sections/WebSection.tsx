@@ -413,7 +413,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
            style={{ bottom: "0", left: "5%", width: "40vw", height: "45vh",
                     background: "radial-gradient(ellipse, rgba(126,184,201,0.04) 0%, transparent 65%)" }} />
 
-      <div className="relative w-full flex flex-col lg:h-full"
+      <div className="relative w-full max-w-[1680px] mx-auto flex flex-col lg:h-full"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(28px, 8vh, 80px)", paddingBottom: "40px" }}>
 
         {/* Header */}

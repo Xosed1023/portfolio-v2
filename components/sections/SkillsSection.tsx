@@ -109,11 +109,11 @@ export default function SkillsSection() {
            style={{ top: "0", right: "0", width: "55vw", height: "65vh",
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.05) 0%, transparent 65%)" }} />
 
-      <div className="relative w-full flex flex-col"
+      <div className="relative w-full max-w-[1680px] mx-auto flex flex-col"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(28px, 8vh, 56px)", paddingBottom: "40px" }}>
 
         {/* Header */}
-        <div className="mb-7">
+        <div className="lg:mb-4 xl:mb-7">
           <motion.p
             className="font-poppins font-semibold text-accent mb-2"
             style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
@@ -179,11 +179,11 @@ export default function SkillsSection() {
         </div>
 
         {/* ── DESKTOP: Grid ── */}
-        <div className="hidden lg:grid grid-cols-3 gap-5">
+        <div className="hidden lg:grid grid-cols-3 lg:gap-3 xl:gap-5">
           {CATEGORIES.map((cat, ci) => (
             <motion.div
               key={cat.title}
-              className="p-5 flex flex-col relative overflow-hidden group"
+              className="lg:p-3 xl:p-5 flex flex-col relative overflow-hidden group"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -201,14 +201,14 @@ export default function SkillsSection() {
             >
               <div className="glass-sheen absolute inset-0 pointer-events-none"
                    style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 55%, rgba(201,169,110,0.04) 100%)" }} />
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 lg:mb-2 xl:mb-4">
                 <span className="text-accent" style={{ fontSize: "0.95rem" }} aria-hidden="true">{cat.icon}</span>
                 <span className="font-poppins font-semibold"
                       style={{ fontSize: "0.72rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.82)" }}>
                   {cat.title.toUpperCase()}
                 </span>
               </div>
-              <div className="flex flex-col gap-[14px] flex-1">
+              <div className="flex flex-col lg:gap-[9px] xl:gap-[14px] flex-1">
                 {cat.skills.map((s, si) => (
                   <SkillBar key={s.name} name={s.name} level={s.level} delay={ci * 0.09 + si * 0.07 + 0.25} />
                 ))}

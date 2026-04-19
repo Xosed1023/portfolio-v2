@@ -598,7 +598,7 @@ export default function ProjectsSection() {
       </div>
 
       {/* ── DESKTOP layout (original) ── */}
-      <div className="relative hidden lg:flex w-full h-full flex-col"
+      <div className="relative hidden lg:flex w-full max-w-[1680px] mx-auto h-full flex-col"
         style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "52px", paddingBottom: "36px" }}>
 
         {/* Header */}
@@ -636,7 +636,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 grid grid-cols-[1fr_1.1fr] gap-10 min-h-0">
+        <div className="flex-1 grid grid-cols-[1fr_1.1fr] gap-6 xl:gap-10 min-h-0">
 
           {/* ── LEFT: Info ── */}
           <div className="flex flex-col justify-between min-h-0">

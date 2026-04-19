@@ -367,7 +367,7 @@ export default function ServiciosClient() {
                         background: "radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 65%)" }}/>
 
           {/* Main content — top */}
-          <div className="relative flex-1 flex flex-col justify-center"
+          <div className="relative flex-1 flex flex-col justify-center max-w-[1680px] mx-auto w-full"
                style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "clamp(2rem, 5vh, 4rem)", paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)" }}>
             <motion.p className="font-poppins font-semibold text-accent mb-3"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.55em" }}
@@ -404,7 +404,7 @@ export default function ServiciosClient() {
           </div>
 
           {/* Stats — pinned to bottom */}
-          <motion.div className="relative flex flex-wrap gap-10 flex-shrink-0"
+          <motion.div className="relative flex flex-wrap gap-10 flex-shrink-0 max-w-[1680px] mx-auto w-full"
                       style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "clamp(1.2rem, 2.5vh, 2rem)", paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)", borderTop: "1px solid rgba(255,255,255,0.07)" }}
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.45, ease }}>
             {[["10+","Años de experiencia"],["50+","Proyectos entregados"],["100%","Clientes satisfechos"]].map(([v,l]) => (
@@ -423,7 +423,7 @@ export default function ServiciosClient() {
           <div className="absolute pointer-events-none"
                style={{ bottom: "0", left: "10%", width: "50vw", height: "50vh",
                         background: "radial-gradient(ellipse, rgba(201,169,110,0.04) 0%, transparent 65%)" }}/>
-          <div className="relative" style={{ paddingLeft: PX, paddingRight: PX }}>
+          <div className="relative max-w-[1680px] mx-auto" style={{ paddingLeft: PX, paddingRight: PX }}>
             <motion.p className="font-poppins font-semibold text-accent mb-2"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
@@ -462,7 +462,7 @@ export default function ServiciosClient() {
         <section className="relative py-20"
                  style={{ background: "rgba(6,6,6,0.6)" }}>
           <div className="absolute inset-0 grid-bg opacity-15 pointer-events-none" />
-          <div className="relative" style={{ paddingLeft: PX, paddingRight: PX }}>
+          <div className="relative max-w-[1680px] mx-auto" style={{ paddingLeft: PX, paddingRight: PX }}>
             <motion.p className="font-poppins font-semibold text-accent mb-2"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
@@ -498,7 +498,7 @@ export default function ServiciosClient() {
           <div className="absolute inset-0 grid-bg opacity-18 pointer-events-none" />
           <div className="absolute inset-0 pointer-events-none"
                style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.08) 0%, transparent 60%)" }}/>
-          <div className="relative text-center w-full" style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "clamp(4rem,8vh,6rem)", paddingBottom: "clamp(4rem,8vh,6rem)" }}>
+          <div className="relative text-center w-full max-w-[1680px] mx-auto" style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "clamp(4rem,8vh,6rem)", paddingBottom: "clamp(4rem,8vh,6rem)" }}>
             <motion.p className="font-poppins font-semibold text-accent mb-4"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.55em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>

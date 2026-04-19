@@ -103,7 +103,7 @@ export default function ContactSection() {
            style={{ bottom: "-15%", left: "25%", width: "65vw", height: "65vh",
                     background: "radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 60%)" }} />
 
-      <div className="relative w-full flex flex-col lg:grid lg:grid-cols-2 lg:gap-20 lg:h-full lg:items-center lg:pb-14"
+      <div className="relative w-full max-w-[1680px] mx-auto flex flex-col lg:grid lg:grid-cols-2 lg:gap-10 xl:gap-20 lg:h-full lg:items-center lg:pb-14"
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)" }}>
 
         {/* MOBILE: single column, natural flow */}

@@ -4,7 +4,7 @@
 - Next.js 14 (App Router), TypeScript, Tailwind CSS v3, Framer Motion v11
 - Fonts: Poppins (headings) + Nunito (body) via `next/font/google`
 - Images: use Next.js `<Image>` with WebP format. PNG originals exist but WebP versions are in `public/`
-- Notion API (`@notionhq/client`) for project data in `/servicios`
+- Notion API (`@notionhq/client`) for project data in `/servicios` and `WebSection` 
 
 ## Architecture
 
@@ -26,7 +26,7 @@
 
 ## Performance rules
 - No `backdropFilter: blur(...)` on cards/panels — kills GPU performance
-- Aurora canvas: mobile gets ≤8 orbs; desktop gets all. Resize is debounced 200ms
+- Aurora canvas: mobile and desktop gets ≤8 orbs this for better performance; Resize is debounced 200ms
 - Mousemove handlers must use RAF throttling (`rafPending` ref pattern in HeroSection)
 - Notion API calls have a 3s timeout via `Promise.race`
 - All images: `loading="lazy" decoding="async"` except hero/LCP images which use `priority`
@@ -53,3 +53,4 @@
 - Add `backdropFilter` to card components
 - Use `<Link>` for cross-page navigation (use `TransitionLink`)
 - Commit `tsconfig.tsbuildinfo`
+- No commit changes without user confirmation
