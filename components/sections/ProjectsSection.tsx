@@ -2,18 +2,16 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useCallback } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const PROJECTS = [
+const PROJECTS_STATIC = [
   {
     num: "01",
-    title: "App Móvil\nDatacrédito",
-    category: "Mobile · React Native",
     company: "Grupo Cinte",
     year: "2024",
-    description:
-      "Optimización y mantenimiento de la app móvil Datacrédito para App Store y Google Play. Monetización integrada con Google AdManager y AdMob, notificaciones push con Firebase y backend escalable en AWS.",
     tech: ["React Native", "Node.js", "MongoDB", "AWS", "Firebase", "AdMob"],
     links: { github: null, live: "https://apps.apple.com/co/app/midatacr%C3%A9dito/id6752889575" },
     visual: "mobile",
@@ -21,12 +19,8 @@ const PROJECTS = [
   },
   {
     num: "02",
-    title: "Betplay\nBackoffice",
-    category: "Web · Dashboard",
     company: "Assist Consultores",
     year: "2020",
-    description:
-      "Plataforma de administración completa para Betplay, la apuesta deportiva líder en Colombia. Gestión de usuarios, reportes en tiempo real y configuración de mercados.",
     tech: ["Angular", "Node.js", "Vue.js", "PostgreSQL"],
     links: { github: null, live: "https://juegoresponsable.betplay.com.co/home" },
     visual: "dashboard",
@@ -34,12 +28,8 @@ const PROJECTS = [
   },
   {
     num: "03",
-    title: "ESB Integration\nPlatform",
-    category: "Backend · Integración",
     company: "Hoteles Decameron · Assist",
     year: "2021",
-    description:
-      "Plataforma de integración empresarial para Avianca, Claro, Banco Itaú e ICFES usando patrones EIP. APIs REST y SOAP con OAuth 2.0 sobre RedHat JBoss Fuse.",
     tech: ["Apache Camel", "Spring Boot", "JBoss Fuse", "XSLT", "OAuth 2.0"],
     links: { github: null, live: null },
     visual: "integration",
@@ -47,12 +37,8 @@ const PROJECTS = [
   },
   {
     num: "04",
-    title: "Enterprise\nAngular App Halliburton | Connect Americas",
-    category: "Full Stack · Enterprise",
     company: "Patagonian",
     year: "2023",
-    description:
-      "Aplicación empresarial en Angular 12 + Laravel desplegada en AWS. Traducción pixel-perfect de diseños Figma, pruebas unitarias y optimización de rendimiento.",
     tech: ["Angular 12", "Laravel", "AWS", "Sass", "Bootstrap"],
     links: { github: null, live: null },
     visual: "enterprise",
@@ -461,6 +447,13 @@ function ProjectVisual({ type }: { type: string }) {
 }
 
 export default function ProjectsSection() {
+  const { lang } = useLanguage();
+  const PROJECTS = PROJECTS_STATIC.map((p, i) => ({
+    ...p,
+    title:       T.projects.items[i].title[lang],
+    category:    T.projects.items[i].category[lang],
+    description: T.projects.items[i].description[lang],
+  }));
   const [active, setActive] = useState(0);
   const project = PROJECTS[active];
 
@@ -492,13 +485,13 @@ export default function ProjectsSection() {
           <motion.p className="font-poppins font-semibold text-accent mb-2"
             style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-            06 / PROYECTOS
+            {T.projects.sectionLabel[lang]}
           </motion.p>
           <motion.h2 className="font-poppins font-extrabold text-white leading-[0.9]"
             style={{ fontSize: "clamp(2rem, 10vw, 2.8rem)", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
-            SELECTED <span className="text-accent">WORK</span>
+            {T.projects.heading1[lang]} <span className="text-accent">{T.projects.heading2[lang]}</span>
           </motion.h2>
         </div>
 
@@ -572,7 +565,7 @@ export default function ProjectsSection() {
                   <a href={project.links.live} target="_blank" rel="noopener noreferrer"
                     className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] bg-accent text-bg-primary btn-glow"
                     style={{ fontSize: "0.63rem", letterSpacing: "0.25em" }}>
-                    VER PROYECTO
+                    {T.projects.viewProject[lang]}
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                       strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M7 17 17 7M7 7h10v10" />
@@ -588,7 +581,7 @@ export default function ProjectsSection() {
                       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    PRIVADO · NDA
+                    {T.projects.privateNda[lang]}
                   </span>
                 )}
               </div>
@@ -609,7 +602,7 @@ export default function ProjectsSection() {
               style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             >
-              06 / PROYECTOS
+              {T.projects.sectionLabel[lang]}
             </motion.p>
             <motion.h2
               className="font-poppins font-extrabold text-white leading-[0.9]"
@@ -617,7 +610,7 @@ export default function ProjectsSection() {
               initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.8, ease }}
             >
-              SELECTED <span className="text-accent">WORK</span>
+              {T.projects.heading1[lang]} <span className="text-accent">{T.projects.heading2[lang]}</span>
             </motion.h2>
           </div>
 
@@ -751,7 +744,7 @@ export default function ProjectsSection() {
                       className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
                       style={{ fontSize: "0.65rem", letterSpacing: "0.28em" }}
                     >
-                      VER PROYECTO
+                      {T.projects.viewProject[lang]}
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <path d="M7 17 17 7M7 7h10v10" />
@@ -774,7 +767,7 @@ export default function ProjectsSection() {
                         <rect x="3" y="11" width="18" height="11" rx="2" />
                         <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
-                      PRIVADO · NDA
+                      {T.projects.privateNda[lang]}
                     </span>
                   )}
                   {project.links.github && (

@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
 const CATEGORIES = [
   {
@@ -11,7 +13,6 @@ const CATEGORIES = [
       { name: "React",        level: 95 },
       { name: "Angular 2+",   level: 92 },
       { name: "TypeScript",   level: 90 },
-      { name: "Vue.js",       level: 82 },
       { name: "HTML5 / CSS3", level: 95 },
     ],
   },
@@ -27,7 +28,7 @@ const CATEGORIES = [
     ],
   },
   {
-    title: "Mobile",
+    title: "Móvil",
     icon: "◎",
     skills: [
       { name: "React Native", level: 88 },
@@ -35,7 +36,7 @@ const CATEGORIES = [
     ],
   },
   {
-    title: "Databases",
+    title: "Bases de Datos",
     icon: "◌",
     skills: [
       { name: "MongoDB",              level: 88 },
@@ -67,41 +68,29 @@ const CATEGORIES = [
   },
 ];
 
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
+function SkillItem({ name }: { name: string }) {
   return (
-    <div>
-      <div className="flex justify-between items-center mb-[5px]">
-        <span className="font-nunito font-normal"
-              style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.72)" }}>
-          {name}
-        </span>
-        <span className="font-poppins font-semibold text-accent"
-              style={{ fontSize: "0.62rem", letterSpacing: "0.05em" }}>
-          {level}%
-        </span>
-      </div>
-      <div className="relative overflow-hidden" style={{ height: "2px", background: "rgba(255,255,255,0.08)" }}>
-        <motion.div
-          className="absolute left-0 top-0 h-full bg-gradient-to-r from-accent/70 to-accent"
-          initial={{ width: "0%" }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ delay, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </div>
+    <div className="flex items-center gap-2 group">
+      <span className="w-[3px] h-[3px] rounded-full bg-accent/55 flex-shrink-0
+                       group-hover:bg-accent transition-colors duration-300" />
+      <span className="font-nunito font-normal transition-colors duration-300"
+            style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.72)" }}>
+        {name}
+      </span>
     </div>
   );
 }
 
 export default function SkillsSection() {
   const [activeTab, setActiveTab] = useState(0);
+  const { lang } = useLanguage();
 
   return (
     <section
       id="skills"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
-      aria-label="Skills"
+      aria-label="Habilidades"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
 
@@ -113,13 +102,13 @@ export default function SkillsSection() {
            style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)", paddingTop: "clamp(28px, 8vh, 56px)", paddingBottom: "40px" }}>
 
         {/* Header */}
-        <div className="lg:mb-4 xl:mb-7">
+        <div className="lg:mb-4 xl:mb-7 2xl:mb-9">
           <motion.p
             className="font-poppins font-semibold text-accent mb-2"
             style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
-            04 / COMPETENCIAS TÉCNICAS
+            {T.skills.sectionLabel[lang]}
           </motion.p>
           <motion.h2
             className="font-poppins font-extrabold text-white leading-[0.9]"
@@ -127,7 +116,7 @@ export default function SkillsSection() {
             initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            SKILLS <span className="text-accent">&amp;</span> STACK
+            {T.skills.heading1[lang]} <span className="text-accent">&amp;</span> {T.skills.heading2[lang]}
           </motion.h2>
         </div>
 
@@ -150,7 +139,7 @@ export default function SkillsSection() {
                 }}
               >
                 <span aria-hidden="true">{cat.icon}</span>
-                {cat.title.toUpperCase()}
+                {(T.skills.categoryNames[cat.title]?.[lang] ?? cat.title).toUpperCase()}
               </button>
             ))}
           </div>
@@ -169,9 +158,9 @@ export default function SkillsSection() {
                 border: "1px solid rgba(201,169,110,0.2)",
               }}
             >
-              <div className="flex flex-col gap-4">
-                {CATEGORIES[activeTab].skills.map((s, si) => (
-                  <SkillBar key={s.name} name={s.name} level={s.level} delay={si * 0.08} />
+              <div className="flex flex-col gap-3">
+                {CATEGORIES[activeTab].skills.map((s) => (
+                  <SkillItem key={s.name} name={s.name} />
                 ))}
               </div>
             </motion.div>
@@ -179,11 +168,11 @@ export default function SkillsSection() {
         </div>
 
         {/* ── DESKTOP: Grid ── */}
-        <div className="hidden lg:grid grid-cols-3 lg:gap-3 xl:gap-5">
+        <div className="hidden lg:grid grid-cols-3 lg:gap-3 xl:gap-5 2xl:gap-6">
           {CATEGORIES.map((cat, ci) => (
             <motion.div
               key={cat.title}
-              className="lg:p-3 xl:p-5 flex flex-col relative overflow-hidden group"
+              className="lg:p-3 xl:p-5 2xl:p-6 flex flex-col relative overflow-hidden group"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -201,16 +190,16 @@ export default function SkillsSection() {
             >
               <div className="glass-sheen absolute inset-0 pointer-events-none"
                    style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 55%, rgba(201,169,110,0.04) 100%)" }} />
-              <div className="flex items-center gap-2 lg:mb-2 xl:mb-4">
+              <div className="flex items-center gap-2 lg:mb-2 xl:mb-4 2xl:mb-5">
                 <span className="text-accent" style={{ fontSize: "0.95rem" }} aria-hidden="true">{cat.icon}</span>
                 <span className="font-poppins font-semibold"
                       style={{ fontSize: "0.72rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.82)" }}>
-                  {cat.title.toUpperCase()}
+                  {(T.skills.categoryNames[cat.title]?.[lang] ?? cat.title).toUpperCase()}
                 </span>
               </div>
-              <div className="flex flex-col lg:gap-[9px] xl:gap-[14px] flex-1">
-                {cat.skills.map((s, si) => (
-                  <SkillBar key={s.name} name={s.name} level={s.level} delay={ci * 0.09 + si * 0.07 + 0.25} />
+              <div className="flex flex-col lg:gap-[9px] xl:gap-[14px] 2xl:gap-[18px] flex-1">
+                {cat.skills.map((s) => (
+                  <SkillItem key={s.name} name={s.name} />
                 ))}
               </div>
             </motion.div>

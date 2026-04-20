@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
 const SOCIALS = [
   {
@@ -35,13 +37,13 @@ const SOCIALS = [
 ];
 
 const NAV_LINKS = [
-  { id: "hero",     label: "Home" },
-  { id: "about",    label: "About" },
-  { id: "work",     label: "Work" },
-  { id: "skills",   label: "Skills" },
-  { id: "web",      label: "Web" },
-  { id: "projects", label: "Projects" },
-  { id: "contact",  label: "Contact" },
+  { id: "hero",     navKey: "home"     as const },
+  { id: "about",    navKey: "about"    as const },
+  { id: "work",     navKey: "work"     as const },
+  { id: "skills",   navKey: "skills"   as const },
+  { id: "web",      navKey: "web"      as const },
+  { id: "projects", navKey: "projects" as const },
+  { id: "contact",  navKey: "contact"  as const },
 ];
 
 function scrollTo(id: string) {
@@ -53,6 +55,7 @@ function scrollTo(id: string) {
 }
 
 export default function Footer() {
+  const { lang } = useLanguage();
   return (
     <footer
       className="lg:hidden relative"
@@ -81,7 +84,7 @@ export default function Footer() {
           </motion.span>
 
           {/* Nav links — desktop */}
-          <nav aria-label="Footer navigation" className="hidden lg:flex items-center gap-6">
+          <nav aria-label="Navegación del pie de página" className="hidden lg:flex items-center gap-6">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.id}
@@ -89,7 +92,7 @@ export default function Footer() {
                 className="font-poppins font-medium text-white/40 hover:text-accent transition-colors duration-200"
                 style={{ fontSize: "0.65rem", letterSpacing: "0.28em" }}
               >
-                {link.label.toUpperCase()}
+                {T.nav[link.navKey][lang]}
               </button>
             ))}
           </nav>

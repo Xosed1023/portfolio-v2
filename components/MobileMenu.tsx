@@ -2,21 +2,25 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
+import LangToggle from "@/components/LangToggle";
 
-const NAV = [
-  { id: "hero",     label: "HOME",     num: "01" },
-  { id: "about",    label: "ABOUT",    num: "02" },
-  { id: "work",     label: "WORK",     num: "03" },
-  { id: "skills",   label: "SKILLS",   num: "04" },
-  { id: "web",      label: "WEB",      num: "05" },
-  { id: "projects", label: "PROJECTS", num: "06" },
-  { id: "contact",  label: "CONTACT",  num: "07" },
+const NAV_ITEMS = [
+  { id: "hero",     navKey: "home"     as const, num: "01" },
+  { id: "about",    navKey: "about"    as const, num: "02" },
+  { id: "work",     navKey: "work"     as const, num: "03" },
+  { id: "skills",   navKey: "skills"   as const, num: "04" },
+  { id: "web",      navKey: "web"      as const, num: "05" },
+  { id: "projects", navKey: "projects" as const, num: "06" },
+  { id: "contact",  navKey: "contact"  as const, num: "07" },
 ];
 
 export default function MobileMenu() {
-  const [open, setOpen] = useState(false);
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
-  const firstNavRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen]       = useState(false);
+  const hamburgerRef          = useRef<HTMLButtonElement>(null);
+  const firstNavRef           = useRef<HTMLButtonElement>(null);
+  const { lang }              = useLanguage();
 
   // Close on ESC
   useEffect(() => {
@@ -39,7 +43,6 @@ export default function MobileMenu() {
 
   const scrollTo = (id: string) => {
     setOpen(false);
-    // Small delay so the menu closes before scrolling (avoids layout shift)
     setTimeout(() => {
       const target = document.getElementById(id);
       target?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -64,6 +67,8 @@ export default function MobileMenu() {
               style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
           XP
         </span>
+
+        <LangToggle />
 
         {/* Hamburger */}
         <button
@@ -114,32 +119,35 @@ export default function MobileMenu() {
 
             {/* Nav items — centered within available space */}
             <div className="relative flex flex-col items-center justify-center flex-1 gap-6 w-full">
-            {NAV.map((item, i) => (
-              <motion.button
-                key={item.id}
-                ref={i === 0 ? firstNavRef : undefined}
-                onClick={() => scrollTo(item.id)}
-                className="relative font-poppins font-extrabold text-white/70 hover:text-white
-                           transition-colors duration-200 group flex items-center gap-4"
-                style={{ fontSize: "clamp(1.7rem, 7vw, 2.8rem)", letterSpacing: "-0.01em" }}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 + i * 0.07, ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
-              >
-                <span className="font-poppins font-light text-accent/60 group-hover:text-accent transition-colors duration-200"
-                      style={{ fontSize: "0.9rem", letterSpacing: "0.15em", minWidth: "28px" }}>
-                  {item.num}
-                </span>
-                {item.label}
-                <motion.div
-                  className="absolute bottom-0 left-0 h-px bg-accent"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  style={{ originX: 0, width: "100%" }}
-                  transition={{ duration: 0.25 }}
-                />
-              </motion.button>
-            ))}
+              {NAV_ITEMS.map((item, i) => {
+                const label = T.nav[item.navKey][lang];
+                return (
+                  <motion.button
+                    key={item.id}
+                    ref={i === 0 ? firstNavRef : undefined}
+                    onClick={() => scrollTo(item.id)}
+                    className="relative font-poppins font-extrabold text-white/70 hover:text-white
+                               transition-colors duration-200 group flex items-center gap-4"
+                    style={{ fontSize: "clamp(1.7rem, 7vw, 2.8rem)", letterSpacing: "-0.01em" }}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 + i * 0.07, ease: [0.22, 1, 0.36, 1], duration: 0.5 }}
+                  >
+                    <span className="font-poppins font-light text-accent/60 group-hover:text-accent transition-colors duration-200"
+                          style={{ fontSize: "0.9rem", letterSpacing: "0.15em", minWidth: "28px" }}>
+                      {item.num}
+                    </span>
+                    {label}
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-px bg-accent"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      style={{ originX: 0, width: "100%" }}
+                      transition={{ duration: 0.25 }}
+                    />
+                  </motion.button>
+                );
+              })}
             </div>
 
             <motion.a
@@ -152,7 +160,7 @@ export default function MobileMenu() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.45 }}
             >
-              DESCARGAR CV
+              {T.nav.downloadCv[lang]}
             </motion.a>
           </motion.div>
         )}

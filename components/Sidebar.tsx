@@ -2,11 +2,14 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
+import LangToggle from "@/components/LangToggle";
 
 const NAV = [
   {
     id: "hero",
-    label: "HOME",
+    navKey: "home" as const,
     num: "01",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -18,7 +21,7 @@ const NAV = [
   },
   {
     id: "about",
-    label: "ABOUT",
+    navKey: "about" as const,
     num: "02",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -30,7 +33,7 @@ const NAV = [
   },
   {
     id: "work",
-    label: "WORK",
+    navKey: "work" as const,
     num: "03",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -42,7 +45,7 @@ const NAV = [
   },
   {
     id: "skills",
-    label: "SKILLS",
+    navKey: "skills" as const,
     num: "04",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -54,18 +57,19 @@ const NAV = [
   },
   {
     id: "web",
-    label: "WEB",
+    navKey: "web" as const,
     num: "05",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
            strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
       </svg>
     ),
   },
   {
     id: "projects",
-    label: "PROJECTS",
+    navKey: "projects" as const,
     num: "06",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -77,7 +81,7 @@ const NAV = [
   },
   {
     id: "contact",
-    label: "CONTACT",
+    navKey: "contact" as const,
     num: "07",
     icon: (
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -101,12 +105,11 @@ const itemV = {
 };
 
 export default function Sidebar() {
-  const [active, setActive] = useState("hero");
+  const [active, setActive]   = useState("hero");
   const [hovered, setHovered] = useState<string | null>(null);
+  const { lang }              = useLanguage();
 
   useEffect(() => {
-    // rootMargin "-45% 0px -45% 0px" creates a 10% detection band at the viewport center.
-    // This works for sections of any height, including those taller than the viewport.
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -152,8 +155,9 @@ export default function Sidebar() {
       </motion.div>
 
       {/* Nav items */}
-      <nav className="flex flex-col items-center gap-1" aria-label="Main navigation">
+      <nav className="flex flex-col items-center gap-1" aria-label="Navegación principal">
         {NAV.map((item) => {
+          const label     = T.nav[item.navKey][lang];
           const isActive  = active  === item.id;
           const isHovered = hovered === item.id;
           const highlight = isActive || isHovered;
@@ -181,7 +185,7 @@ export default function Sidebar() {
                         backdropFilter: "blur(8px)",
                       }}
                     >
-                      {item.num} {item.label}
+                      {item.num} {label}
                     </div>
                     {/* Arrow */}
                     <div
@@ -200,7 +204,7 @@ export default function Sidebar() {
                 onClick={() => scrollTo(item.id)}
                 onMouseEnter={() => setHovered(item.id)}
                 onMouseLeave={() => setHovered(null)}
-                aria-label={item.label}
+                aria-label={label}
                 aria-current={isActive ? "page" : undefined}
                 className="relative flex flex-col items-center gap-[5px] py-3 px-2 w-full
                            transition-all duration-300 rounded-sm group"
@@ -242,12 +246,14 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Resume */}
-      <motion.div variants={itemV}>
+      {/* Lang toggle + Resume */}
+      <motion.div variants={itemV} className="flex flex-col items-center gap-4">
+        <LangToggle className="flex-col gap-[3px]" />
+
         <a
           href="/CV Xosed Penaloza V2.pdf"
           download
-          aria-label="CV"
+          aria-label={T.nav.cv[lang]}
           className="flex flex-col items-center gap-[6px] py-3 px-2 transition-all duration-300 rounded-sm group"
           style={{ textDecoration: "none" }}
         >

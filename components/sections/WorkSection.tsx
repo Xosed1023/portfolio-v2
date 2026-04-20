@@ -2,94 +2,56 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
-const JOBS = [
+const JOBS_STATIC = [
   {
-    role: "NodeJs Senior",
     company: "Globant",
     period: "Dic 2024 - Presente",
-    type: "Banca · Backend",
     current: true,
-    highlights: [
-      "Desarrollo y mantenimiento de APIs REST en el sector bancario",
-      "Sistemas de notificaciones con AWS SQS y SNS",
-      "Patrones de integración entre plataformas empresariales",
-      "Clean architecture y pruebas unitarias",
-    ],
     tech: ["Node.js", "AWS SQS", "AWS SNS", "REST APIs", "AI"],
   },
   {
-    role: "Desarrollador Senior Full Stack",
     company: "Grupo Cinte",
     period: "Feb 2024 – Dic 2024",
-    type: "Mobile · Full Stack",
     current: false,
-    highlights: [
-      "App móvil React Native con Node.js, MongoDB y AWS (App Store & Google Play)",
-      "Monetización con Google AdManager y AdMob",
-      "Firebase Push Notifications para engagement",
-      "Refactorización y mejoras de calidad de código",
-    ],
     tech: ["React Native", "Node.js", "MongoDB", "AWS", "Firebase", "Google Play", "App Store", "AdMob", "AdManager"],
   },
   {
-    role: "Desarrollador Senior Full Stack",
     company: "Patagonian",
     period: "Sep 2022 – Dic 2023",
-    type: "Enterprise · Angular",
     current: false,
-    highlights: [
-      "Aplicación empresarial Angular + Laravel desplegada en AWS",
-      "Traducción de diseños Figma a código responsive",
-      "Pruebas unitarias y mejoras de arquitectura",
-      "Optimización de rendimiento y tiempos de carga",
-    ],
     tech: ["Angular 12", "Laravel", "AWS", "Sass", "Bootstrap", "Frontend Performance"],
   },
   {
-    role: "Coordinador e Ing. de Integración",
     company: "Hoteles Decameron",
     period: "Sep 2021 – Sep 2022",
-    type: "Hotelería · Integración",
     current: false,
-    highlights: [
-      "Integraciones empresariales con RedHat JBoss Fuse + Apache Camel",
-      "APIs REST y SOAP con OAuth 2.0, Basic Auth",
-      "Patrones de integración empresarial (EIP)",
-      "Coordinación de equipos y gestión de despliegues multi ambiente",
-    ],
     tech: ["Java", "Apache Camel", "Spring Boot", "JBoss Fuse", "XSLT"],
   },
   {
-    role: "Consultor Senior",
     company: "Assist Consultores",
     period: "Sep 2017 – Sep 2021",
-    type: "Consultoría · Multi-sector",
     current: false,
-    highlights: [
-      "Backoffice completo de Betplay (Angular + Node.js)",
-      "Integración ESB RedHat: Avianca, Claro, Banco Itaú, ICFES",
-      "APIs REST en Azure Cloud y OpenShift para Sodimac",
-      "App Android nativa para Terpel",
-    ],
     tech: ["Angular", "Node.js", "Vue.js", "Java", "OpenShift", "Azure"],
   },
   {
-    role: "Analista – Programador",
     company: "Grupo CMC Colombia",
     period: "Sep 2016 – Sep 2017",
-    type: "Banca · BBVA",
     current: false,
-    highlights: [
-      "Apps BBVA: Grannet, BBVA Net, BBVA Net Cash",
-      "Sistema de cupos y límites de endeudamiento",
-      "Sistema de alertamiento bancario",
-    ],
     tech: ["Java", "JSP", "SQL Server"],
   },
 ];
 
 export default function WorkSection() {
+  const { lang } = useLanguage();
+  const JOBS = JOBS_STATIC.map((j, i) => ({
+    ...j,
+    role:       T.work.jobs[i].role[lang],
+    type:       T.work.jobs[i].type[lang],
+    highlights: T.work.jobs[i].highlights.map(h => h[lang]),
+  }));
   const [selected, setSelected] = useState(0);
   const job = JOBS[selected] ?? JOBS[0];
 
@@ -98,7 +60,7 @@ export default function WorkSection() {
       id="work"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
-      aria-label="Work experience"
+      aria-label="Experiencia laboral"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
 
@@ -115,13 +77,13 @@ export default function WorkSection() {
             <motion.p className="font-poppins font-semibold text-accent mb-1"
               style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              03 / EXPERIENCIA
+              {T.work.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white leading-none"
               style={{ fontSize: "clamp(2rem, 10vw, 2.8rem)", letterSpacing: "-0.02em" }}
               initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-              WORK
+              {T.work.heading[lang]}
             </motion.h2>
           </div>
 
@@ -207,13 +169,13 @@ export default function WorkSection() {
         </div>
 
         {/* ── DESKTOP: Tab + panel ── */}
-        <div className="hidden lg:flex flex-col justify-center gap-1 lg:pr-6 xl:pr-10 flex-shrink-0 lg:w-[240px] xl:w-[296px]">
+        <div className="hidden lg:flex flex-col justify-center gap-1 lg:pr-6 xl:pr-10 2xl:pr-14 flex-shrink-0 lg:w-[240px] xl:w-[296px] 2xl:w-[340px]">
           <motion.p
             className="font-poppins font-semibold text-accent mb-3"
             style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
-            03 / EXPERIENCIA
+            {T.work.sectionLabel[lang]}
           </motion.p>
           <motion.h2
             className="font-poppins font-extrabold text-white leading-[0.9] mb-5"
@@ -221,7 +183,7 @@ export default function WorkSection() {
             initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            WORK
+            {T.work.heading[lang]}
           </motion.h2>
 
           {JOBS.map((j, i) => (
@@ -256,7 +218,7 @@ export default function WorkSection() {
           ))}
         </div>
 
-        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-6 xl:pl-10 lg:border-l border-white/[0.07]">
+        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-6 xl:pl-10 2xl:pl-14 lg:border-l border-white/[0.07]">
           <motion.div
             key={selected}
             initial={{ opacity: 0, y: 16 }}
@@ -286,7 +248,7 @@ export default function WorkSection() {
 
             <div className="h-px bg-white/10 my-4" />
 
-            <ul className="flex flex-col gap-[11px] mb-6">
+            <ul className="flex flex-col gap-[11px] 2xl:gap-[14px] mb-6">
               {job.highlights.map((h) => (
                 <li key={h} className="flex items-start gap-3">
                   <span className="w-[5px] h-[5px] rounded-full bg-accent/65 mt-[7px] flex-shrink-0" />

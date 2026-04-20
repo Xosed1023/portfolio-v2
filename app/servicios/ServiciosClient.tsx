@@ -4,40 +4,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import AuroraBackground from "@/components/AuroraBackground";
 import TransitionLink from "@/components/TransitionLink";
+import LangToggle from "@/components/LangToggle";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 import WEB_PROJECTS from "@/lib/web-projects";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const PX   = "clamp(1.5rem, 7vw, 112px)";
 
-/* ── Data — real projects from lib/web-projects.ts ── */
-
-const STATUS_LABELS: Record<string, string> = {
-  live: "Live",
-  development: "En desarrollo",
-  soon: "Próximamente",
-};
-
-const CATEGORIES = ["Todos", ...Array.from(new Set(WEB_PROJECTS.map(p => STATUS_LABELS[p.status])))];
-
+/* ── Static project data (no lang-dependent fields) ── */
 const PROJECTS = WEB_PROJECTS.map(p => ({
-  id:       p.id,
-  title:    p.name,
-  category: STATUS_LABELS[p.status],
-  desc:     p.description,
-  tech:     p.tech,
-  accent:   p.color,
-  mockup:   p.visual,
-  notion:   p.url ?? "",
-  image:    p.image,
-  status:   p.status,
+  id:     p.id,
+  title:  p.name,
+  status: p.status as "live" | "development" | "soon",
+  desc:   p.description,
+  tech:   p.tech,
+  accent: p.color,
+  mockup: p.visual,
+  notion: p.url ?? "",
+  image:  p.image,
 }));
 
-const STEPS = [
-  { num: "01", title: "Consulta",   desc: "Hablamos de tu negocio y objetivos. Sin costo." },
-  { num: "02", title: "Propuesta",  desc: "Wireframe y presupuesto detallado en 48 horas." },
-  { num: "03", title: "Desarrollo", desc: "Construyo con actualizaciones semanales para tu aprobación." },
-  { num: "04", title: "Entrega",    desc: "Publicamos, configuro el dominio y te enseño a administrarlo." },
-];
+// Unique status keys found in the actual data
+const FILTER_KEYS = ["all", ...Array.from(new Set(WEB_PROJECTS.map(p => p.status)))] as const;
+type FilterKey = typeof FILTER_KEYS[number];
 
 /* ── Mockup SVGs ─────────────────────────────────── */
 function Mockup({ type, accent: a }: { type: string; accent: string }) {
@@ -257,7 +247,11 @@ function Mockup({ type, accent: a }: { type: string; accent: string }) {
 }
 
 /* ── Project Card ─────────────────────────────────── */
-function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
+function ProjectCard({ project, wantThis, viewProject }: {
+  project: typeof PROJECTS[0];
+  wantThis: string;
+  viewProject: string;
+}) {
   const [hovered, setHovered] = useState(false);
   return (
     <motion.article layout
@@ -278,7 +272,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
           <a href="https://wa.me/573165782144" target="_blank" rel="noopener noreferrer"
              className="font-poppins font-semibold text-black px-6 py-[9px] w-44 text-center transition-opacity duration-200 hover:opacity-90"
              style={{ background: project.accent, fontSize: "0.58rem", letterSpacing: "0.26em" }}>
-            QUIERO ALGO ASÍ
+            {wantThis}
           </a>
           {project.notion ? (
             <a href={project.notion} target="_blank" rel="noopener noreferrer"
@@ -287,12 +281,12 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
               <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
               </svg>
-              VER PROYECTO
+              {viewProject}
             </a>
           ) : (
             <span className="font-poppins font-medium flex items-center justify-center gap-[6px] px-6 py-[9px] w-44 cursor-default"
                   style={{ fontSize: "0.58rem", letterSpacing: "0.26em", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.3)" }}>
-              VER PROYECTO
+              {viewProject}
             </span>
           )}
         </motion.div>
@@ -300,7 +294,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
       {/* Info */}
       <div className="p-4 flex flex-col gap-[6px]">
         <span className="font-poppins font-semibold" style={{ fontSize: "0.55rem", letterSpacing: "0.35em", color: project.accent }}>
-          {project.category.toUpperCase()}
+          {project.status.toUpperCase()}
         </span>
         <h3 className="font-poppins font-bold text-white" style={{ fontSize: "0.9rem", letterSpacing: "-0.01em" }}>
           {project.title}
@@ -323,39 +317,57 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
 
 /* ── Main ─────────────────────────────────────────── */
 export default function ServiciosClient() {
-  const [activeFilter, setActiveFilter] = useState("Todos");
-  const filtered = activeFilter === "Todos" ? PROJECTS : PROJECTS.filter(p => p.category === activeFilter);
+  const { lang } = useLanguage();
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
+
+  const filtered = activeFilter === "all"
+    ? PROJECTS
+    : PROJECTS.filter(p => p.status === activeFilter);
+
+  // Translate a filter key to its display label
+  const filterLabel = (key: FilterKey) => {
+    if (key === "all") return T.servicios.projects.allFilter[lang];
+    return T.servicios.statusLabels[key as keyof typeof T.servicios.statusLabels]?.[lang] ?? key;
+  };
+
+  const steps = T.servicios.process.steps;
 
   return (
     <>
-      {/* Aurora + noise — same as portfolio */}
+      {/* Aurora + noise */}
       <AuroraBackground />
       <div className="noise-texture" aria-hidden="true" />
 
-      {/* Fixed header — outside scroll container */}
-        <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-10 py-4"
-                style={{ background: "rgba(10,10,10,0.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <TransitionLink href="/" className="flex items-center gap-2 group">
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="text-white/35 group-hover:text-accent transition-colors duration-200">
-              <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="font-poppins font-medium text-white/35 group-hover:text-white transition-colors duration-200"
-                  style={{ fontSize: "0.65rem", letterSpacing: "0.22em" }}>PORTFOLIO</span>
-          </TransitionLink>
+      {/* Fixed header */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 lg:px-10 py-4"
+              style={{ background: "rgba(10,10,10,0.85)", backdropFilter: "blur(16px)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <TransitionLink href="/" className="flex items-center gap-2 group">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="text-white/35 group-hover:text-accent transition-colors duration-200">
+            <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          <span className="font-poppins font-medium text-white/35 group-hover:text-white transition-colors duration-200"
+                style={{ fontSize: "0.65rem", letterSpacing: "0.22em" }}>
+            {T.servicios.header.portfolio[lang]}
+          </span>
+        </TransitionLink>
 
-          <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>XP</span>
+        <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>XP</span>
+
+        <div className="flex items-center gap-4">
+          <LangToggle className="gap-[5px]" style={{ fontSize: "0.6rem" }} />
 
           <a href="https://wa.me/573165782144" target="_blank" rel="noopener noreferrer"
-             className="font-poppins font-semibold flex items-center gap-2 px-4 py-[7px] transition-all duration-300 hover:bg-accent/10"
+             className="font-poppins font-semibold hidden sm:flex items-center gap-2 px-4 py-[7px] transition-all duration-300 hover:bg-accent/10"
              style={{ fontSize: "0.6rem", letterSpacing: "0.3em", border: "1px solid rgba(201,169,110,0.3)", color: "#c9a96e" }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-            CONTACTAR
+            {T.servicios.header.contact[lang]}
           </a>
-        </header>
+        </div>
+      </header>
 
-      {/* Scroll container — snap on desktop, normal on mobile */}
+      {/* Scroll container */}
       <main id="svc-scroll" className="relative z-10 h-screen overflow-y-scroll overflow-x-hidden">
 
         {/* ── HERO ── */}
@@ -366,26 +378,26 @@ export default function ServiciosClient() {
                style={{ top: "-5%", right: "-5%", width: "55vw", height: "70vh",
                         background: "radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 65%)" }}/>
 
-          {/* Main content — top */}
           <div className="relative flex-1 flex flex-col justify-center max-w-[1680px] mx-auto w-full"
                style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "clamp(2rem, 5vh, 4rem)", paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)" }}>
             <motion.p className="font-poppins font-semibold text-accent mb-3"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.55em" }}
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, ease }}>
-              DISEÑO &amp; DESARROLLO WEB
+              {T.servicios.hero.sectionLabel[lang]}
             </motion.p>
             <motion.h1 className="font-poppins font-extrabold text-white leading-[0.92] mb-5"
                        style={{ fontSize: "clamp(2.4rem, 5.5vw, 5.5rem)", letterSpacing: "-0.03em" }}
                        initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
                        transition={{ duration: 0.8, delay: 0.08, ease }}>
-              Páginas web que<br /><span className="text-accent">convierten</span><br />visitas en clientes.
+              {T.servicios.hero.line1[lang]}<br />
+              <span className="text-accent">{T.servicios.hero.line2[lang]}</span><br />
+              {T.servicios.hero.line3[lang]}
             </motion.h1>
             <motion.p className="font-nunito font-light mb-8"
                       style={{ fontSize: "clamp(0.85rem, 1.2vw, 1rem)", color: "rgba(255,255,255,0.52)", lineHeight: 1.75, maxWidth: "480px" }}
                       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.7, delay: 0.18, ease }}>
-              Más de 10 años construyendo productos digitales de alto impacto.
-              Diseño premium, código limpio y resultados medibles.
+              {T.servicios.hero.bio[lang]}
             </motion.p>
             <motion.div className="flex flex-wrap gap-4"
                         initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -393,24 +405,24 @@ export default function ServiciosClient() {
               <button onClick={() => document.getElementById("proyectos")?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 className="font-poppins font-semibold text-black px-8 py-3 transition-opacity duration-200 hover:opacity-85"
                 style={{ background: "#c9a96e", fontSize: "0.68rem", letterSpacing: "0.3em" }}>
-                VER PROYECTOS
+                {T.servicios.hero.cta1[lang]}
               </button>
               <a href="https://wa.me/573165782144" target="_blank" rel="noopener noreferrer"
                  className="font-poppins font-semibold px-8 py-3 transition-all duration-300 hover:bg-white/5"
                  style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.65)", fontSize: "0.68rem", letterSpacing: "0.3em" }}>
-                HABLEMOS
+                {T.servicios.hero.cta2[lang]}
               </a>
             </motion.div>
           </div>
 
-          {/* Stats — pinned to bottom */}
+          {/* Stats */}
           <motion.div className="relative flex flex-wrap gap-10 flex-shrink-0 max-w-[1680px] mx-auto w-full"
                       style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "clamp(1.2rem, 2.5vh, 2rem)", paddingBottom: "clamp(1.5rem, 3vh, 2.5rem)", borderTop: "1px solid rgba(255,255,255,0.07)" }}
                       initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.45, ease }}>
-            {[["10+","Años de experiencia"],["50+","Proyectos entregados"],["100%","Clientes satisfechos"]].map(([v,l]) => (
-              <div key={l}>
-                <div className="font-poppins font-extrabold text-accent" style={{ fontSize: "clamp(1.4rem, 2.4vw, 2.2rem)", letterSpacing: "-0.02em" }}>{v}</div>
-                <div className="font-nunito font-light" style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.38)" }}>{l}</div>
+            {T.servicios.stats.map(s => (
+              <div key={s.value}>
+                <div className="font-poppins font-extrabold text-accent" style={{ fontSize: "clamp(1.4rem, 2.4vw, 2.2rem)", letterSpacing: "-0.02em" }}>{s.value}</div>
+                <div className="font-nunito font-light" style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.38)" }}>{s.label[lang]}</div>
               </div>
             ))}
           </motion.div>
@@ -427,32 +439,39 @@ export default function ServiciosClient() {
             <motion.p className="font-poppins font-semibold text-accent mb-2"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              MUESTRA DE TRABAJO
+              {T.servicios.projects.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white mb-10"
                        style={{ fontSize: "clamp(2rem, 4vw, 3.8rem)", letterSpacing: "-0.02em", lineHeight: 0.95 }}
                        initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
-              Proyectos de referencia
+              {T.servicios.projects.heading[lang]}
             </motion.h2>
 
             {/* Filter tabs */}
             <div className="flex flex-wrap gap-2 mb-8">
-              {CATEGORIES.map(cat => (
-                <button key={cat} onClick={() => setActiveFilter(cat)}
+              {FILTER_KEYS.map(key => (
+                <button key={key} onClick={() => setActiveFilter(key)}
                   className="font-poppins font-medium transition-all duration-200 px-3 py-[6px]"
                   style={{ fontSize: "0.6rem", letterSpacing: "0.22em", border: "1px solid",
-                           borderColor: activeFilter === cat ? "rgba(201,169,110,0.55)" : "rgba(255,255,255,0.1)",
-                           background: activeFilter === cat ? "rgba(201,169,110,0.1)" : "transparent",
-                           color: activeFilter === cat ? "#c9a96e" : "rgba(255,255,255,0.42)" }}>
-                  {cat.toUpperCase()}
+                           borderColor: activeFilter === key ? "rgba(201,169,110,0.55)" : "rgba(255,255,255,0.1)",
+                           background: activeFilter === key ? "rgba(201,169,110,0.1)" : "transparent",
+                           color: activeFilter === key ? "#c9a96e" : "rgba(255,255,255,0.42)" }}>
+                  {filterLabel(key).toUpperCase()}
                 </button>
               ))}
             </div>
 
             <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               <AnimatePresence mode="popLayout">
-                {filtered.map(p => <ProjectCard key={p.id} project={p} />)}
+                {filtered.map(p => (
+                  <ProjectCard
+                    key={p.id}
+                    project={p}
+                    wantThis={T.servicios.projects.wantThis[lang]}
+                    viewProject={T.servicios.projects.viewProject[lang]}
+                  />
+                ))}
               </AnimatePresence>
             </motion.div>
           </div>
@@ -466,26 +485,30 @@ export default function ServiciosClient() {
             <motion.p className="font-poppins font-semibold text-accent mb-2"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              CÓMO TRABAJAMOS
+              {T.servicios.process.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white mb-14"
                        style={{ fontSize: "clamp(2rem, 4vw, 3.8rem)", letterSpacing: "-0.02em", lineHeight: 0.95 }}
                        initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
-              Del concepto a la entrega
+              {T.servicios.process.heading[lang]}
             </motion.h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {STEPS.map((step, i) => (
-                <motion.div key={step.num}
+              {steps.map((step, i) => (
+                <motion.div key={i}
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.6, ease }}>
                   <div className="font-poppins font-extrabold mb-4"
                        style={{ fontSize: "2.2rem", letterSpacing: "-0.03em", color: "rgba(201,169,110,0.25)" }}>
-                    {step.num}
+                    {String(i + 1).padStart(2, "0")}
                   </div>
                   <div className="h-px mb-4" style={{ background: "rgba(201,169,110,0.2)" }} />
-                  <h3 className="font-poppins font-bold text-white mb-2" style={{ fontSize: "0.95rem" }}>{step.title}</h3>
-                  <p className="font-nunito font-light" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.42)", lineHeight: 1.72 }}>{step.desc}</p>
+                  <h3 className="font-poppins font-bold text-white mb-2" style={{ fontSize: "0.95rem" }}>
+                    {step.title[lang]}
+                  </h3>
+                  <p className="font-nunito font-light" style={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.42)", lineHeight: 1.72 }}>
+                    {step.desc[lang]}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -502,19 +525,20 @@ export default function ServiciosClient() {
             <motion.p className="font-poppins font-semibold text-accent mb-4"
                       style={{ fontSize: "0.6rem", letterSpacing: "0.55em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              ¿LISTO PARA EMPEZAR?
+              {T.servicios.cta.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white mb-5"
                        style={{ fontSize: "clamp(2.2rem, 5vw, 5rem)", letterSpacing: "-0.03em", lineHeight: 0.92 }}
                        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                        viewport={{ once: true }} transition={{ duration: 0.8, ease }}>
-              Hablemos de<br /><span className="text-accent">tu proyecto.</span>
+              {T.servicios.cta.line1[lang]}<br />
+              <span className="text-accent">{T.servicios.cta.line2[lang]}</span>
             </motion.h2>
             <motion.p className="font-nunito font-light mb-10 mx-auto"
                       style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.42)", maxWidth: "420px", lineHeight: 1.8 }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                       transition={{ delay: 0.12, duration: 0.7 }}>
-              Cuéntame tu idea y te envío una propuesta en 48 horas.
+              {T.servicios.cta.bio[lang]}
             </motion.p>
             <motion.div className="flex flex-wrap items-center justify-center gap-4"
                         initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
@@ -525,17 +549,17 @@ export default function ServiciosClient() {
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
-                WHATSAPP
+                {T.servicios.cta.whatsapp[lang]}
               </a>
               <a href="mailto:xosedfabian@gmail.com"
                  className="font-poppins font-semibold px-10 py-[14px] transition-all duration-300 hover:bg-white/5"
                  style={{ border: "1px solid rgba(255,255,255,0.14)", color: "rgba(255,255,255,0.62)", fontSize: "0.68rem", letterSpacing: "0.3em" }}>
-                EMAIL
+                {T.servicios.cta.email[lang]}
               </a>
             </motion.div>
           </div>
 
-          {/* Desktop footer bar — incrustado en la última sección */}
+          {/* Desktop footer bar */}
           <div className="hidden lg:flex absolute bottom-0 left-0 right-0 items-center justify-between"
                style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "14px", paddingBottom: "18px",
                         borderTop: "1px solid rgba(255,255,255,0.05)", background: "rgba(4,4,4,0.55)" }}>
@@ -543,10 +567,11 @@ export default function ServiciosClient() {
             <span className="font-nunito font-light" style={{ fontSize: "0.66rem", color: "rgba(255,255,255,0.2)" }}>
               &copy; {new Date().getFullYear()} Xosed Peñaloza — Bogotá, Colombia
             </span>
-            <TransitionLink href="/" className="font-poppins font-medium text-white/28 hover:text-accent transition-colors duration-200 flex items-center gap-2"
+            <TransitionLink href="/"
+                  className="font-poppins font-medium text-white/28 hover:text-accent transition-colors duration-200 flex items-center gap-2"
                   style={{ fontSize: "0.6rem", letterSpacing: "0.2em" }}>
               <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              PORTFOLIO
+              {T.servicios.footer.portfolio[lang]}
             </TransitionLink>
           </div>
         </section>
@@ -558,10 +583,11 @@ export default function ServiciosClient() {
             <span className="font-nunito font-light" style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.22)" }}>
               &copy; {new Date().getFullYear()} Xosed Peñaloza — Bogotá, Colombia
             </span>
-            <TransitionLink href="/" className="font-poppins font-medium text-white/30 hover:text-accent transition-colors duration-200 flex items-center gap-2"
+            <TransitionLink href="/"
+                  className="font-poppins font-medium text-white/30 hover:text-accent transition-colors duration-200 flex items-center gap-2"
                   style={{ fontSize: "0.62rem", letterSpacing: "0.2em" }}>
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              VOLVER AL PORTFOLIO
+              {T.servicios.footer.backToPortfolio[lang]}
             </TransitionLink>
           </div>
         </footer>

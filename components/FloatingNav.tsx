@@ -46,13 +46,13 @@ export default function FloatingNav() {
       initial={{ x: 60, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      aria-label="Section navigation"
+      aria-label="Navegación de secciones"
     >
       {/* Up */}
       <motion.button
         onClick={() => go(-1)}
         disabled={atTop}
-        aria-label="Previous section"
+        aria-label="Sección anterior"
         className="w-10 h-10 flex items-center justify-center transition-all duration-300 btn-glow font-condensed text-sm"
         style={{
           background: atTop ? "rgba(201,169,110,0.12)" : "#c9a96e",
@@ -74,7 +74,7 @@ export default function FloatingNav() {
               document.getElementById(SECTIONS[i])?.scrollIntoView({ behavior: "smooth" });
               setCurrent(i);
             }}
-            aria-label={`Go to section ${i + 1}`}
+            aria-label={`Ir a sección ${i + 1}`}
             className="flex items-center justify-center transition-all duration-300"
             style={{ width: "20px", height: "20px", background: "transparent" }}
           >
@@ -94,7 +94,7 @@ export default function FloatingNav() {
       <motion.button
         onClick={() => go(1)}
         disabled={atBottom}
-        aria-label="Next section"
+        aria-label="Sección siguiente"
         className="w-10 h-10 flex items-center justify-center border transition-all duration-300 font-condensed text-sm"
         style={{
           borderColor: atBottom ? "rgba(201,169,110,0.1)" : "rgba(201,169,110,0.35)",

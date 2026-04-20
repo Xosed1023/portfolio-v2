@@ -4,15 +4,17 @@ import { motion, animate, useMotionValue } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { WebProject } from "@/lib/web-projects";
 import TransitionLink from "@/components/TransitionLink";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 /* ── Status badge ─────────────────────────────── */
-function StatusBadge({ status }: { status: WebProject["status"] }) {
+function StatusBadge({ status, lang }: { status: WebProject["status"]; lang: "es" | "en" }) {
   const map = {
-    live:        { label: "LIVE",         bg: "rgba(60,160,80,0.18)",  border: "rgba(60,160,80,0.45)",  dot: "#3ca050" },
-    development: { label: "EN DESARROLLO",bg: "rgba(201,169,110,0.12)",border: "rgba(201,169,110,0.45)",dot: "#c9a96e" },
-    soon:        { label: "PRÓXIMAMENTE", bg: "rgba(120,120,120,0.12)",border: "rgba(120,120,120,0.3)", dot: "#888" },
+    live:        { label: "LIVE",                       bg: "rgba(60,160,80,0.18)",  border: "rgba(60,160,80,0.45)",  dot: "#3ca050" },
+    development: { label: T.web.inDevelopment[lang],    bg: "rgba(201,169,110,0.12)",border: "rgba(201,169,110,0.45)",dot: "#c9a96e" },
+    soon:        { label: T.web.comingSoon[lang],        bg: "rgba(120,120,120,0.12)",border: "rgba(120,120,120,0.3)", dot: "#888" },
   };
   const s = map[status];
   return (
@@ -139,7 +141,7 @@ function LiveImageMockup({ src, alt, color }: { src: string; alt: string; color:
                strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10" /><path d="M12 8v4M12 16h.01" />
           </svg>
-          HOVER
+          VER
         </span>
       </motion.div>
     </div>
@@ -261,7 +263,7 @@ function BrowserMockup({ visual, color }: { visual: string; color: string }) {
 }
 
 /* ── Project card ─────────────────────────────── */
-function ProjectCard({ project, index }: { project: WebProject; index: number }) {
+function ProjectCard({ project, index, lang }: { project: WebProject; index: number; lang: "es" | "en" }) {
   return (
     <motion.div
       className="flex flex-col group"
@@ -304,7 +306,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
               </span>
             )}
           </div>
-          <StatusBadge status={project.status} />
+          <StatusBadge status={project.status} lang={lang} />
         </div>
 
         {/* Mockup visual */}
@@ -365,7 +367,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
             <a href={project.url} target="_blank" rel="noopener noreferrer"
                className="font-poppins font-semibold flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 btn-glow"
                style={{ fontSize: "0.6rem", letterSpacing: "0.25em", background: project.color, color: "#0a0a0a" }}>
-              VER SITIO
+              {T.web.viewSite[lang]}
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M7 17 17 7M7 7h10v10" />
@@ -379,7 +381,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
-              EN DESARROLLO
+              {T.web.inDevelopment[lang]}
             </span>
           )}
           {project.github && (
@@ -387,7 +389,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
                className="font-poppins font-medium flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 hover:border-white/30 hover:text-white"
                style={{ fontSize: "0.6rem", letterSpacing: "0.25em",
                         border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.45)" }}>
-              GITHUB
+              {T.web.github[lang]}
             </a>
           )}
         </div>
@@ -397,12 +399,13 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
 }
 
 export default function WebSection({ projects }: { projects: WebProject[] }) {
+  const { lang } = useLanguage();
   return (
     <section
       id="web"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
       style={{ background: "rgba(6,6,6,0.68)" }}
-      aria-label="Web projects"
+      aria-label="Proyectos web"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
 
@@ -422,13 +425,13 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
             <motion.p className="font-poppins font-semibold text-accent mb-2"
                       style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              05 / PÁGINAS WEB
+              {T.web.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white leading-[0.9]"
                        style={{ fontSize: "clamp(2.2rem, 3.8vw, 4.2rem)", letterSpacing: "-0.02em" }}
                        initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }} transition={{ duration: 0.8, ease }}>
-              WEB <span className="text-accent">PROJECTS</span>
+              {T.web.heading1[lang]} <span className="text-accent">{T.web.heading2[lang]}</span>
             </motion.h2>
           </div>
 
@@ -441,7 +444,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
                       background: "#c9a96e", color: "#0a0a0a",
                       boxShadow: "0 0 24px rgba(201,169,110,0.4), 0 4px 14px rgba(0,0,0,0.4)",
                     }}>
-              VER TODOS LOS PROYECTOS
+              {T.web.viewAll[lang]}
               <svg width="13" height="13" viewBox="0 0 12 12" fill="none"
                    className="group-hover:translate-x-1 transition-transform duration-200">
                 <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.6"
@@ -455,7 +458,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
         <div className="lg:flex-1 lg:min-h-0">
           <div className={`grid gap-5 lg:gap-6 pb-2 ${projects.length === 1 ? "grid-cols-1 max-w-md" : projects.length === 2 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"}`}>
             {projects.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} />
+              <ProjectCard key={project.id} project={project} index={i} lang={lang} />
             ))}
           </div>
 
@@ -465,9 +468,9 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
                       transition={{ delay: 0.5 }}>
             <p className="font-poppins font-light"
                style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.2)" }}>
-              {projects.filter(p => p.status === "live").length} EN PRODUCCIÓN
+              {projects.filter(p => p.status === "live").length} {T.web.inProduction[lang]}
               {projects.filter(p => p.status === "development").length > 0 &&
-                ` · ${projects.filter(p => p.status === "development").length} EN DESARROLLO`}
+                ` · ${projects.filter(p => p.status === "development").length} ${T.web.inDevelopment[lang]}`}
             </p>
             {/* Mobile CTA — header button hidden on mobile */}
             <TransitionLink href="/servicios"
@@ -476,7 +479,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
                  fontSize: "0.62rem", letterSpacing: "0.25em",
                  background: "#c9a96e", color: "#0a0a0a",
                }}>
-              VER TODOS LOS PROYECTOS
+              {T.web.viewAll[lang]}
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                    className="group-hover:translate-x-1 transition-transform duration-200">
                 <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.6"

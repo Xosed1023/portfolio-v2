@@ -10,6 +10,8 @@ import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import SignatureSVG from "@/components/SignatureSVG";
 import SocialIcons from "@/components/SocialIcons";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -25,9 +27,9 @@ const fadeUp = (delay: number) => ({
   transition: { delay, duration: 0.8, ease },
 });
 
-const SKILLS = ["Apps móviles", "Páginas web", "Software a la medida"];
-
 export default function HeroSection() {
+  const { lang } = useLanguage();
+  const SKILLS = T.hero.skills[lang];
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const sc   = { stiffness: 28, damping: 20, mass: 1 };
@@ -157,7 +159,7 @@ export default function HeroSection() {
               style={{ fontSize: "0.65rem", letterSpacing: "0.45em" }}
               {...slideRight(0.3)}
             >
-              // BOGOTÁ, COLOMBIA · 10+ AÑOS EXP.
+              {T.hero.location[lang]}
             </motion.p>
 
             {/* Name */}
@@ -177,9 +179,9 @@ export default function HeroSection() {
               style={{ fontSize: "1rem", letterSpacing: "0.05em" }}
               {...slideRight(0.62)}
             >
-              Senior Software Engineer
+              {T.hero.role1[lang]}
               <span className="text-accent mx-2">·</span>
-              Full Stack Developer
+              {T.hero.role2[lang]}
             </motion.p>
 
             {/* Gold divider */}
@@ -197,14 +199,7 @@ export default function HeroSection() {
               style={{ fontSize: "0.93rem", color: "rgba(255,255,255,0.72)" }}
               {...fadeUp(0.9)}
             >
-              Ingeniero de Software con{" "}
-              <span style={{ color: "rgba(255,255,255,0.88)" }}>más de 10 años</span> de
-              experiencia en desarrollo full stack. Especializado en{" "}
-              <span style={{ color: "rgba(255,255,255,0.88)" }}>
-                arquitecturas escalables
-              </span>
-              , microservicios y soluciones empresariales para banca, hotelería,
-              retail y entretenimiento.
+              {T.hero.bioDesktop[lang]}
             </motion.p>
 
             {/* Stack tags */}
@@ -243,7 +238,7 @@ export default function HeroSection() {
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                DESCARGAR CV
+                {T.nav.downloadCv[lang]}
               </a>
               <a
                 href="#contact"
@@ -259,7 +254,7 @@ export default function HeroSection() {
                   color: "rgba(255,255,255,0.6)",
                 }}
               >
-                CONTACTAR
+                {T.hero.contact[lang]}
               </a>
             </motion.div>
 
@@ -276,7 +271,7 @@ export default function HeroSection() {
                 className="font-poppins font-medium text-white/50"
                 style={{ fontSize: "0.6rem", letterSpacing: "0.35em" }}
               >
-                ACTUALMENTE EN GLOBANT · OPEN TO OPPORTUNITIES
+                {T.hero.status[lang]}
               </span>
             </motion.div>
           </motion.div>
@@ -293,7 +288,7 @@ export default function HeroSection() {
           style={{ fontSize: "0.62rem", letterSpacing: "0.45em" }}
           {...slideRight(0.3)}
         >
-          // BOGOTÁ, COLOMBIA · 10+ AÑOS EXP.
+          {T.hero.location[lang]}
         </motion.p>
         <motion.h1
           className="font-poppins font-extrabold text-white leading-[1.08] mb-5 select-none"
@@ -309,9 +304,9 @@ export default function HeroSection() {
           style={{ fontSize: "0.9rem", letterSpacing: "0.04em" }}
           {...slideRight(0.62)}
         >
-          Senior Software Engineer
+          {T.hero.role1[lang]}
           <span className="text-accent mx-2">·</span>
-          Full Stack Developer
+          {T.hero.role2[lang]}
         </motion.p>
         <motion.div
           className="mb-5 bg-accent/45 mx-auto"
@@ -325,9 +320,7 @@ export default function HeroSection() {
           style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.72)" }}
           {...fadeUp(0.9)}
         >
-          Ingeniero de Software con{" "}
-          <span style={{ color: "rgba(255,255,255,0.88)" }}>más de 10 años</span>{" "}
-          de experiencia en desarrollo full stack.
+          {T.hero.bioMobile[lang]}
         </motion.p>
         <motion.div className="flex flex-wrap gap-[6px] mb-4 justify-center" {...fadeUp(1.05)}>
           {SKILLS.map((tag) => (
@@ -359,7 +352,7 @@ export default function HeroSection() {
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            CV
+            {T.nav.cv[lang]}
           </a>
           <a
             href="#contact"
@@ -375,7 +368,7 @@ export default function HeroSection() {
               color: "rgba(255,255,255,0.6)",
             }}
           >
-            CONTACTAR
+            {T.hero.contact[lang]}
           </a>
         </motion.div>
 
@@ -390,7 +383,7 @@ export default function HeroSection() {
             className="font-poppins font-medium text-white/50"
             style={{ fontSize: "0.58rem", letterSpacing: "0.3em" }}
           >
-            ACTUALMENTE EN GLOBANT
+            {T.hero.status[lang]}
           </span>
         </motion.div>
 

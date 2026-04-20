@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Nunito } from "next/font/google";
 import "./globals.css";
 import { PageTransitionProvider } from "@/components/PageTransition";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -98,7 +99,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${nunito.variable} font-sans bg-bg-primary text-text-primary antialiased`}
       >
-        <PageTransitionProvider>{children}</PageTransitionProvider>
+        <LanguageProvider>
+          <PageTransitionProvider>{children}</PageTransitionProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

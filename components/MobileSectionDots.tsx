@@ -1,19 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import T from "@/lib/translations";
 
 const SECTIONS = [
-  { id: "hero",     label: "Home" },
-  { id: "about",    label: "About" },
-  { id: "work",     label: "Work" },
-  { id: "skills",   label: "Skills" },
-  { id: "web",      label: "Web" },
-  { id: "projects", label: "Projects" },
-  { id: "contact",  label: "Contact" },
+  { id: "hero",     navKey: "home"     as const },
+  { id: "about",    navKey: "about"    as const },
+  { id: "work",     navKey: "work"     as const },
+  { id: "skills",   navKey: "skills"   as const },
+  { id: "web",      navKey: "web"      as const },
+  { id: "projects", navKey: "projects" as const },
+  { id: "contact",  navKey: "contact"  as const },
 ];
 
 export default function MobileSectionDots() {
   const [active, setActive] = useState("hero");
+  const { lang }            = useLanguage();
 
   useEffect(() => {
     const container = document.getElementById("scroll-container");
@@ -50,15 +53,15 @@ export default function MobileSectionDots() {
       style={{ transform: "translateY(-50%)" }}
       aria-label="Navegación por secciones"
     >
-      {SECTIONS.map(({ id, label }) => {
+      {SECTIONS.map(({ id, navKey }) => {
         const isActive = active === id;
+        const label    = T.nav[navKey][lang];
         return (
           <button
             key={id}
             onClick={() => scrollTo(id)}
             aria-label={`Ir a ${label}`}
             aria-current={isActive ? "true" : undefined}
-            /* 44×44 touch target via padding; visual dot centered within */
             style={{
               width: "44px",
               height: "44px",
