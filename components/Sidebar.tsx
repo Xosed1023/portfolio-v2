@@ -226,6 +226,7 @@ export default function Sidebar() {
 
                 {/* Number */}
                 <span
+                  aria-hidden="true"
                   className="font-poppins font-semibold transition-colors duration-300"
                   style={{
                     fontSize: "0.48rem",
@@ -246,7 +247,7 @@ export default function Sidebar() {
         <a
           href="/CV Xosed Penaloza V2.pdf"
           download
-          aria-label="Download Resume"
+          aria-label="CV"
           className="flex flex-col items-center gap-[6px] py-3 px-2 transition-all duration-300 rounded-sm group"
           style={{ textDecoration: "none" }}
         >

@@ -81,8 +81,8 @@ export default function HeroSection() {
           <motion.div
             className="relative flex-shrink-0 self-stretch"
             style={{ width: "clamp(280px, 42%, 620px)" }}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ scale: 1.05 }}
+            animate={{ scale: 1 }}
             transition={{ duration: 1.4, ease }}
           >
             {/* Portrait photo — parallax on image only */}

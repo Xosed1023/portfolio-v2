@@ -8,6 +8,12 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "browserslist": [
+    "chrome >= 96",
+    "firefox >= 96",
+    "safari >= 15",
+    "edge >= 96"
+  ],
   "dependencies": {
     "@notionhq/client": "^2.3.0",
     "@types/nodemailer": "^8.0.0",

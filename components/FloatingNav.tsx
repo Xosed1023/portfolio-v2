@@ -75,13 +75,18 @@ export default function FloatingNav() {
               setCurrent(i);
             }}
             aria-label={`Go to section ${i + 1}`}
-            className="rounded-full transition-all duration-300"
-            style={{
-              width:  i === current ? "6px" : "3px",
-              height: i === current ? "6px" : "3px",
-              background: i === current ? "#c9a96e" : "rgba(255,255,255,0.2)",
-            }}
-          />
+            className="flex items-center justify-center transition-all duration-300"
+            style={{ width: "20px", height: "20px", background: "transparent" }}
+          >
+            <span
+              className="rounded-full transition-all duration-300 flex-shrink-0"
+              style={{
+                width:  i === current ? "6px" : "3px",
+                height: i === current ? "6px" : "3px",
+                background: i === current ? "#c9a96e" : "rgba(255,255,255,0.2)",
+              }}
+            />
+          </button>
         ))}
       </div>
 
