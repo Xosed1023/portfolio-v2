@@ -8,6 +8,29 @@
   --bg-primary: #0a0a0a;
   --sidebar-w: 72px;
   --content-max: 1680px;
+
+  /* ─ Theme: base color channel (255,255,255 = white / 15,14,12 = near-black) */
+  --rgb: 255,255,255;
+
+  /* ─ Structural backgrounds */
+  --section-bg:  rgba(6,6,6,0.68);
+  --sidebar-bg:  rgba(10,10,10,0.70);
+  --header-bg:   rgba(10,10,10,0.85);
+  --overlay-bg:  rgba(10,10,10,0.97);
+
+  /* ─ View Transition origin (set via JS on click) */
+  --tx: 50%;
+  --ty: 50%;
+}
+
+/* ─── Light Mode ────────────────────────────────── */
+[data-theme="light"] {
+  --rgb: 15,14,12;
+  --bg-primary:  #f0ede6;
+  --section-bg:  rgba(238,235,228,0.88);
+  --sidebar-bg:  rgba(234,231,224,0.92);
+  --header-bg:   rgba(234,231,224,0.94);
+  --overlay-bg:  rgba(234,231,224,0.99);
 }
 
 /* ─── Base Reset ────────────────────────────────── */
@@ -50,10 +73,15 @@ html {
 
 body {
   background-color: var(--bg-primary);
-  color: #ffffff;
+  color: rgb(var(--rgb));
   overflow: hidden; /* scroll lives inside <main> */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Light mode: force Tailwind text-white to adapt ── */
+[data-theme="light"] .text-white {
+  color: rgb(var(--rgb)) !important;
 }
 
 /* ─── Custom Scrollbar ──────────────────────────── */
@@ -61,7 +89,7 @@ body {
   width: 3px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(201, 169, 110, 0.3);
@@ -74,8 +102,8 @@ body {
 /* ─── Grid Background ───────────────────────────── */
 .grid-bg {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(var(--rgb), 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--rgb), 0.025) 1px, transparent 1px);
   background-size: 80px 80px;
   background-position: -1px -1px;
 }
@@ -96,10 +124,10 @@ body {
 
 /* ─── Glass Utility ─────────────────────────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(var(--rgb), 0.03);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(var(--rgb), 0.07);
 }
 
 /* ─── Portrait Placeholder ──────────────────────── */
@@ -119,7 +147,7 @@ body {
 
 /* ─── Sidebar Border Glow ───────────────────────── */
 .sidebar-border-right {
-  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  border-right: 1px solid rgba(var(--rgb), 0.06);
 }
 
 /* ─── Text Vertical ─────────────────────────────── */
@@ -178,7 +206,7 @@ body {
     to right,
     transparent 72px,
     rgba(201, 169, 110, 0.10) 20%,
-    rgba(255, 255, 255, 0.07) 50%,
+    rgba(var(--rgb), 0.07) 50%,
     rgba(201, 169, 110, 0.10) 80%,
     transparent
   );
@@ -311,4 +339,27 @@ body {
   30%  { transform: translate(16vw, -10vh) scale(0.96); }
   60%  { transform: translate(8vw,  -18vh) scale(1.08); }
   100% { transform: translate(-6vw, -6vh)  scale(1.03); }
+}
+
+/* ─── Aurora: light mode ────────────────────────── */
+[data-theme="light"] .aurora-orb {
+  mix-blend-mode: multiply;
+  opacity: 0.28;
+}
+
+/* ─── View Transitions: circular reveal ─────────── */
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  animation: vt-reveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 2;
+}
+
+@keyframes vt-reveal {
+  from { clip-path: circle(0px at var(--tx, 50%) var(--ty, 50%)); }
+  to   { clip-path: circle(200vmax at var(--tx, 50%) var(--ty, 50%)); }
 }

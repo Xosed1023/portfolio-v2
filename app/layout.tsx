@@ -3,6 +3,7 @@ import { Poppins, Nunito } from "next/font/google";
 import "./globals.css";
 import { PageTransitionProvider } from "@/components/PageTransition";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -91,6 +92,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
+        {/* Anti-FOUC: apply saved theme before first paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');})();`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -99,9 +106,11 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${nunito.variable} font-sans bg-bg-primary text-text-primary antialiased`}
       >
-        <LanguageProvider>
-          <PageTransitionProvider>{children}</PageTransitionProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <PageTransitionProvider>{children}</PageTransitionProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

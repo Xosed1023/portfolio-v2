@@ -65,7 +65,7 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative h-screen w-full overflow-hidden snap-start"
-      style={{ background: "rgba(6,6,6,0.68)" }}
+      style={{ background: "var(--section-bg)" }}
       aria-label="Hero"
     >
       {/* Subtle grid on top of aurora */}
@@ -117,11 +117,11 @@ export default function HeroSection() {
             />
 
             {/* Edge fades */}
-            <div className="absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#0a0a0a] to-transparent" style={{ zIndex: 3 }} />
+            {/* <div className="absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#0a0a0a] to-transparent" style={{ zIndex: 3 }} />
             <div className="absolute top-0 right-0 bottom-0 w-28 bg-gradient-to-l from-[#0a0a0a]/70 to-transparent" style={{ zIndex: 3 }} />
             <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" style={{ zIndex: 3 }} />
             <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-[#0a0a0a]/50 to-transparent" style={{ zIndex: 3 }} />
-
+ */}
             {/* Scroll indicator — anchored inside portrait column */}
             <motion.div
               className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
@@ -134,7 +134,7 @@ export default function HeroSection() {
               <div className="scroll-line" />
               <span
                 className="font-poppins text-white/22"
-                style={{ fontSize: "0.52rem", letterSpacing: "0.5em" }}
+                style={{ fontSize: "0.58rem", letterSpacing: "0.5em" }}
               >
                 SCROLL
               </span>
@@ -156,7 +156,7 @@ export default function HeroSection() {
             {/* Location + years */}
             <motion.p
               className="font-poppins font-medium text-accent mb-4"
-              style={{ fontSize: "0.65rem", letterSpacing: "0.45em" }}
+              style={{ fontSize: "0.72rem", letterSpacing: "0.45em" }}
               {...slideRight(0.3)}
             >
               {T.hero.location[lang]}
@@ -165,7 +165,7 @@ export default function HeroSection() {
             {/* Name */}
             <motion.h1
               className="font-poppins font-extrabold text-white leading-[1] mb-7 select-none"
-              style={{ fontSize: "clamp(2.8rem, 4.8vw, 5.8rem)", letterSpacing: "-0.02em" }}
+              style={{ fontSize: "clamp(2.2rem, 3.9vw, 4.8rem)", letterSpacing: "-0.02em" }}
               {...slideRight(0.48)}
             >
               XOSED
@@ -196,7 +196,7 @@ export default function HeroSection() {
             {/* Bio */}
             <motion.p
               className="font-nunito font-light leading-[1.9] mb-4 max-w-[440px]"
-              style={{ fontSize: "0.93rem", color: "rgba(255,255,255,0.72)" }}
+              style={{ fontSize: "0.99rem", color: "rgba(var(--rgb),0.72)" }}
               {...fadeUp(0.9)}
             >
               {T.hero.bioDesktop[lang]}
@@ -210,10 +210,10 @@ export default function HeroSection() {
                   className="font-poppins font-medium border border-white/10 hover:border-accent/55
                              hover:text-accent transition-colors duration-300 cursor-default"
                   style={{
-                    fontSize: "0.67rem",
+                    fontSize: "0.74rem",
                     letterSpacing: "0.28em",
                     padding: "3px 10px",
-                    color: "rgba(255,255,255,0.60)",
+                    color: "rgba(var(--rgb),0.60)",
                   }}
                 >
                   {tag}
@@ -230,7 +230,7 @@ export default function HeroSection() {
                 href="/CV Xosed Penaloza V2.pdf"
                 download
                 className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
-                style={{ fontSize: "0.65rem", letterSpacing: "0.3em" }}
+                style={{ fontSize: "0.72rem", letterSpacing: "0.3em" }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -248,10 +248,10 @@ export default function HeroSection() {
                 }}
                 className="font-poppins font-medium flex items-center gap-2 px-5 py-[10px] transition-all duration-300 hover:border-accent/50 hover:text-accent"
                 style={{
-                  fontSize: "0.65rem",
+                  fontSize: "0.72rem",
                   letterSpacing: "0.3em",
-                  border: "1px solid rgba(255,255,255,0.15)",
-                  color: "rgba(255,255,255,0.6)",
+                  border: "1px solid rgba(var(--rgb),0.15)",
+                  color: "rgba(var(--rgb),0.6)",
                 }}
               >
                 {T.hero.contact[lang]}
@@ -269,7 +269,7 @@ export default function HeroSection() {
               </span>
               <span
                 className="font-poppins font-medium text-white/50"
-                style={{ fontSize: "0.6rem", letterSpacing: "0.35em" }}
+                style={{ fontSize: "0.68rem", letterSpacing: "0.35em" }}
               >
                 {T.hero.status[lang]}
               </span>
@@ -285,14 +285,14 @@ export default function HeroSection() {
       >
         <motion.p
           className="font-poppins font-medium text-accent mb-3"
-          style={{ fontSize: "0.62rem", letterSpacing: "0.45em" }}
+          style={{ fontSize: "0.69rem", letterSpacing: "0.45em" }}
           {...slideRight(0.3)}
         >
           {T.hero.location[lang]}
         </motion.p>
         <motion.h1
           className="font-poppins font-extrabold text-white leading-[1.08] mb-5 select-none"
-          style={{ fontSize: "clamp(3rem, 14vw, 5rem)", letterSpacing: "-0.02em" }}
+          style={{ fontSize: "clamp(2.5rem, 11.5vw, 4.2rem)", letterSpacing: "-0.02em" }}
           {...slideRight(0.48)}
         >
           XOSED
@@ -301,7 +301,7 @@ export default function HeroSection() {
         </motion.h1>
         <motion.p
           className="font-poppins font-semibold text-white/80 mb-5"
-          style={{ fontSize: "0.9rem", letterSpacing: "0.04em" }}
+          style={{ fontSize: "0.97rem", letterSpacing: "0.04em" }}
           {...slideRight(0.62)}
         >
           {T.hero.role1[lang]}
@@ -317,7 +317,7 @@ export default function HeroSection() {
         />
         <motion.p
           className="font-nunito font-light leading-[1.85] mb-4 max-w-[340px] sm:max-w-[420px]"
-          style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.72)" }}
+          style={{ fontSize: "0.96rem", color: "rgba(var(--rgb),0.72)" }}
           {...fadeUp(0.9)}
         >
           {T.hero.bioMobile[lang]}
@@ -328,10 +328,10 @@ export default function HeroSection() {
               key={tag}
               className="font-poppins font-medium border border-white/10 cursor-default"
               style={{
-                fontSize: "0.62rem",
+                fontSize: "0.69rem",
                 letterSpacing: "0.25em",
                 padding: "3px 9px",
-                color: "rgba(255,255,255,0.60)",
+                color: "rgba(var(--rgb),0.60)",
               }}
             >
               {tag}
@@ -344,7 +344,7 @@ export default function HeroSection() {
             href="/CV Xosed Penaloza V2.pdf"
             download
             className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
-            style={{ fontSize: "0.63rem", letterSpacing: "0.28em" }}
+            style={{ fontSize: "0.7rem", letterSpacing: "0.28em" }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -362,10 +362,10 @@ export default function HeroSection() {
             }}
             className="font-poppins font-medium flex items-center gap-2 px-5 py-[9px] transition-all duration-300 hover:border-accent/50 hover:text-accent"
             style={{
-              fontSize: "0.63rem",
+              fontSize: "0.7rem",
               letterSpacing: "0.28em",
-              border: "1px solid rgba(255,255,255,0.15)",
-              color: "rgba(255,255,255,0.6)",
+              border: "1px solid rgba(var(--rgb),0.15)",
+              color: "rgba(var(--rgb),0.6)",
             }}
           >
             {T.hero.contact[lang]}
@@ -381,7 +381,7 @@ export default function HeroSection() {
           </span>
           <span
             className="font-poppins font-medium text-white/50"
-            style={{ fontSize: "0.58rem", letterSpacing: "0.3em" }}
+            style={{ fontSize: "0.65rem", letterSpacing: "0.3em" }}
           >
             {T.hero.status[lang]}
           </span>
@@ -419,7 +419,7 @@ export default function HeroSection() {
       {/* Copyright */}
       <motion.p
         className="absolute bottom-8 right-10 font-poppins hidden lg:block"
-        style={{ fontSize: "0.55rem", letterSpacing: "0.38em", color: "rgba(255,255,255,0.18)" }}
+        style={{ fontSize: "0.62rem", letterSpacing: "0.38em", color: "rgba(var(--rgb),0.18)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
@@ -430,7 +430,7 @@ export default function HeroSection() {
 
       <motion.div
         className="absolute top-8 right-10 font-poppins hidden lg:block"
-        style={{ fontSize: "0.55rem", letterSpacing: "0.45em", color: "rgba(255,255,255,0.16)" }}
+        style={{ fontSize: "0.62rem", letterSpacing: "0.45em", color: "rgba(var(--rgb),0.16)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}

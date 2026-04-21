@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
 import LangToggle from "@/components/LangToggle";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_ITEMS = [
   { id: "hero",     navKey: "home"     as const, num: "01" },
@@ -55,9 +56,9 @@ export default function MobileMenu() {
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
         style={{
-          background: "rgba(10,10,10,0.85)",
+          background: "var(--header-bg)",
           backdropFilter: "blur(16px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(var(--rgb),0.06)",
         }}
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -68,7 +69,10 @@ export default function MobileMenu() {
           XP
         </span>
 
-        <LangToggle />
+        <div className="flex items-center gap-1">
+          <ThemeToggle variant="icon" />
+          <LangToggle />
+        </div>
 
         {/* Hamburger */}
         <button
@@ -81,8 +85,8 @@ export default function MobileMenu() {
           style={{ width: "28px" }}
         >
           <motion.span
-            className="block h-px bg-white origin-right"
-            style={{ width: "22px" }}
+            className="block h-px origin-right"
+            style={{ width: "22px", background: "rgb(var(--rgb))" }}
             animate={open ? { rotate: -45, y: 5, width: "22px" } : { rotate: 0, y: 0, width: "22px" }}
             transition={{ duration: 0.3 }}
           />
@@ -92,8 +96,8 @@ export default function MobileMenu() {
             transition={{ duration: 0.25 }}
           />
           <motion.span
-            className="block h-px bg-white origin-right"
-            style={{ width: "22px" }}
+            className="block h-px origin-right"
+            style={{ width: "22px", background: "rgb(var(--rgb))" }}
             animate={open ? { rotate: 45, y: -5, width: "22px" } : { rotate: 0, y: 0, width: "22px" }}
             transition={{ duration: 0.3 }}
           />
@@ -109,7 +113,7 @@ export default function MobileMenu() {
             aria-modal="true"
             aria-label="Menú de navegación"
             className="fixed inset-0 z-40 flex flex-col items-center overflow-y-auto"
-            style={{ background: "rgba(10,10,10,0.97)", paddingTop: "72px", paddingBottom: "32px" }}
+            style={{ background: "var(--overlay-bg)", paddingTop: "72px", paddingBottom: "32px" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

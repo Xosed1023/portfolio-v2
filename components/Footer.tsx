@@ -89,7 +89,7 @@ export default function Footer() {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="font-poppins font-medium text-white/40 hover:text-accent transition-colors duration-200"
+                className="font-poppins font-medium text-white/55 hover:text-accent transition-colors duration-200"
                 style={{ fontSize: "0.65rem", letterSpacing: "0.28em" }}
               >
                 {T.nav[link.navKey][lang]}
@@ -106,7 +106,7 @@ export default function Footer() {
                 aria-label={s.label}
                 target={s.href.startsWith("mailto") ? undefined : "_blank"}
                 rel={s.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="text-white/40 hover:text-accent transition-colors duration-200"
+                className="text-white/55 hover:text-accent transition-colors duration-200"
                 style={{ display: "flex", alignItems: "center", justifyContent: "center",
                          width: "44px", height: "44px" }}
               >
@@ -122,11 +122,11 @@ export default function Footer() {
         {/* Copyright */}
         <div className="flex flex-col items-center gap-1 py-5 lg:flex-row lg:justify-between">
           <span className="font-nunito font-light"
-                style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.28)", letterSpacing: "0.05em" }}>
+                style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.50)", letterSpacing: "0.05em" }}>
             &copy; {new Date().getFullYear()} Xosed Penaloza. Todos los derechos reservados.
           </span>
           <span className="font-nunito font-light"
-                style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.2)", letterSpacing: "0.05em" }}>
+                style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.38)", letterSpacing: "0.05em" }}>
             Bogotá, Colombia &mdash; Disponible remotamente
           </span>
         </div>

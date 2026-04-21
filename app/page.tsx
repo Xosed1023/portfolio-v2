@@ -11,8 +11,8 @@ import WebSection from "@/components/sections/WebSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import IntroLoader from "@/components/IntroLoader";
-import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
+import ScrollController from "@/components/ScrollController";
 import MobileSectionDots from "@/components/MobileSectionDots";
 import Footer from "@/components/Footer";
 
@@ -26,11 +26,11 @@ export default async function Home() {
       {/* Intro splash loader */}
       <IntroLoader />
 
-      {/* Custom cursor (desktop only) */}
-      <CustomCursor />
-
       {/* Scroll progress bar */}
       <ScrollProgress />
+
+      {/* Hash + return-from-servicios scroll controller */}
+      <ScrollController />
 
       {/* z-0 — Aurora canvas (fixed, behind everything) */}
       <AuroraBackground />

@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useCallback } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
+import TechBadge from "@/components/TechBadge";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -162,7 +163,7 @@ function IntegrationVisual() {
               stroke={`rgba(201,169,110,${0.18 + p * 0.6})`}
               strokeWidth={1 + p * 0.9} />
             <text x={n.cx} y={n.cy - 7} textAnchor="middle"
-              fill={`rgba(255,255,255,${0.62 + p * 0.38})`}
+              fill={`rgba(var(--rgb),${0.62 + p * 0.38})`}
               fontSize="8" fontFamily="monospace" letterSpacing="0.8">
               {n.label}
             </text>
@@ -221,11 +222,11 @@ function ProjectVisual({ type }: { type: string }) {
 
         {/* Phone frame */}
         <rect x="88" y="10" width="184" height="330" rx="26"
-          fill="rgba(255,255,255,0.03)" stroke="rgba(201,169,110,0.28)" strokeWidth="1.5" />
+          fill="rgba(var(--rgb),0.03)" stroke="rgba(201,169,110,0.28)" strokeWidth="1.5" />
 
         {/* Dynamic Island */}
         <rect x="148" y="20" width="64" height="12" rx="6"
-          fill="rgba(255,255,255,0.1)" />
+          fill="rgba(var(--rgb),0.1)" />
         {/* Notification badge */}
         <circle cx="247" cy="26" r="5" fill="#c9a96e" opacity="0.75" />
         <text x="247" y="29" textAnchor="middle" fill="rgba(10,9,8,0.9)"
@@ -236,11 +237,11 @@ function ProjectVisual({ type }: { type: string }) {
         <rect x="108" y="52" width="72" height="8" rx="3"
           fill="rgba(201,169,110,0.65)" />
         <rect x="244" y="51" width="10" height="10" rx="2"
-          fill="rgba(255,255,255,0.14)" />
+          fill="rgba(var(--rgb),0.14)" />
 
         {/* Score card */}
         <rect x="96" y="86" width="168" height="108" rx="0"
-          fill="rgba(255,255,255,0.04)" />
+          fill="rgba(var(--rgb),0.04)" />
         <circle cx="180" cy="126" r="34" fill="url(#mgScore)"
           stroke="rgba(201,169,110,0.32)" strokeWidth="1" />
         <text x="180" y="122" textAnchor="middle"
@@ -248,25 +249,25 @@ function ProjectVisual({ type }: { type: string }) {
           742
         </text>
         <text x="180" y="134" textAnchor="middle"
-          fill="rgba(255,255,255,0.35)" fontSize="5.5" fontFamily="monospace" letterSpacing="1.2">
+          fill="rgba(var(--rgb),0.35)" fontSize="5.5" fontFamily="monospace" letterSpacing="1.2">
           PUNTAJE CREDITICIO
         </text>
         <text x="180" y="182" textAnchor="middle"
-          fill="rgba(255,255,255,0.22)" fontSize="5.5" fontFamily="monospace">
+          fill="rgba(var(--rgb),0.22)" fontSize="5.5" fontFamily="monospace">
           Actualizado hace 2 min
         </text>
 
         {/* Two action cards */}
         <rect x="96" y="202" width="80" height="72" rx="3"
-          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+          fill="rgba(var(--rgb),0.04)" stroke="rgba(var(--rgb),0.07)" strokeWidth="1" />
         <rect x="184" y="202" width="80" height="72" rx="3"
-          fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
+          fill="rgba(var(--rgb),0.04)" stroke="rgba(var(--rgb),0.07)" strokeWidth="1" />
         {[104, 192].map(x => (
           <g key={x}>
             <rect x={x} y="214" width="56" height="6" rx="2" fill="rgba(201,169,110,0.45)" />
-            <rect x={x} y="226" width="44" height="4" rx="2" fill="rgba(255,255,255,0.12)" />
-            <rect x={x} y="236" width="50" height="4" rx="2" fill="rgba(255,255,255,0.08)" />
-            <rect x={x} y="246" width="38" height="4" rx="2" fill="rgba(255,255,255,0.06)" />
+            <rect x={x} y="226" width="44" height="4" rx="2" fill="rgba(var(--rgb),0.12)" />
+            <rect x={x} y="236" width="50" height="4" rx="2" fill="rgba(var(--rgb),0.08)" />
+            <rect x={x} y="246" width="38" height="4" rx="2" fill="rgba(var(--rgb),0.06)" />
           </g>
         ))}
 
@@ -282,19 +283,19 @@ function ProjectVisual({ type }: { type: string }) {
         {[116, 148, 180, 212, 244].map(x => (
           <g key={x}>
             <rect x={x - 10} y="318" width="20" height="3" rx="1.5"
-              fill={x === 148 ? "rgba(201,169,110,0.7)" : "rgba(255,255,255,0.1)"} />
+              fill={x === 148 ? "rgba(201,169,110,0.7)" : "rgba(var(--rgb),0.1)"} />
             <rect x={x - 6} y="326" width="12" height="3" rx="1.5"
-              fill={x === 148 ? "rgba(201,169,110,0.4)" : "rgba(255,255,255,0.05)"} />
+              fill={x === 148 ? "rgba(201,169,110,0.4)" : "rgba(var(--rgb),0.05)"} />
           </g>
         ))}
 
         {/* Home indicator */}
         <rect x="152" y="334" width="56" height="3" rx="1.5"
-          fill="rgba(255,255,255,0.22)" />
+          fill="rgba(var(--rgb),0.22)" />
 
         {/* ── Store availability text ── */}
         <text x="180" y="374" textAnchor="middle"
-          fill="rgba(255,255,255,0.28)" fontSize="7" fontFamily="monospace" letterSpacing="1">
+          fill="rgba(var(--rgb),0.28)" fontSize="7" fontFamily="monospace" letterSpacing="1">
           DISPONIBLE EN
         </text>
         <text x="180" y="390" textAnchor="middle"
@@ -319,29 +320,29 @@ function ProjectVisual({ type }: { type: string }) {
           </linearGradient>
         </defs>
         {/* Browser chrome */}
-        <rect x="20" y="20" width="440" height="280" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
-        <rect x="20" y="20" width="440" height="28" rx="6" fill="rgba(255,255,255,0.04)" />
-        <circle cx="38" cy="34" r="4" fill="rgba(255,255,255,0.15)" />
-        <circle cx="52" cy="34" r="4" fill="rgba(255,255,255,0.1)" />
-        <circle cx="66" cy="34" r="4" fill="rgba(255,255,255,0.07)" />
+        <rect x="20" y="20" width="440" height="280" rx="6" fill="rgba(var(--rgb),0.02)" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
+        <rect x="20" y="20" width="440" height="28" rx="6" fill="rgba(var(--rgb),0.04)" />
+        <circle cx="38" cy="34" r="4" fill="rgba(var(--rgb),0.15)" />
+        <circle cx="52" cy="34" r="4" fill="rgba(var(--rgb),0.1)" />
+        <circle cx="66" cy="34" r="4" fill="rgba(var(--rgb),0.07)" />
         {/* Stats row */}
         {[0, 1, 2, 3].map(i => (
           <g key={i}>
-            <rect x={30 + i * 108} y="58" width="98" height="50" rx="3" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+            <rect x={30 + i * 108} y="58" width="98" height="50" rx="3" fill="rgba(var(--rgb),0.03)" stroke="rgba(var(--rgb),0.06)" strokeWidth="1" />
             <rect x={38 + i * 108} y="66" width="30" height="3" rx="1.5" fill="rgba(201,169,110,0.5)" />
-            <rect x={38 + i * 108} y="76" width={50 + i * 8} height="5" rx="2" fill="rgba(255,255,255,0.12)" />
-            <rect x={38 + i * 108} y="88" width="20" height="3" rx="1.5" fill={i === 0 ? "rgba(201,169,110,0.6)" : "rgba(255,255,255,0.2)"} />
+            <rect x={38 + i * 108} y="76" width={50 + i * 8} height="5" rx="2" fill="rgba(var(--rgb),0.12)" />
+            <rect x={38 + i * 108} y="88" width="20" height="3" rx="1.5" fill={i === 0 ? "rgba(201,169,110,0.6)" : "rgba(var(--rgb),0.2)"} />
           </g>
         ))}
         {/* Bar chart */}
-        <rect x="30" y="118" width="260" height="170" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+        <rect x="30" y="118" width="260" height="170" rx="3" fill="rgba(var(--rgb),0.02)" stroke="rgba(var(--rgb),0.05)" strokeWidth="1" />
         {[65, 82, 48, 91, 70, 55, 88].map((h, i) => (
           <rect key={i} x={46 + i * 34} y={248 - h * 0.9} width="18" height={h * 0.9} rx="2"
             fill={i === 3 ? "url(#bar1)" : "url(#bar2)"} />
         ))}
-        <line x1="38" y1="248" x2="282" y2="248" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
+        <line x1="38" y1="248" x2="282" y2="248" stroke="rgba(var(--rgb),0.08)" strokeWidth="1" />
         {/* Line chart */}
-        <rect x="300" y="118" width="160" height="170" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+        <rect x="300" y="118" width="160" height="170" rx="3" fill="rgba(var(--rgb),0.02)" stroke="rgba(var(--rgb),0.05)" strokeWidth="1" />
         <polyline points="310,238 330,215 350,225 370,195 390,210 410,185 430,198 450,175" fill="none" stroke="rgba(201,169,110,0.6)" strokeWidth="1.5" />
         <polyline points="310,238 330,215 350,225 370,195 390,210 410,185 430,198 450,175 450,248 310,248" fill="rgba(201,169,110,0.06)" />
       </svg>
@@ -375,8 +376,8 @@ function ProjectVisual({ type }: { type: string }) {
         ].map(({ cx, cy, label, sub }: { cx: number; cy: number; label: string; sub: string }, i) => (
           <g key={i}>
             <rect x={cx - 30} y={cy - 18} width="60" height="36" rx="4"
-              fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)" strokeWidth="1" />
-            <text x={cx} y={cy - 4} textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="6.5" fontFamily="monospace" letterSpacing="0.5">{label}</text>
+              fill="rgba(var(--rgb),0.03)" stroke="rgba(var(--rgb),0.12)" strokeWidth="1" />
+            <text x={cx} y={cy - 4} textAnchor="middle" fill="rgba(var(--rgb),0.7)" fontSize="6.5" fontFamily="monospace" letterSpacing="0.5">{label}</text>
             <text x={cx} y={cy + 8} textAnchor="middle" fill="rgba(201,169,110,0.6)" fontSize="6" fontFamily="monospace">{sub}</text>
           </g>
         ))}
@@ -409,36 +410,36 @@ function ProjectVisual({ type }: { type: string }) {
         </linearGradient>
       </defs>
       {/* Browser frame */}
-      <rect x="20" y="15" width="440" height="290" rx="6" fill="rgba(255,255,255,0.02)" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
-      <rect x="20" y="15" width="440" height="26" rx="6" fill="rgba(255,255,255,0.04)" />
-      <circle cx="36" cy="28" r="4" fill="rgba(255,255,255,0.15)" />
-      <circle cx="50" cy="28" r="4" fill="rgba(255,255,255,0.1)" />
-      <circle cx="64" cy="28" r="4" fill="rgba(255,255,255,0.07)" />
-      <rect x="80" y="20" width="220" height="16" rx="3" fill="rgba(255,255,255,0.04)" />
-      <text x="190" y="31" textAnchor="middle" fill="rgba(255,255,255,0.25)" fontSize="7" fontFamily="monospace">app.patagonian.com</text>
+      <rect x="20" y="15" width="440" height="290" rx="6" fill="rgba(var(--rgb),0.02)" stroke="rgba(201,169,110,0.2)" strokeWidth="1" />
+      <rect x="20" y="15" width="440" height="26" rx="6" fill="rgba(var(--rgb),0.04)" />
+      <circle cx="36" cy="28" r="4" fill="rgba(var(--rgb),0.15)" />
+      <circle cx="50" cy="28" r="4" fill="rgba(var(--rgb),0.1)" />
+      <circle cx="64" cy="28" r="4" fill="rgba(var(--rgb),0.07)" />
+      <rect x="80" y="20" width="220" height="16" rx="3" fill="rgba(var(--rgb),0.04)" />
+      <text x="190" y="31" textAnchor="middle" fill="rgba(var(--rgb),0.25)" fontSize="7" fontFamily="monospace">app.patagonian.com</text>
       {/* Sidebar */}
-      <rect x="20" y="41" width="80" height="264" fill="rgba(255,255,255,0.02)" />
+      <rect x="20" y="41" width="80" height="264" fill="rgba(var(--rgb),0.02)" />
       <rect x="28" y="55" width="64" height="8" rx="2" fill="rgba(201,169,110,0.35)" />
       {[0, 1, 2, 3, 4, 5].map(i => (
         <rect key={i} x="28" y={72 + i * 20} width={i === 0 ? 64 : 48} height="6" rx="2"
-          fill={i === 0 ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"} />
+          fill={i === 0 ? "rgba(var(--rgb),0.15)" : "rgba(var(--rgb),0.06)"} />
       ))}
       {/* Main content */}
       <rect x="108" y="48" width="340" height="40" rx="3" fill="url(#eg1)" stroke="rgba(201,169,110,0.1)" strokeWidth="1" />
       <rect x="116" y="56" width="80" height="6" rx="2" fill="rgba(201,169,110,0.5)" />
-      <rect x="116" y="68" width="120" height="4" rx="2" fill="rgba(255,255,255,0.12)" />
+      <rect x="116" y="68" width="120" height="4" rx="2" fill="rgba(var(--rgb),0.12)" />
       {/* Table */}
-      <rect x="108" y="96" width="340" height="200" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-      <rect x="108" y="96" width="340" height="22" fill="rgba(255,255,255,0.04)" />
+      <rect x="108" y="96" width="340" height="200" rx="3" fill="rgba(var(--rgb),0.02)" stroke="rgba(var(--rgb),0.05)" strokeWidth="1" />
+      <rect x="108" y="96" width="340" height="22" fill="rgba(var(--rgb),0.04)" />
       {["ID", "NOMBRE", "ESTADO", "FECHA", "ACCIÓN"].map((h, i) => (
         <text key={h} x={118 + i * 66} y={111} fill="rgba(201,169,110,0.6)" fontSize="6" fontFamily="monospace" letterSpacing="0.5">{h}</text>
       ))}
       {[0, 1, 2, 3, 4, 5].map(r => (
         <g key={r}>
-          <line x1="108" y1={118 + r * 26} x2="448" y2={118 + r * 26} stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <line x1="108" y1={118 + r * 26} x2="448" y2={118 + r * 26} stroke="rgba(var(--rgb),0.04)" strokeWidth="1" />
           {[0, 1, 2, 3, 4].map(c => (
             <rect key={c} x={116 + c * 66} y={124 + r * 26} width={c === 4 ? 28 : c === 0 ? 14 : 50} height="5" rx="2"
-              fill={c === 2 ? "rgba(201,169,110,0.25)" : r === 0 && c === 0 ? "rgba(201,169,110,0.4)" : "rgba(255,255,255,0.07)"} />
+              fill={c === 2 ? "rgba(201,169,110,0.25)" : r === 0 && c === 0 ? "rgba(201,169,110,0.4)" : "rgba(var(--rgb),0.07)"} />
           ))}
         </g>
       ))}
@@ -461,7 +462,7 @@ export default function ProjectsSection() {
     <section
       id="projects"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
-      style={{ background: "rgba(6,6,6,0.68)" }}
+      style={{ background: "var(--section-bg)" }}
       aria-label="Projects"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
@@ -483,12 +484,12 @@ export default function ProjectsSection() {
         style={{ paddingTop: "clamp(28px, 6vh, 48px)", paddingLeft: "clamp(1.5rem, 6vw, 2rem)", paddingRight: "clamp(1.5rem, 6vw, 2rem)" }}>
         <div className="flex-shrink-0 pt-5 pb-3">
           <motion.p className="font-poppins font-semibold text-accent mb-2"
-            style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
+            style={{ fontSize: "0.68rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
             {T.projects.sectionLabel[lang]}
           </motion.p>
           <motion.h2 className="font-poppins font-extrabold text-white leading-[0.9]"
-            style={{ fontSize: "clamp(2rem, 10vw, 2.8rem)", letterSpacing: "-0.02em" }}
+            style={{ fontSize: "clamp(1.7rem, 8.5vw, 2.3rem)", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7, ease }}>
             {T.projects.heading1[lang]} <span className="text-accent">{T.projects.heading2[lang]}</span>
@@ -503,20 +504,20 @@ export default function ProjectsSection() {
               onClick={() => setActive(i)}
               className="flex items-center gap-3 px-3 py-[10px] text-left transition-all duration-300"
               style={{
-                borderLeft: `2px solid ${i === active ? "#c9a96e" : "rgba(255,255,255,0.08)"}`,
+                borderLeft: `2px solid ${i === active ? "#c9a96e" : "rgba(var(--rgb),0.08)"}`,
                 background: i === active ? "rgba(201,169,110,0.06)" : "transparent",
               }}
             >
               <span className="font-poppins font-semibold flex-shrink-0"
-                style={{ fontSize: "0.58rem", letterSpacing: "0.28em", color: i === active ? "#c9a96e" : "rgba(255,255,255,0.3)" }}>
+                style={{ fontSize: "0.65rem", letterSpacing: "0.28em", color: i === active ? "#c9a96e" : "rgba(var(--rgb),0.3)" }}>
                 {p.num}
               </span>
               <span className="font-poppins font-semibold truncate"
-                style={{ fontSize: "0.82rem", color: i === active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.42)" }}>
+                style={{ fontSize: "0.9rem", color: i === active ? "rgba(var(--rgb),0.92)" : "rgba(var(--rgb),0.42)" }}>
                 {p.title.replace("\n", " ")}
               </span>
               <span className="ml-auto font-nunito font-light flex-shrink-0"
-                style={{ fontSize: "0.65rem", color: i === active ? "rgba(201,169,110,0.7)" : "rgba(255,255,255,0.2)" }}>
+                style={{ fontSize: "0.72rem", color: i === active ? "rgba(201,169,110,0.7)" : "rgba(var(--rgb),0.2)" }}>
                 {p.year}
               </span>
             </button>
@@ -536,35 +537,29 @@ export default function ProjectsSection() {
             >
               <div className="flex items-center gap-3">
                 <span className="font-poppins font-medium"
-                  style={{ fontSize: "0.6rem", letterSpacing: "0.35em", color: "rgba(201,169,110,0.8)" }}>
+                  style={{ fontSize: "0.68rem", letterSpacing: "0.35em", color: "rgba(201,169,110,0.8)" }}>
                   {project.category}
                 </span>
-                <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.7rem" }}>·</span>
+                <span style={{ color: "rgba(var(--rgb),0.2)", fontSize: "0.77rem" }}>·</span>
                 <span className="font-nunito font-light"
-                  style={{ fontSize: "0.76rem", color: "rgba(255,255,255,0.45)" }}>
+                  style={{ fontSize: "0.84rem", color: "rgba(var(--rgb),0.45)" }}>
                   {project.company}
                 </span>
               </div>
               <p className="font-nunito font-light leading-[1.8]"
-                style={{ fontSize: "0.87rem", color: "rgba(255,255,255,0.7)" }}>
+                style={{ fontSize: "0.95rem", color: "rgba(var(--rgb),0.7)" }}>
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-[5px]">
                 {project.tech.map((t) => (
-                  <span key={t} className="font-poppins font-medium"
-                    style={{
-                      fontSize: "0.6rem", letterSpacing: "0.18em", padding: "3px 8px",
-                      border: "1px solid rgba(201,169,110,0.25)", color: "rgba(201,169,110,0.8)"
-                    }}>
-                    {t}
-                  </span>
+                  <TechBadge key={t} name={t} fontSize="0.68rem" padding="3px 8px" />
                 ))}
               </div>
               <div className="flex gap-3">
                 {project.links.live ? (
                   <a href={project.links.live} target="_blank" rel="noopener noreferrer"
                     className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] bg-accent text-bg-primary btn-glow"
-                    style={{ fontSize: "0.63rem", letterSpacing: "0.25em" }}>
+                    style={{ fontSize: "0.7rem", letterSpacing: "0.25em" }}>
                     {T.projects.viewProject[lang]}
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                       strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -574,8 +569,8 @@ export default function ProjectsSection() {
                 ) : (
                   <span className="font-poppins font-medium flex items-center gap-2 px-5 py-[11px]"
                     style={{
-                      fontSize: "0.63rem", letterSpacing: "0.25em",
-                      border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.28)", cursor: "default"
+                      fontSize: "0.7rem", letterSpacing: "0.25em",
+                      border: "1px solid rgba(var(--rgb),0.1)", color: "rgba(var(--rgb),0.28)", cursor: "default"
                     }}>
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -599,14 +594,14 @@ export default function ProjectsSection() {
           <div>
             <motion.p
               className="font-poppins font-semibold text-accent mb-2"
-              style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
+              style={{ fontSize: "0.72rem", letterSpacing: "0.5em" }}
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
             >
               {T.projects.sectionLabel[lang]}
             </motion.p>
             <motion.h2
               className="font-poppins font-extrabold text-white leading-[0.9]"
-              style={{ fontSize: "clamp(2.2rem, 3.8vw, 4.2rem)", letterSpacing: "-0.02em" }}
+              style={{ fontSize: "clamp(1.8rem, 3.1vw, 3.5rem)", letterSpacing: "-0.02em" }}
               initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.8, ease }}
             >
@@ -617,14 +612,14 @@ export default function ProjectsSection() {
           {/* Project counter */}
           <motion.div
             className="font-poppins font-light flex items-baseline gap-1"
-            style={{ color: "rgba(255,255,255,0.25)" }}
+            style={{ color: "rgba(var(--rgb),0.25)" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
             <span className="text-accent font-semibold" style={{ fontSize: "1.6rem" }}>
               {String(active + 1).padStart(2, "0")}
             </span>
-            <span style={{ fontSize: "0.9rem" }}>/</span>
-            <span style={{ fontSize: "0.9rem" }}>{String(PROJECTS.length).padStart(2, "0")}</span>
+            <span style={{ fontSize: "0.97rem" }}>/</span>
+            <span style={{ fontSize: "0.97rem" }}>{String(PROJECTS.length).padStart(2, "0")}</span>
           </motion.div>
         </div>
 
@@ -632,7 +627,7 @@ export default function ProjectsSection() {
         <div className="flex-1 grid grid-cols-[1fr_1.1fr] gap-6 xl:gap-10 min-h-0">
 
           {/* ── LEFT: Info ── */}
-          <div className="flex flex-col justify-between min-h-0">
+          <div className="flex flex-col justify-center min-h-0">
 
             {/* Project tabs */}
             <div className="flex flex-col gap-[3px] mb-5 flex-shrink-0">
@@ -642,7 +637,7 @@ export default function ProjectsSection() {
                   onClick={() => setActive(i)}
                   className="flex items-center gap-4 px-3 py-[9px] text-left transition-all duration-300 group"
                   style={{
-                    borderLeft: `2px solid ${i === active ? "#c9a96e" : "rgba(255,255,255,0.08)"}`,
+                    borderLeft: `2px solid ${i === active ? "#c9a96e" : "rgba(var(--rgb),0.08)"}`,
                     background: i === active ? "rgba(201,169,110,0.06)" : "transparent",
                   }}
                   whileHover={{ x: 2 }}
@@ -651,9 +646,9 @@ export default function ProjectsSection() {
                   <span
                     className="font-poppins font-semibold transition-colors duration-300"
                     style={{
-                      fontSize: "0.6rem",
+                      fontSize: "0.68rem",
                       letterSpacing: "0.3em",
-                      color: i === active ? "#c9a96e" : "rgba(255,255,255,0.3)",
+                      color: i === active ? "#c9a96e" : "rgba(var(--rgb),0.3)",
                     }}
                   >
                     {p.num}
@@ -661,8 +656,8 @@ export default function ProjectsSection() {
                   <span
                     className="font-poppins font-semibold transition-colors duration-300 truncate"
                     style={{
-                      fontSize: "0.78rem",
-                      color: i === active ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.42)",
+                      fontSize: "0.86rem",
+                      color: i === active ? "rgba(var(--rgb),0.92)" : "rgba(var(--rgb),0.42)",
                     }}
                   >
                     {p.title.replace("\n", " ")}
@@ -670,8 +665,8 @@ export default function ProjectsSection() {
                   <span
                     className="ml-auto font-nunito font-light flex-shrink-0 hidden sm:block transition-colors duration-300"
                     style={{
-                      fontSize: "0.68rem",
-                      color: i === active ? "rgba(201,169,110,0.7)" : "rgba(255,255,255,0.2)",
+                      fontSize: "0.75rem",
+                      color: i === active ? "rgba(201,169,110,0.7)" : "rgba(var(--rgb),0.2)",
                     }}
                   >
                     {p.year}
@@ -694,14 +689,14 @@ export default function ProjectsSection() {
                 <div className="flex items-center gap-3">
                   <span
                     className="font-poppins font-medium"
-                    style={{ fontSize: "0.62rem", letterSpacing: "0.38em", color: "rgba(201,169,110,0.8)" }}
+                    style={{ fontSize: "0.69rem", letterSpacing: "0.38em", color: "rgba(201,169,110,0.8)" }}
                   >
                     {project.category}
                   </span>
-                  <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.7rem" }}>·</span>
+                  <span style={{ color: "rgba(var(--rgb),0.2)", fontSize: "0.77rem" }}>·</span>
                   <span
                     className="font-nunito font-light"
-                    style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.45)" }}
+                    style={{ fontSize: "0.86rem", color: "rgba(var(--rgb),0.45)" }}
                   >
                     {project.company}
                   </span>
@@ -710,7 +705,7 @@ export default function ProjectsSection() {
                 {/* Description */}
                 <p
                   className="font-nunito font-light leading-[1.85]"
-                  style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.7)", maxWidth: "420px" }}
+                  style={{ fontSize: "0.97rem", color: "rgba(var(--rgb),0.7)", maxWidth: "420px" }}
                 >
                   {project.description}
                 </p>
@@ -718,19 +713,7 @@ export default function ProjectsSection() {
                 {/* Tech tags */}
                 <div className="flex flex-wrap gap-[6px]">
                   {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="font-poppins font-medium"
-                      style={{
-                        fontSize: "0.62rem",
-                        letterSpacing: "0.2em",
-                        padding: "3px 9px",
-                        border: "1px solid rgba(201,169,110,0.25)",
-                        color: "rgba(201,169,110,0.8)",
-                      }}
-                    >
-                      {t}
-                    </span>
+                    <TechBadge key={t} name={t} />
                   ))}
                 </div>
 
@@ -742,7 +725,7 @@ export default function ProjectsSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
-                      style={{ fontSize: "0.65rem", letterSpacing: "0.28em" }}
+                      style={{ fontSize: "0.72rem", letterSpacing: "0.28em" }}
                     >
                       {T.projects.viewProject[lang]}
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -754,10 +737,10 @@ export default function ProjectsSection() {
                     <span
                       className="font-poppins font-medium flex items-center gap-2 px-5 py-[10px]"
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "0.72rem",
                         letterSpacing: "0.28em",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        color: "rgba(255,255,255,0.28)",
+                        border: "1px solid rgba(var(--rgb),0.1)",
+                        color: "rgba(var(--rgb),0.28)",
                         cursor: "default",
                       }}
                       title="Proyecto privado / NDA"
@@ -777,10 +760,10 @@ export default function ProjectsSection() {
                       rel="noopener noreferrer"
                       className="font-poppins font-medium flex items-center gap-2 px-5 py-[10px] transition-colors duration-300 hover:border-accent/50 hover:text-accent"
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "0.72rem",
                         letterSpacing: "0.28em",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        color: "rgba(255,255,255,0.5)",
+                        border: "1px solid rgba(var(--rgb),0.1)",
+                        color: "rgba(var(--rgb),0.5)",
                       }}
                     >
                       GITHUB
@@ -804,7 +787,7 @@ export default function ProjectsSection() {
               className="relative w-full h-full max-h-[480px]"
               style={{
                 border: "1px solid rgba(201,169,110,0.12)",
-                background: "rgba(255,255,255,0.04)",
+                background: "rgba(var(--rgb),0.04)",
               }}
             >
               {/* Corner accents */}
@@ -863,7 +846,7 @@ export default function ProjectsSection() {
               style={{
                 width: i === active ? "28px" : "6px",
                 height: "2px",
-                background: i === active ? "#c9a96e" : "rgba(255,255,255,0.2)",
+                background: i === active ? "#c9a96e" : "rgba(var(--rgb),0.2)",
                 borderRadius: "1px",
               }}
             />

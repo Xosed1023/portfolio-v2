@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
 import LangToggle from "@/components/LangToggle";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV = [
   {
@@ -133,10 +134,10 @@ export default function Sidebar() {
       className="fixed left-0 top-0 h-full z-40 flex flex-col items-center justify-between py-8"
       style={{
         width: "72px",
-        background: "rgba(10,10,10,0.7)",
+        background: "var(--sidebar-bg)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        borderRight: "1px solid rgba(255,255,255,0.07)",
+        borderRight: "1px solid rgba(var(--rgb),0.07)",
       }}
       variants={containerV}
       initial="hidden"
@@ -149,7 +150,7 @@ export default function Sidebar() {
           XP
         </span>
         <span className="font-poppins font-light text-white/20"
-              style={{ fontSize: "0.42rem", letterSpacing: "0.35em" }}>
+              style={{ fontSize: "0.49rem", letterSpacing: "0.35em" }}>
           DEV
         </span>
       </motion.div>
@@ -177,7 +178,7 @@ export default function Sidebar() {
                     <div
                       className="font-poppins font-semibold whitespace-nowrap rounded-sm px-3 py-[5px]"
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "0.72rem",
                         letterSpacing: "0.22em",
                         background: "rgba(20,18,14,0.95)",
                         border: "1px solid rgba(201,169,110,0.25)",
@@ -223,7 +224,7 @@ export default function Sidebar() {
                 {/* Icon */}
                 <span
                   className="transition-colors duration-300"
-                  style={{ color: highlight ? "#c9a96e" : "rgba(255,255,255,0.50)" }}
+                  style={{ color: highlight ? "#c9a96e" : "rgba(var(--rgb),0.50)" }}
                 >
                   {item.icon}
                 </span>
@@ -233,9 +234,9 @@ export default function Sidebar() {
                   aria-hidden="true"
                   className="font-poppins font-semibold transition-colors duration-300"
                   style={{
-                    fontSize: "0.48rem",
+                    fontSize: "0.55rem",
                     letterSpacing: "0.15em",
-                    color: highlight ? "#c9a96e" : "rgba(255,255,255,0.42)",
+                    color: highlight ? "#c9a96e" : "rgba(var(--rgb),0.42)",
                   }}
                 >
                   {item.num}
@@ -246,8 +247,9 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Lang toggle + Resume */}
+      {/* Theme + Lang toggle + Resume */}
       <motion.div variants={itemV} className="flex flex-col items-center gap-4">
+        <ThemeToggle />
         <LangToggle className="flex-col gap-[3px]" />
 
         <a
@@ -267,7 +269,7 @@ export default function Sidebar() {
           <span
             className="font-poppins font-semibold text-accent/70 group-hover:text-accent
                        transition-colors duration-300 text-vertical"
-            style={{ fontSize: "0.46rem", letterSpacing: "0.3em" }}
+            style={{ fontSize: "0.53rem", letterSpacing: "0.3em" }}
           >
             CV
           </span>

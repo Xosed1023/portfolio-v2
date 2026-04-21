@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
+import TechBadge from "@/components/TechBadge";
 
 const JOBS_STATIC = [
   {
@@ -59,7 +60,7 @@ export default function WorkSection() {
     <section
       id="work"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
-      style={{ background: "rgba(6,6,6,0.68)" }}
+      style={{ background: "var(--section-bg)" }}
       aria-label="Experiencia laboral"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
@@ -75,12 +76,12 @@ export default function WorkSection() {
         <div className="lg:hidden flex flex-col pb-12" style={{ paddingTop: "clamp(28px, 6vh, 48px)" }}>
           <div className="flex-shrink-0 mb-3">
             <motion.p className="font-poppins font-semibold text-accent mb-1"
-              style={{ fontSize: "0.6rem", letterSpacing: "0.5em" }}
+              style={{ fontSize: "0.68rem", letterSpacing: "0.5em" }}
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
               {T.work.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white leading-none"
-              style={{ fontSize: "clamp(2rem, 10vw, 2.8rem)", letterSpacing: "-0.02em" }}
+              style={{ fontSize: "clamp(1.7rem, 8.5vw, 2.3rem)", letterSpacing: "-0.02em" }}
               initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
               {T.work.heading[lang]}
@@ -93,7 +94,7 @@ export default function WorkSection() {
               return (
                 <motion.div key={j.company}
                   className="border-l-2 overflow-hidden transition-colors duration-300"
-                  style={{ borderColor: open ? "#c9a96e" : "rgba(255,255,255,0.08)",
+                  style={{ borderColor: open ? "#c9a96e" : "rgba(var(--rgb),0.08)",
                            background: open ? "rgba(201,169,110,0.05)" : "transparent" }}
                   initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }} transition={{ delay: i * 0.05, duration: 0.4 }}>
@@ -110,12 +111,12 @@ export default function WorkSection() {
                           </span>
                         )}
                         <span className="font-poppins font-semibold truncate"
-                              style={{ fontSize: "0.85rem", color: open ? "#c9a96e" : "rgba(255,255,255,0.82)" }}>
+                              style={{ fontSize: "0.93rem", color: open ? "#c9a96e" : "rgba(var(--rgb),0.82)" }}>
                           {j.company}
                         </span>
                       </div>
                       <span className="font-nunito font-light"
-                            style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.4)" }}>
+                            style={{ fontSize: "0.77rem", color: "rgba(var(--rgb),0.4)" }}>
                         {j.period}
                       </span>
                     </div>
@@ -139,7 +140,7 @@ export default function WorkSection() {
                       >
                         <div className="px-4 pb-4">
                           <span className="font-poppins font-medium text-accent/70 block mb-[6px]"
-                                style={{ fontSize: "0.58rem", letterSpacing: "0.4em" }}>{j.type}</span>
+                                style={{ fontSize: "0.65rem", letterSpacing: "0.4em" }}>{j.type}</span>
                           <h3 className="font-poppins font-extrabold text-white mb-3"
                               style={{ fontSize: "1.05rem", letterSpacing: "-0.01em" }}>{j.role}</h3>
                           <div className="h-px bg-white/10 mb-3" />
@@ -148,14 +149,13 @@ export default function WorkSection() {
                               <li key={h} className="flex items-start gap-[10px]">
                                 <span className="w-[4px] h-[4px] rounded-full bg-accent/60 mt-[7px] flex-shrink-0" />
                                 <span className="font-nunito font-light"
-                                      style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.68)", lineHeight: 1.6 }}>{h}</span>
+                                      style={{ fontSize: "0.9rem", color: "rgba(var(--rgb),0.68)", lineHeight: 1.6 }}>{h}</span>
                               </li>
                             ))}
                           </ul>
                           <div className="flex flex-wrap gap-[6px]">
                             {j.tech.map((t) => (
-                              <span key={t} className="font-poppins font-medium border border-accent/20 text-accent/75 px-2 py-[3px]"
-                                    style={{ fontSize: "0.6rem", letterSpacing: "0.12em" }}>{t}</span>
+                              <TechBadge key={t} name={t} fontSize="0.68rem" padding="3px 8px" letterSpacing="0.12em" />
                             ))}
                           </div>
                         </div>
@@ -172,14 +172,14 @@ export default function WorkSection() {
         <div className="hidden lg:flex flex-col justify-center gap-1 lg:pr-6 xl:pr-10 2xl:pr-14 flex-shrink-0 lg:w-[240px] xl:w-[296px] 2xl:w-[340px]">
           <motion.p
             className="font-poppins font-semibold text-accent mb-3"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
+            style={{ fontSize: "0.72rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
             {T.work.sectionLabel[lang]}
           </motion.p>
           <motion.h2
             className="font-poppins font-extrabold text-white leading-[0.9] mb-5"
-            style={{ fontSize: "clamp(2rem, 3.5vw, 3.5rem)", letterSpacing: "-0.02em" }}
+            style={{ fontSize: "clamp(1.7rem, 2.9vw, 3rem)", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -192,7 +192,7 @@ export default function WorkSection() {
               onClick={() => setSelected(i)}
               className="text-left px-3 py-[10px] border-l-2 transition-all duration-300"
               style={{
-                borderColor: selected === i ? "#c9a96e" : "rgba(255,255,255,0.1)",
+                borderColor: selected === i ? "#c9a96e" : "rgba(var(--rgb),0.1)",
                 background:  selected === i ? "rgba(201,169,110,0.07)" : "transparent",
               }}
               initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
@@ -206,12 +206,12 @@ export default function WorkSection() {
                   </span>
                 )}
                 <span className="font-poppins font-semibold transition-colors duration-300"
-                      style={{ fontSize: "0.82rem", color: selected === i ? "#c9a96e" : "rgba(255,255,255,0.78)" }}>
+                      style={{ fontSize: "0.9rem", color: selected === i ? "#c9a96e" : "rgba(var(--rgb),0.78)" }}>
                   {j.company}
                 </span>
               </div>
               <span className="font-nunito font-light"
-                    style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.48)" }}>
+                    style={{ fontSize: "0.8rem", color: "rgba(var(--rgb),0.48)" }}>
                 {j.period}
               </span>
             </motion.button>
@@ -228,11 +228,11 @@ export default function WorkSection() {
             <div className="flex items-start justify-between mb-3 flex-wrap gap-3">
               <div>
                 <span className="font-poppins font-medium text-accent/80 mb-1 block"
-                      style={{ fontSize: "0.65rem", letterSpacing: "0.4em" }}>
+                      style={{ fontSize: "0.72rem", letterSpacing: "0.4em" }}>
                   {job.type}
                 </span>
                 <h3 className="font-poppins font-extrabold text-white leading-tight"
-                    style={{ fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)", letterSpacing: "-0.01em" }}>
+                    style={{ fontSize: "clamp(1.2rem, 2vw, 1.9rem)", letterSpacing: "-0.01em" }}>
                   {job.role}
                 </h3>
                 <p className="font-poppins font-semibold text-accent mt-1"
@@ -241,7 +241,7 @@ export default function WorkSection() {
                 </p>
               </div>
               <span className="font-poppins font-medium border border-white/15 px-3 py-[6px] flex-shrink-0"
-                    style={{ fontSize: "0.68rem", letterSpacing: "0.18em", color: "rgba(255,255,255,0.55)" }}>
+                    style={{ fontSize: "0.75rem", letterSpacing: "0.18em", color: "rgba(var(--rgb),0.55)" }}>
                 {job.period}
               </span>
             </div>
@@ -253,7 +253,7 @@ export default function WorkSection() {
                 <li key={h} className="flex items-start gap-3">
                   <span className="w-[5px] h-[5px] rounded-full bg-accent/65 mt-[7px] flex-shrink-0" />
                   <span className="font-nunito font-light"
-                        style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.65 }}>
+                        style={{ fontSize: "0.97rem", color: "rgba(var(--rgb),0.72)", lineHeight: 1.65 }}>
                     {h}
                   </span>
                 </li>
@@ -262,11 +262,7 @@ export default function WorkSection() {
 
             <div className="flex flex-wrap gap-2">
               {job.tech.map((t) => (
-                <span key={t}
-                      className="font-poppins font-medium border border-accent/25 text-accent/85 px-3 py-[5px]"
-                      style={{ fontSize: "0.68rem", letterSpacing: "0.18em" }}>
-                  {t}
-                </span>
+                <TechBadge key={t} name={t} fontSize="0.75rem" padding="5px 12px" />
               ))}
             </div>
           </motion.div>

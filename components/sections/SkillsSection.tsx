@@ -74,7 +74,7 @@ function SkillItem({ name }: { name: string }) {
       <span className="w-[3px] h-[3px] rounded-full bg-accent/55 flex-shrink-0
                        group-hover:bg-accent transition-colors duration-300" />
       <span className="font-nunito font-normal transition-colors duration-300"
-            style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.72)" }}>
+            style={{ fontSize: "0.9rem", color: "rgba(var(--rgb),0.72)" }}>
         {name}
       </span>
     </div>
@@ -89,7 +89,7 @@ export default function SkillsSection() {
     <section
       id="skills"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
-      style={{ background: "rgba(6,6,6,0.68)" }}
+      style={{ background: "var(--section-bg)" }}
       aria-label="Habilidades"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
@@ -105,14 +105,14 @@ export default function SkillsSection() {
         <div className="lg:mb-4 xl:mb-7 2xl:mb-9">
           <motion.p
             className="font-poppins font-semibold text-accent mb-2"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
+            style={{ fontSize: "0.72rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
             {T.skills.sectionLabel[lang]}
           </motion.p>
           <motion.h2
             className="font-poppins font-extrabold text-white leading-[0.9]"
-            style={{ fontSize: "clamp(2.5rem, 4vw, 4.5rem)", letterSpacing: "-0.02em" }}
+            style={{ fontSize: "clamp(2rem, 3.3vw, 3.8rem)", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -130,12 +130,12 @@ export default function SkillsSection() {
                 onClick={() => setActiveTab(i)}
                 className="flex-shrink-0 flex items-center gap-[6px] px-3 py-[7px] transition-all duration-300 font-poppins font-semibold"
                 style={{
-                  fontSize: "0.62rem",
+                  fontSize: "0.69rem",
                   letterSpacing: "0.22em",
                   border: "1px solid",
-                  borderColor: activeTab === i ? "rgba(201,169,110,0.6)" : "rgba(255,255,255,0.1)",
+                  borderColor: activeTab === i ? "rgba(201,169,110,0.6)" : "rgba(var(--rgb),0.1)",
                   background: activeTab === i ? "rgba(201,169,110,0.1)" : "transparent",
-                  color: activeTab === i ? "#c9a96e" : "rgba(255,255,255,0.45)",
+                  color: activeTab === i ? "#c9a96e" : "rgba(var(--rgb),0.45)",
                 }}
               >
                 <span aria-hidden="true">{cat.icon}</span>
@@ -154,7 +154,7 @@ export default function SkillsSection() {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="p-5"
               style={{
-                background: "rgba(255,255,255,0.025)",
+                background: "rgba(var(--rgb),0.025)",
                 border: "1px solid rgba(201,169,110,0.2)",
               }}
             >
@@ -174,13 +174,13 @@ export default function SkillsSection() {
               key={cat.title}
               className="lg:p-3 xl:p-5 2xl:p-6 flex flex-col relative overflow-hidden group"
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "rgba(var(--rgb),0.04)",
+                border: "1px solid rgba(var(--rgb),0.08)",
                 cursor: "default",
               }}
               whileHover={{
                 borderColor: "rgba(201,169,110,0.35)",
-                background: "rgba(255,255,255,0.055)",
+                background: "rgba(var(--rgb),0.055)",
                 y: -4,
                 boxShadow: "0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(201,169,110,0.12) inset",
               }}
@@ -189,11 +189,11 @@ export default function SkillsSection() {
               viewport={{ once: true }}
             >
               <div className="glass-sheen absolute inset-0 pointer-events-none"
-                   style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 55%, rgba(201,169,110,0.04) 100%)" }} />
+                   style={{ background: "linear-gradient(135deg, rgba(var(--rgb),0.07) 0%, transparent 55%, rgba(201,169,110,0.04) 100%)" }} />
               <div className="flex items-center gap-2 lg:mb-2 xl:mb-4 2xl:mb-5">
                 <span className="text-accent" style={{ fontSize: "0.95rem" }} aria-hidden="true">{cat.icon}</span>
                 <span className="font-poppins font-semibold"
-                      style={{ fontSize: "0.72rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.82)" }}>
+                      style={{ fontSize: "0.8rem", letterSpacing: "0.28em", color: "rgba(var(--rgb),0.82)" }}>
                   {(T.skills.categoryNames[cat.title]?.[lang] ?? cat.title).toUpperCase()}
                 </span>
               </div>

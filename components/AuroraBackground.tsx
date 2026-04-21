@@ -19,7 +19,7 @@ export default function AuroraBackground() {
         position: "fixed",
         inset: 0,
         zIndex: 0,
-        background: "#0a0a0a",
+        background: "var(--bg-primary)",
         pointerEvents: "none",
         overflow: "hidden",
       }}

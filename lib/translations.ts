@@ -185,8 +185,8 @@ const T = {
         title:       { es: "App Móvil\nDatacrédito",    en: "Datacredito\nMobile App" },
         category:    { es: "Mobile · React Native",     en: "Mobile · React Native" },
         description: {
-          es: "Optimización y mantenimiento de la app móvil Datacrédito para App Store y Google Play. Monetización integrada con Google AdManager y AdMob, notificaciones push con Firebase y backend escalable en AWS.",
-          en: "Optimization and maintenance of the Datacrédito mobile app for App Store and Google Play. Integrated monetization with Google AdManager and AdMob, push notifications via Firebase, and scalable AWS backend.",
+          es: "Optimización y mantenimiento de la app Datacrédito para App Store y Google Play. Monetización con Google AdMob, notificaciones push y backend en AWS.",
+          en: "Optimization and maintenance of the Datacrédito app for App Store and Google Play. Integrated monetization with Google AdMob, push notifications and AWS backend.",
         },
       },
       {

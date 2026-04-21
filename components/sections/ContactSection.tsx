@@ -102,7 +102,7 @@ export default function ContactSection() {
     <section
       id="contact"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
-      style={{ background: "rgba(6,6,6,0.68)" }}
+      style={{ background: "var(--section-bg)" }}
       aria-label="Contacto"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
@@ -120,18 +120,18 @@ export default function ContactSection() {
         <div className="lg:hidden pb-8" style={{ paddingTop: "clamp(28px, 6vh, 48px)" }}>
           <div className="flex-shrink-0 pt-5 pb-1">
             <span className="font-poppins font-semibold text-accent"
-              style={{ fontSize: "0.62rem", letterSpacing: "0.45em" }}>
+              style={{ fontSize: "0.69rem", letterSpacing: "0.45em" }}>
               {T.contact.sectionLabel[lang]}
             </span>
           </div>
 
           <div className="mb-6">
             <h2 className="font-poppins font-extrabold text-white leading-[0.9] mb-4"
-              style={{ fontSize: "clamp(2.2rem, 10vw, 3.2rem)", letterSpacing: "-0.02em" }}>
+              style={{ fontSize: "clamp(1.7rem, 8.5vw, 2.3rem)", letterSpacing: "-0.02em" }}>
               <span className="text-accent">{T.contact.headingMobile[lang]}</span>
             </h2>
             <p className="font-nunito font-light leading-[1.8] mb-5"
-              style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.62)", maxWidth: "340px" }}>
+              style={{ fontSize: "0.93rem", color: "rgba(var(--rgb),0.62)", maxWidth: "340px" }}>
               {T.contact.bioMobile[lang]}
             </p>
             <div className="flex flex-col gap-2 mb-6">
@@ -144,11 +144,11 @@ export default function ContactSection() {
                     </span>
                     <div>
                       <p className="font-poppins font-medium mb-[2px]"
-                        style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+                        style={{ fontSize: "0.65rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                         {item.label.toUpperCase()}
                       </p>
                       <p className="font-poppins font-semibold"
-                        style={{ fontSize: "0.83rem", color: "rgba(255,255,255,0.85)" }}>
+                        style={{ fontSize: "0.91rem", color: "rgba(var(--rgb),0.85)" }}>
                         {item.value}
                       </p>
                     </div>
@@ -162,46 +162,46 @@ export default function ContactSection() {
           </div>
 
           <p className="font-poppins font-semibold mb-4"
-            style={{ fontSize: "0.6rem", letterSpacing: "0.45em", color: "rgba(255,255,255,0.4)" }}>
+            style={{ fontSize: "0.68rem", letterSpacing: "0.45em", color: "rgba(var(--rgb),0.4)" }}>
             {T.contact.sendMessage[lang]}
           </p>
           <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
             <div className="grid grid-cols-2 gap-3">
               <label className="flex flex-col gap-[5px]">
-                <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+                <span className="font-poppins font-medium" style={{ fontSize: "0.65rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                   {f.name[lang]} <span className="text-accent">*</span>
                 </span>
                 <input type="text" placeholder={p.name[lang]} required aria-required="true" value={fields.nombre} onChange={set("nombre")}
-                  className={inputCls} style={{ fontSize: "0.85rem" }} />
+                  className={inputCls} style={{ fontSize: "0.93rem" }} />
               </label>
               <label className="flex flex-col gap-[5px]">
-                <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+                <span className="font-poppins font-medium" style={{ fontSize: "0.65rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                   {f.email[lang]} <span className="text-accent">*</span>
                 </span>
                 <input type="email" placeholder={p.email[lang]} required aria-required="true" value={fields.email} onChange={set("email")}
-                  className={inputCls} style={{ fontSize: "0.85rem" }} />
+                  className={inputCls} style={{ fontSize: "0.93rem" }} />
               </label>
             </div>
             <label className="flex flex-col gap-[5px]">
-              <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+              <span className="font-poppins font-medium" style={{ fontSize: "0.65rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                 {f.subject[lang]}
               </span>
               <input type="text" placeholder={p.subject[lang]} value={fields.asunto} onChange={set("asunto")}
-                className={inputCls} style={{ fontSize: "0.85rem" }} />
+                className={inputCls} style={{ fontSize: "0.93rem" }} />
             </label>
             <label className="flex flex-col gap-[5px]">
-              <span className="font-poppins font-medium" style={{ fontSize: "0.58rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+              <span className="font-poppins font-medium" style={{ fontSize: "0.65rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                 {f.message[lang]} <span className="text-accent">*</span>
               </span>
               <textarea placeholder={p.message[lang]} required aria-required="true" rows={4} value={fields.mensaje} onChange={set("mensaje")}
-                className={inputCls} style={{ fontSize: "0.85rem", resize: "none" }} />
+                className={inputCls} style={{ fontSize: "0.93rem", resize: "none" }} />
             </label>
             <motion.button
               type="submit"
               disabled={status === "sending"}
               className="font-poppins font-semibold px-6 py-[14px] transition-colors duration-300 btn-glow flex items-center justify-center gap-3 disabled:cursor-not-allowed"
               style={{
-                fontSize: "0.68rem", letterSpacing: "0.3em",
+                fontSize: "0.75rem", letterSpacing: "0.3em",
                 background: status === "error" ? "rgba(180,60,60,0.85)" : status === "sent" ? "rgba(60,140,80,0.85)" : "#c9a96e",
                 color: "#0a0a0a", opacity: status === "sending" ? 0.7 : 1,
               }}
@@ -219,7 +219,7 @@ export default function ContactSection() {
         <div className="hidden lg:block">
           <motion.p
             className="font-poppins font-semibold text-accent mb-3"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
+            style={{ fontSize: "0.72rem", letterSpacing: "0.5em" }}
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
           >
             {T.contact.sectionLabel[lang]}
@@ -227,7 +227,7 @@ export default function ContactSection() {
 
           <motion.h2
             className="font-poppins font-extrabold text-white leading-[0.9] mb-4"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 5.5rem)", letterSpacing: "-0.02em" }}
+            style={{ fontSize: "clamp(1.8rem, 3.1vw, 3.5rem)", letterSpacing: "-0.02em" }}
             initial={{ opacity: 0, x: -28 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -236,7 +236,7 @@ export default function ContactSection() {
 
           <motion.p
             className="font-nunito font-light leading-[1.85] mb-9"
-            style={{ fontSize: "0.92rem", color: "rgba(255,255,255,0.65)", maxWidth: "400px" }}
+            style={{ fontSize: "0.99rem", color: "rgba(var(--rgb),0.65)", maxWidth: "400px" }}
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ delay: 0.18, duration: 0.7 }}
           >
@@ -253,11 +253,11 @@ export default function ContactSection() {
                   </span>
                   <div>
                     <p className="font-poppins font-medium mb-[3px]"
-                      style={{ fontSize: "0.62rem", letterSpacing: "0.35em", color: "rgba(255,255,255,0.45)" }}>
+                      style={{ fontSize: "0.69rem", letterSpacing: "0.35em", color: "rgba(var(--rgb),0.45)" }}>
                       {item.label.toUpperCase()}
                     </p>
                     <p className="font-poppins font-semibold"
-                      style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.85)" }}>
+                      style={{ fontSize: "0.96rem", color: "rgba(var(--rgb),0.85)" }}>
                       {item.value}
                     </p>
                   </div>
@@ -286,40 +286,40 @@ export default function ContactSection() {
           viewport={{ once: true }} transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
         >
           <p className="font-poppins font-semibold mb-6"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.45em", color: "rgba(255,255,255,0.45)" }}>
+            style={{ fontSize: "0.72rem", letterSpacing: "0.45em", color: "rgba(var(--rgb),0.45)" }}>
             {T.contact.sendMessage[lang]}
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
             <div className="grid grid-cols-2 gap-4">
               <label className="flex flex-col gap-[6px]">
-                <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+                <span className="font-poppins font-medium" style={{ fontSize: "0.68rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                   {f.name[lang]} <span className="text-accent">*</span>
                 </span>
                 <input type="text" placeholder={p.name[lang]} required aria-required="true" value={fields.nombre} onChange={set("nombre")}
-                  className={inputCls} style={{ fontSize: "0.88rem" }} />
+                  className={inputCls} style={{ fontSize: "0.96rem" }} />
               </label>
               <label className="flex flex-col gap-[6px]">
-                <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+                <span className="font-poppins font-medium" style={{ fontSize: "0.68rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                   {f.email[lang]} <span className="text-accent">*</span>
                 </span>
                 <input type="email" placeholder={p.email[lang]} required aria-required="true" value={fields.email} onChange={set("email")}
-                  className={inputCls} style={{ fontSize: "0.88rem" }} />
+                  className={inputCls} style={{ fontSize: "0.96rem" }} />
               </label>
             </div>
             <label className="flex flex-col gap-[6px]">
-              <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+              <span className="font-poppins font-medium" style={{ fontSize: "0.68rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                 {f.subject[lang]}
               </span>
               <input type="text" placeholder={p.subject[lang]} value={fields.asunto} onChange={set("asunto")}
-                className={inputCls} style={{ fontSize: "0.88rem" }} />
+                className={inputCls} style={{ fontSize: "0.96rem" }} />
             </label>
             <label className="flex flex-col gap-[6px]">
-              <span className="font-poppins font-medium" style={{ fontSize: "0.6rem", letterSpacing: "0.3em", color: "rgba(255,255,255,0.4)" }}>
+              <span className="font-poppins font-medium" style={{ fontSize: "0.68rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.4)" }}>
                 {f.message[lang]} <span className="text-accent">*</span>
               </span>
               <textarea placeholder={p.message[lang]} required aria-required="true" rows={5} value={fields.mensaje} onChange={set("mensaje")}
-                className={inputCls} style={{ fontSize: "0.88rem", resize: "none" }} />
+                className={inputCls} style={{ fontSize: "0.96rem", resize: "none" }} />
             </label>
 
             <motion.button
@@ -327,7 +327,7 @@ export default function ContactSection() {
               disabled={status === "sending"}
               className="font-poppins font-semibold px-8 py-4 transition-colors duration-300 btn-glow flex items-center justify-center gap-3 disabled:cursor-not-allowed"
               style={{
-                fontSize: "0.72rem",
+                fontSize: "0.8rem",
                 letterSpacing: "0.32em",
                 background: status === "error" ? "rgba(180,60,60,0.85)" : status === "sent" ? "rgba(60,140,80,0.85)" : "#c9a96e",
                 color: "#0a0a0a",
@@ -350,12 +350,12 @@ export default function ContactSection() {
           </form>
 
           <div className="flex items-center gap-3 mt-8">
-            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+            <div className="flex-1 h-px" style={{ background: "rgba(var(--rgb),0.08)" }} />
             <span className="font-poppins font-light px-3"
-              style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.50)" }}>
+              style={{ fontSize: "0.68rem", letterSpacing: "0.28em", color: "rgba(var(--rgb),0.50)" }}>
               {findMeOn}
             </span>
-            <div className="flex-1 h-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+            <div className="flex-1 h-px" style={{ background: "rgba(var(--rgb),0.08)" }} />
           </div>
           <div className="flex justify-center gap-7 mt-5">
             {[
@@ -387,14 +387,14 @@ export default function ContactSection() {
           paddingRight: "clamp(1.5rem, 7vw, 112px)",
           paddingTop: "14px",
           paddingBottom: "18px",
-          borderTop: "1px solid rgba(255,255,255,0.05)",
+          borderTop: "1px solid rgba(var(--rgb),0.05)",
           background: "rgba(4,4,4,0.6)",
         }}>
         <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "0.95rem", letterSpacing: "-0.02em" }}>
           XP
         </span>
 
-        <span className="font-nunito font-light" style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.22)", letterSpacing: "0.05em" }}>
+        <span className="font-nunito font-light" style={{ fontSize: "0.75rem", color: "rgba(var(--rgb),0.50)", letterSpacing: "0.05em" }}>
           &copy; {new Date().getFullYear()} Xosed Penaloza &mdash; Bogotá, Colombia
         </span>
 

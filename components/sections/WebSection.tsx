@@ -6,6 +6,7 @@ import { WebProject } from "@/lib/web-projects";
 import TransitionLink from "@/components/TransitionLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
+import TechBadge from "@/components/TechBadge";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -20,7 +21,7 @@ function StatusBadge({ status, lang }: { status: WebProject["status"]; lang: "es
   return (
     <span
       className="font-poppins font-semibold flex items-center gap-[6px]"
-      style={{ fontSize: "0.55rem", letterSpacing: "0.3em", padding: "3px 9px",
+      style={{ fontSize: "0.62rem", letterSpacing: "0.3em", padding: "3px 9px",
                background: s.bg, border: `1px solid ${s.border}`, color: s.dot }}
     >
       <span className="relative flex h-[5px] w-[5px] flex-shrink-0">
@@ -129,7 +130,7 @@ function LiveImageMockup({ src, alt, color }: { src: string; alt: string; color:
         <span
           className="font-poppins font-semibold flex items-center gap-[5px]"
           style={{
-            fontSize: "0.5rem",
+            fontSize: "0.57rem",
             letterSpacing: "0.25em",
             color: `${color}99`,
             background: "rgba(0,0,0,0.55)",
@@ -176,12 +177,12 @@ function BrowserMockup({ visual, color }: { visual: string; color: string }) {
         <rect x="210" y="28" width="20" height="72" rx="2" fill={`${accent},0.55)`} />
         <rect x="190" y="48" width="60" height="16" rx="2" fill={`${accent},0.55)`} />
         {/* Church name */}
-        <rect x="100" y="112" width="240" height="10" rx="2" fill="rgba(255,255,255,0.55)" />
+        <rect x="100" y="112" width="240" height="10" rx="2" fill="rgba(var(--rgb),0.55)" />
         <rect x="140" y="128" width="160" height="6" rx="2" fill={`${accent},0.5)`} />
         {/* Nav bar */}
         <rect x="0" y="0" width="440" height="22" fill="rgba(0,0,0,0.55)" />
         {[60,120,180,240,300].map(x => (
-          <rect key={x} x={x} y="8" width="40" height="5" rx="2" fill="rgba(255,255,255,0.18)" />
+          <rect key={x} x={x} y="8" width="40" height="5" rx="2" fill="rgba(var(--rgb),0.18)" />
         ))}
         <rect x="14" y="7" width="32" height="7" rx="2" fill={`${accent},0.7)`} />
         {/* CTA button */}
@@ -189,14 +190,14 @@ function BrowserMockup({ visual, color }: { visual: string; color: string }) {
         {/* Cards row */}
         {[14, 158, 302].map(x => (
           <rect key={x} x={x} y="172" width="124" height="72" rx="3"
-                fill="rgba(255,255,255,0.04)" stroke={`${accent},0.2)`} strokeWidth="1" />
+                fill="rgba(var(--rgb),0.04)" stroke={`${accent},0.2)`} strokeWidth="1" />
         ))}
         {[14, 158, 302].map(x => (
           <g key={x}>
             <rect x={x+10} y="184" width="60" height="5" rx="2" fill={`${accent},0.45)`} />
-            <rect x={x+10} y="196" width="100" height="4" rx="2" fill="rgba(255,255,255,0.15)" />
-            <rect x={x+10} y="206" width="80" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
-            <rect x={x+10} y="216" width="90" height="4" rx="2" fill="rgba(255,255,255,0.1)" />
+            <rect x={x+10} y="196" width="100" height="4" rx="2" fill="rgba(var(--rgb),0.15)" />
+            <rect x={x+10} y="206" width="80" height="4" rx="2" fill="rgba(var(--rgb),0.1)" />
+            <rect x={x+10} y="216" width="90" height="4" rx="2" fill="rgba(var(--rgb),0.1)" />
           </g>
         ))}
       </svg>
@@ -213,19 +214,19 @@ function BrowserMockup({ visual, color }: { visual: string; color: string }) {
           </linearGradient>
         </defs>
         {/* Nav */}
-        <rect x="0" y="0" width="440" height="22" fill="rgba(255,255,255,0.04)" />
+        <rect x="0" y="0" width="440" height="22" fill="rgba(var(--rgb),0.04)" />
         {[80,160,240,320].map(x => (
-          <rect key={x} x={x} y="8" width="50" height="5" rx="2" fill="rgba(255,255,255,0.14)" />
+          <rect key={x} x={x} y="8" width="50" height="5" rx="2" fill="rgba(var(--rgb),0.14)" />
         ))}
         <rect x="14" y="6" width="44" height="9" rx="3" fill={`${accent},0.6)`} />
         {/* Hero split */}
         <rect x="0" y="22" width="240" height="140" fill="url(#pg1)" />
-        <rect x="240" y="22" width="200" height="140" fill="rgba(255,255,255,0.025)" />
+        <rect x="240" y="22" width="200" height="140" fill="rgba(var(--rgb),0.025)" />
         {/* Left text */}
-        <rect x="20" y="42" width="180" height="10" rx="3" fill="rgba(255,255,255,0.5)" />
-        <rect x="20" y="58" width="200" height="8" rx="2" fill="rgba(255,255,255,0.35)" />
-        <rect x="20" y="72" width="160" height="6" rx="2" fill="rgba(255,255,255,0.2)" />
-        <rect x="20" y="84" width="170" height="6" rx="2" fill="rgba(255,255,255,0.2)" />
+        <rect x="20" y="42" width="180" height="10" rx="3" fill="rgba(var(--rgb),0.5)" />
+        <rect x="20" y="58" width="200" height="8" rx="2" fill="rgba(var(--rgb),0.35)" />
+        <rect x="20" y="72" width="160" height="6" rx="2" fill="rgba(var(--rgb),0.2)" />
+        <rect x="20" y="84" width="170" height="6" rx="2" fill="rgba(var(--rgb),0.2)" />
         <rect x="20" y="100" width="90" height="20" rx="3" fill={`${accent},0.7)`} />
         <rect x="118" y="100" width="90" height="20" rx="3"
               fill="rgba(0,0,0,0)" stroke={`${accent},0.5)`} strokeWidth="1" />
@@ -234,15 +235,15 @@ function BrowserMockup({ visual, color }: { visual: string; color: string }) {
         <circle cx="340" cy="65" r="18" fill={`${accent},0.15)`} />
         <ellipse cx="340" cy="100" rx="28" ry="22" fill={`${accent},0.1)`} />
         {/* Services */}
-        <rect x="0" y="162" width="440" height="98" fill="rgba(255,255,255,0.02)" />
+        <rect x="0" y="162" width="440" height="98" fill="rgba(var(--rgb),0.02)" />
         <rect x="14" y="172" width="120" height="5" rx="2" fill={`${accent},0.5)`} />
         {[14, 162, 310].map(x => (
           <g key={x}>
             <rect x={x} y="185" width="118" height="64" rx="3"
-                  fill="rgba(255,255,255,0.04)" stroke={`${accent},0.18)`} strokeWidth="1" />
+                  fill="rgba(var(--rgb),0.04)" stroke={`${accent},0.18)`} strokeWidth="1" />
             <circle cx={x+24} cy={205} r="12" fill={`${accent},0.12)`} />
-            <rect x={x+12} y="222" width="94" height="4" rx="2" fill="rgba(255,255,255,0.2)" />
-            <rect x={x+12} y="232" width="72" height="3" rx="2" fill="rgba(255,255,255,0.12)" />
+            <rect x={x+12} y="222" width="94" height="4" rx="2" fill="rgba(var(--rgb),0.2)" />
+            <rect x={x+12} y="232" width="72" height="3" rx="2" fill="rgba(var(--rgb),0.12)" />
           </g>
         ))}
       </svg>
@@ -252,10 +253,10 @@ function BrowserMockup({ visual, color }: { visual: string; color: string }) {
   // default
   return (
     <svg viewBox="0 0 440 260" className="w-full h-full" aria-hidden="true">
-      <rect x="0" y="0" width="440" height="260" fill="rgba(255,255,255,0.02)" />
-      <rect x="0" y="0" width="440" height="22" fill="rgba(255,255,255,0.05)" />
+      <rect x="0" y="0" width="440" height="260" fill="rgba(var(--rgb),0.02)" />
+      <rect x="0" y="0" width="440" height="22" fill="rgba(var(--rgb),0.05)" />
       <rect x="14" y="7" width="36" height="7" rx="2" fill={`${accent},0.6)`} />
-      <rect x="120" y="60" width="200" height="12" rx="3" fill="rgba(255,255,255,0.3)" />
+      <rect x="120" y="60" width="200" height="12" rx="3" fill="rgba(var(--rgb),0.3)" />
       <rect x="150" y="80" width="140" height="8" rx="2" fill={`${accent},0.4)`} />
       <rect x="170" y="108" width="100" height="22" rx="3" fill={`${accent},0.7)`} />
     </svg>
@@ -267,7 +268,7 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
   return (
     <motion.div
       className="flex flex-col group"
-      style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+      style={{ border: "1px solid rgba(var(--rgb),0.08)" }}
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -283,25 +284,25 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
         className="flex-shrink-0 relative overflow-hidden"
         style={{
           background: "rgba(14,12,10,0.9)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(var(--rgb),0.06)",
         }}
       >
         {/* Chrome bar */}
         <div className="flex items-center gap-[6px] px-3 py-2">
-          <span className="w-[7px] h-[7px] rounded-full" style={{ background: "rgba(255,255,255,0.14)" }} />
-          <span className="w-[7px] h-[7px] rounded-full" style={{ background: "rgba(255,255,255,0.1)" }} />
-          <span className="w-[7px] h-[7px] rounded-full" style={{ background: "rgba(255,255,255,0.07)" }} />
+          <span className="w-[7px] h-[7px] rounded-full" style={{ background: "rgba(var(--rgb),0.14)" }} />
+          <span className="w-[7px] h-[7px] rounded-full" style={{ background: "rgba(var(--rgb),0.1)" }} />
+          <span className="w-[7px] h-[7px] rounded-full" style={{ background: "rgba(var(--rgb),0.07)" }} />
           {/* URL bar */}
           <div
             className="flex-1 mx-2 flex items-center px-3"
-            style={{ background: "rgba(255,255,255,0.05)", borderRadius: "3px", height: "18px" }}
+            style={{ background: "rgba(var(--rgb),0.05)", borderRadius: "3px", height: "18px" }}
           >
             {project.url ? (
-              <span className="font-poppins truncate" style={{ fontSize: "0.55rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.03em" }}>
+              <span className="font-poppins truncate" style={{ fontSize: "0.62rem", color: "rgba(var(--rgb),0.35)", letterSpacing: "0.03em" }}>
                 {project.url.replace("https://", "")}
               </span>
             ) : (
-              <span className="font-poppins" style={{ fontSize: "0.55rem", color: "rgba(255,255,255,0.2)", letterSpacing: "0.03em" }}>
+              <span className="font-poppins" style={{ fontSize: "0.62rem", color: "rgba(var(--rgb),0.2)", letterSpacing: "0.03em" }}>
                 localhost:3000
               </span>
             )}
@@ -327,12 +328,12 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
       <div
         className="flex flex-col flex-1 p-5"
         style={{
-          background: "rgba(255,255,255,0.04)",
+          background: "rgba(var(--rgb),0.04)",
         }}
       >
         <div className="mb-3">
           <span className="font-poppins font-medium block mb-[4px]"
-                style={{ fontSize: "0.6rem", letterSpacing: "0.38em", color: `${project.color}cc` }}>
+                style={{ fontSize: "0.68rem", letterSpacing: "0.38em", color: `${project.color}cc` }}>
             {project.category} · {project.year}
           </span>
           <h3 className="font-poppins font-extrabold text-white leading-tight"
@@ -340,24 +341,20 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
             {project.name}
           </h3>
           <p className="font-nunito font-light mt-[2px]"
-             style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.45)" }}>
+             style={{ fontSize: "0.86rem", color: "rgba(var(--rgb),0.45)" }}>
             {project.client}
           </p>
         </div>
 
         <p className="font-nunito font-light leading-[1.75] mb-4 flex-1"
-           style={{ fontSize: "0.83rem", color: "rgba(255,255,255,0.65)" }}>
+           style={{ fontSize: "0.91rem", color: "rgba(var(--rgb),0.65)" }}>
           {project.description}
         </p>
 
         {/* Tech tags */}
         <div className="flex flex-wrap gap-[5px] mb-4">
           {project.tech.map((t) => (
-            <span key={t} className="font-poppins font-medium"
-                  style={{ fontSize: "0.58rem", letterSpacing: "0.18em", padding: "2px 8px",
-                           border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.5)" }}>
-              {t}
-            </span>
+            <TechBadge key={t} name={t} fontSize="0.65rem" padding="2px 8px" />
           ))}
         </div>
 
@@ -366,7 +363,7 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
           {project.url ? (
             <a href={project.url} target="_blank" rel="noopener noreferrer"
                className="font-poppins font-semibold flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 btn-glow"
-               style={{ fontSize: "0.6rem", letterSpacing: "0.25em", background: project.color, color: "#0a0a0a" }}>
+               style={{ fontSize: "0.68rem", letterSpacing: "0.25em", background: project.color, color: "#0a0a0a" }}>
               {T.web.viewSite[lang]}
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -375,7 +372,7 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
             </a>
           ) : (
             <span className="font-poppins font-medium flex items-center gap-[6px] px-4 py-[8px]"
-                  style={{ fontSize: "0.6rem", letterSpacing: "0.25em",
+                  style={{ fontSize: "0.68rem", letterSpacing: "0.25em",
                            border: `1px solid ${project.color}44`, color: `${project.color}88`, cursor: "default" }}>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -387,8 +384,8 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
           {project.github && (
             <a href={project.github} target="_blank" rel="noopener noreferrer"
                className="font-poppins font-medium flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 hover:border-white/30 hover:text-white"
-               style={{ fontSize: "0.6rem", letterSpacing: "0.25em",
-                        border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.45)" }}>
+               style={{ fontSize: "0.68rem", letterSpacing: "0.25em",
+                        border: "1px solid rgba(var(--rgb),0.1)", color: "rgba(var(--rgb),0.45)" }}>
               {T.web.github[lang]}
             </a>
           )}
@@ -404,7 +401,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
     <section
       id="web"
       className="relative min-h-screen snap-start lg:h-screen lg:overflow-hidden lg:flex lg:items-center"
-      style={{ background: "rgba(6,6,6,0.68)" }}
+      style={{ background: "var(--section-bg)" }}
       aria-label="Proyectos web"
     >
       <div className="absolute inset-0 grid-bg opacity-25" />
@@ -423,12 +420,12 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
         <div className="flex items-end justify-between mb-6 lg:mb-8 flex-shrink-0">
           <div>
             <motion.p className="font-poppins font-semibold text-accent mb-2"
-                      style={{ fontSize: "0.65rem", letterSpacing: "0.5em" }}
+                      style={{ fontSize: "0.72rem", letterSpacing: "0.5em" }}
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
               {T.web.sectionLabel[lang]}
             </motion.p>
             <motion.h2 className="font-poppins font-extrabold text-white leading-[0.9]"
-                       style={{ fontSize: "clamp(2.2rem, 3.8vw, 4.2rem)", letterSpacing: "-0.02em" }}
+                       style={{ fontSize: "clamp(1.8rem, 3.1vw, 3.5rem)", letterSpacing: "-0.02em" }}
                        initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
                        viewport={{ once: true }} transition={{ duration: 0.8, ease }}>
               {T.web.heading1[lang]} <span className="text-accent">{T.web.heading2[lang]}</span>
@@ -440,7 +437,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
             <TransitionLink href="/servicios"
                     className="font-poppins font-bold flex items-center gap-3 px-6 py-3 btn-glow group transition-all duration-300"
                     style={{
-                      fontSize: "0.65rem", letterSpacing: "0.28em",
+                      fontSize: "0.72rem", letterSpacing: "0.28em",
                       background: "#c9a96e", color: "#0a0a0a",
                       boxShadow: "0 0 24px rgba(201,169,110,0.4), 0 4px 14px rgba(0,0,0,0.4)",
                     }}>
@@ -467,7 +464,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
                       initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                       transition={{ delay: 0.5 }}>
             <p className="font-poppins font-light"
-               style={{ fontSize: "0.6rem", letterSpacing: "0.28em", color: "rgba(255,255,255,0.2)" }}>
+               style={{ fontSize: "0.68rem", letterSpacing: "0.28em", color: "rgba(var(--rgb),0.2)" }}>
               {projects.filter(p => p.status === "live").length} {T.web.inProduction[lang]}
               {projects.filter(p => p.status === "development").length > 0 &&
                 ` · ${projects.filter(p => p.status === "development").length} ${T.web.inDevelopment[lang]}`}
@@ -476,7 +473,7 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
             <TransitionLink href="/servicios"
                className="font-poppins font-bold md:hidden flex items-center gap-2 px-5 py-3 btn-glow group transition-all duration-300"
                style={{
-                 fontSize: "0.62rem", letterSpacing: "0.25em",
+                 fontSize: "0.69rem", letterSpacing: "0.25em",
                  background: "#c9a96e", color: "#0a0a0a",
                }}>
               {T.web.viewAll[lang]}
