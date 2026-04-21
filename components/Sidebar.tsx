@@ -133,7 +133,7 @@ export default function Sidebar() {
     <motion.aside
       className="fixed left-0 top-0 h-full z-40 flex flex-col items-center justify-between py-8"
       style={{
-        width: "72px",
+        width: "var(--sidebar-w)",
         background: "var(--sidebar-bg)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
@@ -149,8 +149,8 @@ export default function Sidebar() {
               style={{ fontSize: "1.2rem", letterSpacing: "-0.02em" }}>
           XP
         </span>
-        <span className="font-poppins font-light text-white/20"
-              style={{ fontSize: "0.49rem", letterSpacing: "0.35em" }}>
+        <span className="font-poppins font-light"
+              style={{ fontSize: "0.49rem", letterSpacing: "0.35em", color: "rgba(var(--rgb),0.20)" }}>
           DEV
         </span>
       </motion.div>

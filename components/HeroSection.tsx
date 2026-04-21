@@ -74,7 +74,7 @@ export default function HeroSection() {
       {/* ── DESKTOP: Two-column centered layout ── */}
       <div
         className="absolute inset-0 hidden lg:flex items-stretch"
-        style={{ paddingLeft: "72px" }}
+        style={{ paddingLeft: "var(--sidebar-w)" }}
       >
         {/* Centered container — caps content width on ultrawide */}
         <div className="w-full h-full max-w-[1480px] mx-auto flex items-stretch">
@@ -133,7 +133,8 @@ export default function HeroSection() {
             >
               <div className="scroll-line" />
               <span
-                className="font-poppins text-white/22"
+                className="font-poppins"
+                style={{ color: "rgba(var(--rgb),0.22)" }}
                 style={{ fontSize: "0.58rem", letterSpacing: "0.5em" }}
               >
                 SCROLL
@@ -175,8 +176,8 @@ export default function HeroSection() {
 
             {/* Role */}
             <motion.p
-              className="font-poppins font-semibold text-white/80 mb-6"
-              style={{ fontSize: "1rem", letterSpacing: "0.05em" }}
+              className="font-poppins font-semibold mb-6"
+              style={{ fontSize: "1rem", letterSpacing: "0.05em", color: "rgba(var(--rgb),0.82)" }}
               {...slideRight(0.62)}
             >
               {T.hero.role1[lang]}
@@ -207,13 +208,13 @@ export default function HeroSection() {
               {SKILLS.map((tag) => (
                 <span
                   key={tag}
-                  className="font-poppins font-medium border border-white/10 hover:border-accent/55
-                             hover:text-accent transition-colors duration-300 cursor-default"
+                  className="font-poppins font-medium hover:text-accent transition-colors duration-300 cursor-default"
                   style={{
                     fontSize: "0.74rem",
                     letterSpacing: "0.28em",
                     padding: "3px 10px",
                     color: "rgba(var(--rgb),0.60)",
+                    border: "1px solid rgba(var(--rgb),0.18)",
                   }}
                 >
                   {tag}
@@ -229,7 +230,7 @@ export default function HeroSection() {
               <a
                 href="/CV Xosed Penaloza V2.pdf"
                 download
-                className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
+                className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] btn-cta"
                 style={{ fontSize: "0.72rem", letterSpacing: "0.3em" }}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -268,8 +269,8 @@ export default function HeroSection() {
                 <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-accent" />
               </span>
               <span
-                className="font-poppins font-medium text-white/50"
-                style={{ fontSize: "0.68rem", letterSpacing: "0.35em" }}
+                className="font-poppins font-medium"
+                style={{ fontSize: "0.68rem", letterSpacing: "0.35em", color: "rgba(var(--rgb),0.58)" }}
               >
                 {T.hero.status[lang]}
               </span>
@@ -300,8 +301,8 @@ export default function HeroSection() {
           PEÑA<span className="text-accent">LOZA</span>
         </motion.h1>
         <motion.p
-          className="font-poppins font-semibold text-white/80 mb-5"
-          style={{ fontSize: "0.97rem", letterSpacing: "0.04em" }}
+          className="font-poppins font-semibold mb-5"
+          style={{ fontSize: "0.97rem", letterSpacing: "0.04em", color: "rgba(var(--rgb),0.82)" }}
           {...slideRight(0.62)}
         >
           {T.hero.role1[lang]}
@@ -326,12 +327,13 @@ export default function HeroSection() {
           {SKILLS.map((tag) => (
             <span
               key={tag}
-              className="font-poppins font-medium border border-white/10 cursor-default"
+              className="font-poppins font-medium cursor-default"
               style={{
                 fontSize: "0.69rem",
                 letterSpacing: "0.25em",
                 padding: "3px 9px",
                 color: "rgba(var(--rgb),0.60)",
+                border: "1px solid rgba(var(--rgb),0.18)",
               }}
             >
               {tag}
@@ -343,7 +345,7 @@ export default function HeroSection() {
           <a
             href="/CV Xosed Penaloza V2.pdf"
             download
-            className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
+            className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] btn-cta"
             style={{ fontSize: "0.7rem", letterSpacing: "0.28em" }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -380,8 +382,8 @@ export default function HeroSection() {
             <span className="relative inline-flex h-[7px] w-[7px] rounded-full bg-accent" />
           </span>
           <span
-            className="font-poppins font-medium text-white/50"
-            style={{ fontSize: "0.65rem", letterSpacing: "0.3em" }}
+            className="font-poppins font-medium"
+            style={{ fontSize: "0.65rem", letterSpacing: "0.3em", color: "rgba(var(--rgb),0.58)" }}
           >
             {T.hero.status[lang]}
           </span>
@@ -402,15 +404,15 @@ export default function HeroSection() {
 
       {/* ── CHROME ── */}
       <motion.div
-        className="absolute top-0 bottom-0 bg-white/[0.04]"
-        style={{ left: "72px", width: "1px" }}
+        className="absolute top-0 bottom-0"
+        style={{ left: "var(--sidebar-w)", width: "1px", background: "rgba(var(--rgb),0.04)" }}
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ delay: 0.2, duration: 1, ease }}
       />
       <motion.div
-        className="absolute bottom-0 left-0 right-0 bg-white/[0.05]"
-        style={{ height: "1px" }}
+        className="absolute bottom-0 left-0 right-0"
+        style={{ height: "1px", background: "rgba(var(--rgb),0.05)" }}
         initial={{ scaleX: 0, originX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ delay: 1.5, duration: 1.2, ease }}
@@ -419,7 +421,7 @@ export default function HeroSection() {
       {/* Copyright */}
       <motion.p
         className="absolute bottom-8 right-10 font-poppins hidden lg:block"
-        style={{ fontSize: "0.62rem", letterSpacing: "0.38em", color: "rgba(var(--rgb),0.18)" }}
+        style={{ fontSize: "0.62rem", letterSpacing: "0.38em", color: "rgba(var(--rgb),0.38)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
@@ -430,7 +432,7 @@ export default function HeroSection() {
 
       <motion.div
         className="absolute top-8 right-10 font-poppins hidden lg:block"
-        style={{ fontSize: "0.62rem", letterSpacing: "0.45em", color: "rgba(var(--rgb),0.16)" }}
+        style={{ fontSize: "0.62rem", letterSpacing: "0.45em", color: "rgba(var(--rgb),0.38)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}

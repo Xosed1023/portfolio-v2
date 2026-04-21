@@ -6,10 +6,9 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
 
 const inputCls = [
-  "w-full bg-transparent px-4 py-3",
-  "font-nunito font-light text-white/85 placeholder-white/30",
-  "outline-none ring-0 focus:outline-none focus:ring-0 focus:text-white transition-all duration-300",
-  "border border-white/10 focus:border-accent/55",
+  "w-full bg-transparent px-4 py-3 contact-input",
+  "font-nunito font-light contact-input-text",
+  "outline-none ring-0 focus:outline-none focus:ring-0 transition-all duration-300",
   "focus-visible:ring-1 focus-visible:ring-accent/40",
 ].join(" ");
 
@@ -137,8 +136,8 @@ export default function ContactSection() {
             <div className="flex flex-col gap-2 mb-6">
               {INFO.map((item) => {
                 const inner = (
-                  <div className="flex items-center gap-3 border border-white/10 px-4 py-3
-                                 hover:border-accent/40 group transition-colors duration-300">
+                  <div className="flex items-center gap-3 px-4 py-3
+                                 hover:border-accent/40 group transition-colors duration-300 contact-input">
                     <span className="text-accent/70 group-hover:text-accent transition-colors duration-300 flex-shrink-0">
                       {item.icon}
                     </span>
@@ -199,11 +198,11 @@ export default function ContactSection() {
             <motion.button
               type="submit"
               disabled={status === "sending"}
-              className="font-poppins font-semibold px-6 py-[14px] transition-colors duration-300 btn-glow flex items-center justify-center gap-3 disabled:cursor-not-allowed"
+              className="font-poppins font-semibold px-6 py-[14px] flex items-center justify-center gap-2 btn-cta"
               style={{
                 fontSize: "0.75rem", letterSpacing: "0.3em",
-                background: status === "error" ? "rgba(180,60,60,0.85)" : status === "sent" ? "rgba(60,140,80,0.85)" : "#c9a96e",
-                color: "#0a0a0a", opacity: status === "sending" ? 0.7 : 1,
+                ...(status === "error" && { background: "rgba(180,60,60,0.85)" }),
+                ...(status === "sent"  && { background: "rgba(60,140,80,0.85)" }),
               }}
               whileTap={status === "sending" ? {} : { scale: 0.97 }}
             >
@@ -246,8 +245,8 @@ export default function ContactSection() {
           <div className="flex flex-col gap-3">
             {INFO.map((item, i) => {
               const inner = (
-                <div className="flex items-center gap-4 border border-white/10 px-5 py-4
-                               hover:border-accent/40 group transition-colors duration-300">
+                <div className="flex items-center gap-4 px-5 py-4
+                               hover:border-accent/40 group transition-colors duration-300 contact-input">
                   <span className="text-accent/70 group-hover:text-accent transition-colors duration-300 flex-shrink-0">
                     {item.icon}
                   </span>
@@ -325,13 +324,12 @@ export default function ContactSection() {
             <motion.button
               type="submit"
               disabled={status === "sending"}
-              className="font-poppins font-semibold px-8 py-4 transition-colors duration-300 btn-glow flex items-center justify-center gap-3 disabled:cursor-not-allowed"
+              className="font-poppins font-semibold px-8 py-4 flex items-center justify-center gap-2 btn-cta"
               style={{
                 fontSize: "0.8rem",
-                letterSpacing: "0.32em",
-                background: status === "error" ? "rgba(180,60,60,0.85)" : status === "sent" ? "rgba(60,140,80,0.85)" : "#c9a96e",
-                color: "#0a0a0a",
-                opacity: status === "sending" ? 0.7 : 1,
+                letterSpacing: "0.3em",
+                ...(status === "error" && { background: "rgba(180,60,60,0.85)" }),
+                ...(status === "sent"  && { background: "rgba(60,140,80,0.85)" }),
               }}
               whileHover={status === "sending" ? {} : { scale: 1.02 }}
               whileTap={status === "sending" ? {} : { scale: 0.97 }}
@@ -370,7 +368,8 @@ export default function ContactSection() {
             ].map(({ href, label, d }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer"
                 aria-label={label}
-                className="text-white/50 hover:text-accent transition-colors duration-300">
+                className="hover:text-accent transition-colors duration-300"
+                style={{ color: "rgba(var(--rgb),0.50)" }}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d={d} />
                 </svg>
@@ -385,17 +384,18 @@ export default function ContactSection() {
         style={{
           paddingLeft: "clamp(1.5rem, 7vw, 112px)",
           paddingRight: "clamp(1.5rem, 7vw, 112px)",
-          paddingTop: "14px",
-          paddingBottom: "18px",
-          borderTop: "1px solid rgba(var(--rgb),0.05)",
-          background: "rgba(4,4,4,0.6)",
+          paddingTop: "16px",
+          paddingBottom: "16px",
+          minHeight: "56px",
+          borderTop: "1px solid rgba(var(--rgb),0.06)",
+          background: "var(--sidebar-bg)",
         }}>
-        <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "0.95rem", letterSpacing: "-0.02em" }}>
+        <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
           XP
         </span>
 
-        <span className="font-nunito font-light" style={{ fontSize: "0.75rem", color: "rgba(var(--rgb),0.50)", letterSpacing: "0.05em" }}>
-          &copy; {new Date().getFullYear()} Xosed Penaloza &mdash; Bogotá, Colombia
+        <span className="font-nunito font-light" style={{ fontSize: "0.65rem", color: "rgba(var(--rgb),0.45)", letterSpacing: "0.04em" }}>
+          &copy; {new Date().getFullYear()} Xosed Peñaloza &mdash; Bogotá, Colombia
         </span>
 
         <div className="flex items-center gap-1">
@@ -419,8 +419,8 @@ export default function ContactSection() {
               target={href.startsWith("mailto") ? undefined : "_blank"}
               rel={href.startsWith("mailto") ? undefined : "noopener noreferrer"}
               aria-label={label}
-              className="text-white/30 hover:text-accent transition-colors duration-200"
-              style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "36px", height: "36px" }}>
+              className="hover:text-accent transition-colors duration-200 flex items-center justify-center"
+              style={{ color: "rgba(var(--rgb),0.30)", width: "38px", height: "38px" }}>
               {fill ? (
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={d} /></svg>
               ) : (

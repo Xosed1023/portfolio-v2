@@ -362,8 +362,8 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
         <div className="flex gap-2 mt-auto">
           {project.url ? (
             <a href={project.url} target="_blank" rel="noopener noreferrer"
-               className="font-poppins font-semibold flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 btn-glow"
-               style={{ fontSize: "0.68rem", letterSpacing: "0.25em", background: project.color, color: "#0a0a0a" }}>
+               className="font-poppins font-semibold flex items-center gap-2 px-4 py-[8px] btn-project"
+               style={{ fontSize: "0.68rem", letterSpacing: "0.28em", background: project.color, color: "#0a0a0a" }}>
               {T.web.viewSite[lang]}
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -383,7 +383,7 @@ function ProjectCard({ project, index, lang }: { project: WebProject; index: num
           )}
           {project.github && (
             <a href={project.github} target="_blank" rel="noopener noreferrer"
-               className="font-poppins font-medium flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 hover:border-white/30 hover:text-white"
+               className="font-poppins font-medium flex items-center gap-[6px] px-4 py-[8px] transition-all duration-300 hover:text-accent"
                style={{ fontSize: "0.68rem", letterSpacing: "0.25em",
                         border: "1px solid rgba(var(--rgb),0.1)", color: "rgba(var(--rgb),0.45)" }}>
               {T.web.github[lang]}
@@ -435,12 +435,8 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                       transition={{ delay: 0.3 }} className="flex-shrink-0 hidden md:flex">
             <TransitionLink href="/servicios"
-                    className="font-poppins font-bold flex items-center gap-3 px-6 py-3 btn-glow group transition-all duration-300"
-                    style={{
-                      fontSize: "0.72rem", letterSpacing: "0.28em",
-                      background: "#c9a96e", color: "#0a0a0a",
-                      boxShadow: "0 0 24px rgba(201,169,110,0.4), 0 4px 14px rgba(0,0,0,0.4)",
-                    }}>
+                    className="font-poppins font-semibold flex items-center gap-2 px-6 py-3 btn-cta group"
+                    style={{ fontSize: "0.72rem", letterSpacing: "0.28em" }}>
               {T.web.viewAll[lang]}
               <svg width="13" height="13" viewBox="0 0 12 12" fill="none"
                    className="group-hover:translate-x-1 transition-transform duration-200">
@@ -471,11 +467,8 @@ export default function WebSection({ projects }: { projects: WebProject[] }) {
             </p>
             {/* Mobile CTA — header button hidden on mobile */}
             <TransitionLink href="/servicios"
-               className="font-poppins font-bold md:hidden flex items-center gap-2 px-5 py-3 btn-glow group transition-all duration-300"
-               style={{
-                 fontSize: "0.69rem", letterSpacing: "0.25em",
-                 background: "#c9a96e", color: "#0a0a0a",
-               }}>
+               className="font-poppins font-semibold md:hidden flex items-center gap-2 px-5 py-3 btn-cta group"
+               style={{ fontSize: "0.69rem", letterSpacing: "0.28em" }}>
               {T.web.viewAll[lang]}
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                    className="group-hover:translate-x-1 transition-transform duration-200">

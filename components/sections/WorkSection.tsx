@@ -143,7 +143,7 @@ export default function WorkSection() {
                                 style={{ fontSize: "0.65rem", letterSpacing: "0.4em" }}>{j.type}</span>
                           <h3 className="font-poppins font-extrabold text-white mb-3"
                               style={{ fontSize: "1.05rem", letterSpacing: "-0.01em" }}>{j.role}</h3>
-                          <div className="h-px bg-white/10 mb-3" />
+                          <div className="h-px mb-3" style={{ background: "rgba(var(--rgb),0.1)" }} />
                           <ul className="flex flex-col gap-[9px] mb-4">
                             {j.highlights.map((h) => (
                               <li key={h} className="flex items-start gap-[10px]">
@@ -218,7 +218,8 @@ export default function WorkSection() {
           ))}
         </div>
 
-        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-6 xl:pl-10 2xl:pl-14 lg:border-l border-white/[0.07]">
+        <div className="hidden lg:flex flex-1 flex-col justify-center lg:pl-6 xl:pl-10 2xl:pl-14"
+             style={{ borderLeft: "1px solid rgba(var(--rgb),0.09)" }}>
           <motion.div
             key={selected}
             initial={{ opacity: 0, y: 16 }}
@@ -240,13 +241,14 @@ export default function WorkSection() {
                   {job.company}
                 </p>
               </div>
-              <span className="font-poppins font-medium border border-white/15 px-3 py-[6px] flex-shrink-0"
-                    style={{ fontSize: "0.75rem", letterSpacing: "0.18em", color: "rgba(var(--rgb),0.55)" }}>
+              <span className="font-poppins font-medium px-3 py-[6px] flex-shrink-0"
+                    style={{ fontSize: "0.75rem", letterSpacing: "0.18em", color: "rgba(var(--rgb),0.55)",
+                             border: "1px solid rgba(var(--rgb),0.15)" }}>
                 {job.period}
               </span>
             </div>
 
-            <div className="h-px bg-white/10 my-4" />
+            <div className="h-px my-4" style={{ background: "rgba(var(--rgb),0.1)" }} />
 
             <ul className="flex flex-col gap-[11px] 2xl:gap-[14px] mb-6">
               {job.highlights.map((h) => (

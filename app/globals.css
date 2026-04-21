@@ -170,9 +170,28 @@ body {
   box-shadow: 0 0 6px var(--accent);
 }
 
-/* ─── Floating Button Glow ──────────────────────── */
-.btn-glow:hover {
-  box-shadow: 0 0 18px rgba(201, 169, 110, 0.35);
+/* ─── Primary CTA — gold filled ─────────────────── */
+.btn-cta {
+  background-color: #c9a96e;
+  color: #0a0a0a;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-cta:hover:not(:disabled) {
+  background-color: #a8834a;
+  box-shadow: 0 0 20px rgba(201,169,110,0.40), 0 4px 14px rgba(0,0,0,0.22);
+}
+.btn-cta:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* ─── Project CTA — per-project color ───────────── */
+.btn-project {
+  transition: filter 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-project:hover {
+  filter: brightness(0.82);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
 }
 
 /* ─── Glass card sheen ──────────────────────────── */
@@ -182,6 +201,29 @@ body {
 .glass-sheen {
   opacity: 0;
   transition: opacity 0.35s ease;
+}
+
+/* ─── Contact form inputs ────────────────────────── */
+.contact-input {
+  border: 1px solid rgba(var(--rgb), 0.12);
+  transition: border-color 0.3s;
+}
+.contact-input:focus {
+  border-color: rgba(201, 169, 110, 0.55);
+}
+.contact-input-text {
+  color: rgba(var(--rgb), 0.85);
+}
+.contact-input-text::placeholder {
+  color: rgba(var(--rgb), 0.30);
+}
+.contact-input-text:focus {
+  color: rgb(var(--rgb));
+}
+
+/* ─── Mobile nav hover ──────────────────────────── */
+.mobile-nav-btn:hover {
+  color: rgb(var(--rgb));
 }
 
 /* ─── Section Styles ─────────────────────────────── */

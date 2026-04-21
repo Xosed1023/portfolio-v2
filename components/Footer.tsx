@@ -60,75 +60,42 @@ export default function Footer() {
     <footer
       className="lg:hidden relative"
       style={{
-        background: "rgba(4,4,4,0.98)",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        background: "var(--sidebar-bg)",
+        borderTop: "1px solid rgba(var(--rgb),0.06)",
       }}
       aria-label="Footer"
     >
       {/* Grid texture */}
       <div className="absolute inset-0 grid-bg opacity-15 pointer-events-none" />
 
-      <div className="relative"
-           style={{ paddingLeft: "clamp(1.5rem, 7vw, 112px)", paddingRight: "clamp(1.5rem, 7vw, 112px)" }}>
+      <div className="relative flex items-center justify-between px-6 py-4" style={{ minHeight: "56px" }}>
 
-        {/* Main row */}
-        <div className="flex flex-col items-center gap-6 py-10 lg:flex-row lg:justify-between lg:gap-0">
-
-          {/* Brand */}
-          <motion.span
-            className="font-poppins font-extrabold text-accent"
-            style={{ fontSize: "1.15rem", letterSpacing: "-0.02em" }}
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-          >
-            XP
-          </motion.span>
-
-          {/* Nav links — desktop */}
-          <nav aria-label="Navegación del pie de página" className="hidden lg:flex items-center gap-6">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className="font-poppins font-medium text-white/55 hover:text-accent transition-colors duration-200"
-                style={{ fontSize: "0.65rem", letterSpacing: "0.28em" }}
-              >
-                {T.nav[link.navKey][lang]}
-              </button>
-            ))}
-          </nav>
-
-          {/* Social icons */}
-          <div className="flex items-center gap-4">
-            {SOCIALS.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                aria-label={s.label}
-                target={s.href.startsWith("mailto") ? undefined : "_blank"}
-                rel={s.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="text-white/55 hover:text-accent transition-colors duration-200"
-                style={{ display: "flex", alignItems: "center", justifyContent: "center",
-                         width: "44px", height: "44px" }}
-              >
-                {s.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div style={{ height: "1px", background: "rgba(255,255,255,0.05)" }} />
+        {/* Brand */}
+        <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
+          XP
+        </span>
 
         {/* Copyright */}
-        <div className="flex flex-col items-center gap-1 py-5 lg:flex-row lg:justify-between">
-          <span className="font-nunito font-light"
-                style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.50)", letterSpacing: "0.05em" }}>
-            &copy; {new Date().getFullYear()} Xosed Penaloza. Todos los derechos reservados.
-          </span>
-          <span className="font-nunito font-light"
-                style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.38)", letterSpacing: "0.05em" }}>
-            Bogotá, Colombia &mdash; Disponible remotamente
-          </span>
+        <span className="font-nunito font-light text-center"
+              style={{ fontSize: "0.65rem", color: "rgba(var(--rgb),0.45)", letterSpacing: "0.04em" }}>
+          &copy; {new Date().getFullYear()} Xosed Peñaloza
+        </span>
+
+        {/* Social icons */}
+        <div className="flex items-center gap-1">
+          {SOCIALS.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              aria-label={s.label}
+              target={s.href.startsWith("mailto") ? undefined : "_blank"}
+              rel={s.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
+              className="hover:text-accent transition-colors duration-200 flex items-center justify-center"
+              style={{ width: "38px", height: "38px", color: "rgba(var(--rgb),0.50)" }}
+            >
+              {s.icon}
+            </a>
+          ))}
         </div>
 
       </div>

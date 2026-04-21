@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useCallback } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import T from "@/lib/translations";
 import TechBadge from "@/components/TechBadge";
 
@@ -60,6 +61,8 @@ const ESB_NODES = [
 function IntegrationVisual() {
   const [mouse, setMouse] = useState({ x: HUB.cx, y: HUB.cy });
   const svgRef = useRef<SVGSVGElement>(null);
+  const { theme } = useTheme();
+  const nodeBg = theme === "light" ? "234,231,224" : "10,9,8";
 
   const handleMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     const rect = svgRef.current?.getBoundingClientRect();
@@ -159,7 +162,7 @@ function IntegrationVisual() {
               fill={`rgba(201,169,110,${p * 0.15})`} />
             {/* Box bg */}
             <rect x={n.cx - 40} y={n.cy - 24} width="80" height="48" rx="5"
-              fill={`rgba(10,9,8,${0.82 + p * 0.12})`}
+              fill={`rgba(${nodeBg},${0.82 + p * 0.12})`}
               stroke={`rgba(201,169,110,${0.18 + p * 0.6})`}
               strokeWidth={1 + p * 0.9} />
             <text x={n.cx} y={n.cy - 7} textAnchor="middle"
@@ -177,9 +180,9 @@ function IntegrationVisual() {
       })}
 
       {/* Central hub */}
-      <circle cx={HUB.cx} cy={HUB.cy} r={52} fill="rgba(10,9,8,0.92)"
+      <circle cx={HUB.cx} cy={HUB.cy} r={52} fill={`rgba(${nodeBg},0.95)`}
         stroke="rgba(201,169,110,0.5)" strokeWidth="1.5" filter="url(#igGlow)" />
-      <circle cx={HUB.cx} cy={HUB.cy} r={33} fill="rgba(10,9,8,0.95)"
+      <circle cx={HUB.cx} cy={HUB.cy} r={33} fill={`rgba(${nodeBg},0.98)`}
         stroke="rgba(201,169,110,0.28)" strokeWidth="1" />
       <text x={HUB.cx} y={HUB.cy - 6} textAnchor="middle"
         fill="rgba(201,169,110,0.95)" fontSize="9.5" fontFamily="monospace" letterSpacing="1.5">
@@ -558,8 +561,8 @@ export default function ProjectsSection() {
               <div className="flex gap-3">
                 {project.links.live ? (
                   <a href={project.links.live} target="_blank" rel="noopener noreferrer"
-                    className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] bg-accent text-bg-primary btn-glow"
-                    style={{ fontSize: "0.7rem", letterSpacing: "0.25em" }}>
+                    className="font-poppins font-semibold flex items-center gap-2 px-5 py-[11px] btn-cta"
+                    style={{ fontSize: "0.7rem", letterSpacing: "0.28em" }}>
                     {T.projects.viewProject[lang]}
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                       strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -724,7 +727,7 @@ export default function ProjectsSection() {
                       href={project.links.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] bg-accent hover:bg-accent-dim text-bg-primary transition-colors duration-300 btn-glow"
+                      className="font-poppins font-semibold flex items-center gap-2 px-5 py-[10px] btn-cta"
                       style={{ fontSize: "0.72rem", letterSpacing: "0.28em" }}
                     >
                       {T.projects.viewProject[lang]}
@@ -851,7 +854,7 @@ export default function ProjectsSection() {
               }}
             />
           ))}
-          <div className="flex-1 h-px bg-white/[0.06] ml-2" />
+          <div className="flex-1 h-px ml-2" style={{ background: "rgba(var(--rgb),0.06)" }} />
         </div>
       </div>
     </section>

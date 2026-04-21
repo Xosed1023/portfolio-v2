@@ -59,7 +59,7 @@ export default function AboutSection() {
             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
             {STATS.map((s) => (
-              <div key={s.value} className="border border-white/10 p-3 text-center">
+              <div key={s.value} className="p-3 text-center" style={{ border: "1px solid rgba(var(--rgb),0.10)" }}>
                 <div className="font-poppins font-extrabold text-accent leading-none mb-1"
                   style={{ fontSize: "1.4rem" }}>{s.value}</div>
                 <div className="font-nunito font-light whitespace-pre-line"
@@ -95,7 +95,7 @@ export default function AboutSection() {
               style={{ fontSize: "0.65rem", letterSpacing: "0.45em" }}>{T.about.educationLabel[lang]}</p>
             <div className="flex flex-col gap-3">
               {EDUCATION.map((e) => (
-                <div key={e.degree} className="border-l-2 border-white/10 pl-3">
+                <div key={e.degree} className="pl-3" style={{ borderLeft: "2px solid rgba(var(--rgb),0.15)" }}>
                   <p className="font-poppins font-semibold"
                     style={{ fontSize: "0.9rem", color: "rgba(var(--rgb),0.88)" }}>{e.degree}</p>
                   <p className="font-nunito font-light"
@@ -115,8 +115,8 @@ export default function AboutSection() {
               style={{ fontSize: "0.65rem", letterSpacing: "0.45em" }}>{T.about.languagesLabel[lang]}</p>
             <div className="flex flex-wrap gap-2">
               {T.about.languageTags.map((tag) => (
-                <span key={tag[lang]} className="font-poppins font-medium border border-white/15 px-3 py-[4px]"
-                  style={{ fontSize: "0.75rem", letterSpacing: "0.15em", color: "rgba(var(--rgb),0.55)" }}>
+                <span key={tag[lang]} className="font-poppins font-medium px-3 py-[4px]"
+                  style={{ fontSize: "0.75rem", letterSpacing: "0.15em", color: "rgba(var(--rgb),0.55)", border: "1px solid rgba(var(--rgb),0.15)" }}>
                   {tag[lang]}
                 </span>
               ))}
@@ -170,7 +170,8 @@ export default function AboutSection() {
           >
             {STATS.map((s) => (
               <div key={s.value}
-                className="border border-white/10 p-4 2xl:p-5 hover:border-accent/45 transition-colors duration-300">
+                className="p-4 2xl:p-5 hover:border-accent/45 transition-colors duration-300"
+                style={{ border: "1px solid rgba(var(--rgb),0.10)" }}>
                 <div className="font-poppins font-extrabold text-accent leading-none mb-2"
                   style={{ fontSize: "1.9rem" }}>
                   {s.value}
@@ -223,8 +224,8 @@ export default function AboutSection() {
             <div className="flex flex-col gap-4">
               {EDUCATION.map((e) => (
                 <div key={e.degree}
-                  className="border-l-2 border-white/12 pl-4 hover:border-accent/50
-                                transition-colors duration-300">
+                  className="pl-4 transition-colors duration-300 hover:[border-color:rgba(201,169,110,0.5)]"
+                  style={{ borderLeft: "2px solid rgba(var(--rgb),0.15)" }}>
                   <p className="font-poppins font-semibold mb-[3px]"
                     style={{ fontSize: "0.93rem", color: "rgba(var(--rgb),0.88)" }}>
                     {e.degree}
@@ -250,9 +251,9 @@ export default function AboutSection() {
             <div className="flex flex-wrap gap-2">
               {T.about.languageTags.map((tag) => (
                 <span key={tag[lang]}
-                  className="font-poppins font-medium border border-white/15 px-3 py-[5px]
+                  className="font-poppins font-medium px-3 py-[5px]
                                  hover:border-accent/50 hover:text-accent transition-colors duration-300"
-                  style={{ fontSize: "0.8rem", letterSpacing: "0.18em", color: "rgba(var(--rgb),0.58)" }}>
+                  style={{ fontSize: "0.8rem", letterSpacing: "0.18em", color: "rgba(var(--rgb),0.58)", border: "1px solid rgba(var(--rgb),0.15)" }}>
                   {tag[lang]}
                 </span>
               ))}

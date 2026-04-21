@@ -130,8 +130,8 @@ export default function MobileMenu() {
                     key={item.id}
                     ref={i === 0 ? firstNavRef : undefined}
                     onClick={() => scrollTo(item.id)}
-                    className="relative font-poppins font-extrabold text-white/70 hover:text-white
-                               transition-colors duration-200 group flex items-center gap-4"
+                    className="mobile-nav-btn relative font-poppins font-extrabold transition-colors duration-200 group flex items-center gap-4"
+                    style={{ color: "rgba(var(--rgb),0.70)" }}
                     style={{ fontSize: "clamp(1.7rem, 7vw, 2.8rem)", letterSpacing: "-0.01em" }}
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
