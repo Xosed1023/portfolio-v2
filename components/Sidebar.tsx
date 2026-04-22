@@ -4,8 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import T from "@/lib/translations";
-import LangToggle from "@/components/LangToggle";
-import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV = [
   {
@@ -247,11 +245,8 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Theme + Lang toggle + Resume */}
+      {/* Resume */}
       <motion.div variants={itemV} className="flex flex-col items-center gap-4">
-        <ThemeToggle />
-        <LangToggle className="flex-col gap-[3px]" />
-
         <a
           href="/CV Xosed Penaloza V2.pdf"
           download

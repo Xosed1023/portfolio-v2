@@ -1,6 +1,7 @@
 import { getWebProjects } from "@/lib/notion";
 import AuroraBackground from "@/components/AuroraBackground";
 import Sidebar from "@/components/Sidebar";
+import FloatingControls from "@/components/FloatingControls";
 import FloatingNav from "@/components/FloatingNav";
 import MobileMenu from "@/components/MobileMenu";
 import HeroSection from "@/components/HeroSection";
@@ -42,6 +43,9 @@ export default async function Home() {
       <div className="hidden lg:block">
         <Sidebar />
       </div>
+
+      {/* z-40 — Desktop floating controls (theme + lang) */}
+      <FloatingControls />
 
       {/* z-50 — Mobile header */}
       <div className="lg:hidden">

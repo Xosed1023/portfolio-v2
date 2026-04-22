@@ -568,11 +568,11 @@ export default function ServiciosClient() {
 
           {/* Desktop footer bar */}
           <div className="hidden lg:flex absolute bottom-0 left-0 right-0 items-center justify-between"
-               style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "14px", paddingBottom: "18px",
-                        borderTop: "1px solid rgba(var(--rgb),0.05)", background: "var(--sidebar-bg)" }}>
-            <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "0.97rem", letterSpacing: "-0.02em" }}>XP</span>
-            <span className="font-nunito font-light" style={{ fontSize: "0.66rem", color: "rgba(var(--rgb),0.2)" }}>
-              &copy; {new Date().getFullYear()} Xosed Peñaloza — Bogotá, Colombia
+               style={{ paddingLeft: PX, paddingRight: PX, paddingTop: "16px", paddingBottom: "16px",
+                        minHeight: "56px", borderTop: "1px solid rgba(var(--rgb),0.06)", background: "var(--sidebar-bg)" }}>
+            <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>XP</span>
+            <span className="font-nunito font-light" style={{ fontSize: "0.65rem", color: "rgba(var(--rgb),0.45)", letterSpacing: "0.04em" }}>
+              &copy; {new Date().getFullYear()} Xosed Peñaloza &mdash; Bogotá, Colombia
             </span>
             <TransitionLink href={returnHref}
                   className="font-poppins font-medium hover:text-accent transition-colors duration-200 flex items-center gap-2"
@@ -584,16 +584,17 @@ export default function ServiciosClient() {
         </section>
 
         {/* Mobile footer */}
-        <footer className="lg:hidden" style={{ borderTop: "1px solid rgba(var(--rgb),0.06)", background: "var(--section-bg)" }}>
-          <div className="flex flex-col items-center gap-3 py-6" style={{ paddingLeft: PX, paddingRight: PX }}>
-            <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "0.95rem", letterSpacing: "-0.02em" }}>XP</span>
-            <span className="font-nunito font-light" style={{ fontSize: "0.75rem", color: "rgba(var(--rgb),0.22)" }}>
-              &copy; {new Date().getFullYear()} Xosed Peñaloza — Bogotá, Colombia
+        <footer className="lg:hidden relative" style={{ borderTop: "1px solid rgba(var(--rgb),0.06)", background: "var(--sidebar-bg)" }}>
+          <div className="absolute inset-0 grid-bg opacity-15 pointer-events-none" />
+          <div className="relative flex items-center justify-between px-6 py-4" style={{ minHeight: "56px" }}>
+            <span className="font-poppins font-extrabold text-accent" style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}>XP</span>
+            <span className="font-nunito font-light text-center" style={{ fontSize: "0.65rem", color: "rgba(var(--rgb),0.45)", letterSpacing: "0.04em" }}>
+              &copy; {new Date().getFullYear()} Xosed Peñaloza
             </span>
             <TransitionLink href={returnHref}
-                  className="font-poppins font-medium hover:text-accent transition-colors duration-200 flex items-center gap-2"
-                  style={{ fontSize: "0.69rem", letterSpacing: "0.2em", color: "rgba(var(--rgb),0.30)" }}>
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  className="font-poppins font-medium hover:text-accent transition-colors duration-200 flex items-center gap-[6px]"
+                  style={{ fontSize: "0.65rem", letterSpacing: "0.18em", color: "rgba(var(--rgb),0.45)" }}>
+              <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
               {T.servicios.footer.backToPortfolio[lang]}
             </TransitionLink>
           </div>

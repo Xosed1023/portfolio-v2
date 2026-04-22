@@ -309,6 +309,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  ::view-transition-new(root),
+  ::view-transition-old(root) {
+    animation-duration: 1s !important;
+  }
   .noise-texture {
     display: none;
   }
@@ -389,7 +393,7 @@ body {
   opacity: 0.28;
 }
 
-/* ─── View Transitions: circular reveal ─────────── */
+/* ─── View Transitions: circular reveal (animation via WAAPI in ThemeContext) ─── */
 ::view-transition-old(root) {
   animation: none;
   mix-blend-mode: normal;
@@ -397,11 +401,6 @@ body {
 }
 
 ::view-transition-new(root) {
-  animation: vt-reveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: none;
   z-index: 2;
-}
-
-@keyframes vt-reveal {
-  from { clip-path: circle(0px at var(--tx, 50%) var(--ty, 50%)); }
-  to   { clip-path: circle(200vmax at var(--tx, 50%) var(--ty, 50%)); }
 }

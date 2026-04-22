@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function IntroLoader() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const seen = sessionStorage.getItem("intro-seen");
-    if (seen) return;
-    setVisible(true);
+    if (seen) {
+      setVisible(false);
+      return;
+    }
     const t = setTimeout(() => {
       setVisible(false);
       sessionStorage.setItem("intro-seen", "1");

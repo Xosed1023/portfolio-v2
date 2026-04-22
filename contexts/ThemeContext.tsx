@@ -39,11 +39,33 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
       // View Transitions API (progressive enhancement)
       const vt = (
-        document as Document & { startViewTransition?: (fn: () => void) => unknown }
+        document as Document & {
+          startViewTransition?: (fn: () => void) => { ready: Promise<void> };
+        }
       ).startViewTransition;
 
       if (vt) {
-        vt.call(document, apply);
+        const transition = vt.call(document, apply);
+        transition.ready.then(() => {
+          const DURATION = 3000;
+          // Extend the group lifetime so it doesn't cut our animation short
+          document.documentElement.animate(
+            [{ opacity: 1 }, { opacity: 1 }],
+            { duration: DURATION, pseudoElement: "::view-transition-group(root)" }
+          );
+          // Circular reveal on the new state
+          document.documentElement.animate(
+            [
+              { clipPath: `circle(0px at ${x}px ${y}px)` },
+              { clipPath: `circle(200vmax at ${x}px ${y}px)` },
+            ],
+            {
+              duration: DURATION,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+              pseudoElement: "::view-transition-new(root)",
+            }
+          );
+        });
       } else {
         apply();
       }
