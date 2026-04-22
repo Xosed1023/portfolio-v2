@@ -134,8 +134,7 @@ export default function HeroSection() {
               <div className="scroll-line" />
               <span
                 className="font-poppins"
-                style={{ color: "rgba(var(--rgb),0.22)" }}
-                style={{ fontSize: "0.58rem", letterSpacing: "0.5em" }}
+                style={{ color: "rgba(var(--rgb),0.22)", fontSize: "0.58rem", letterSpacing: "0.5em" }}
               >
                 SCROLL
               </span>
